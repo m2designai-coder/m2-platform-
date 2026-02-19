@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>М²</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/@supabase/supabase-js@2.39.0/dist/umd/supabase.js"></script>
+
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--bg:#f5f0ea;--surface:#faf8f5;--border:#e8e0d4;--accent:#8a7055;--dark:#2c2419;--text:#1a1510;--mid:#7a6e62;--light:#a89e90;--ok:#6b8f6b;--warn:#9a7a40;--err:#8f5a5a}
@@ -393,6 +393,75 @@ nav{height:60px;background:var(--surface);border-bottom:1px solid var(--border);
 </div>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// Минимальный Supabase клиент
+const SUPABASE_URL='https://tuylrxfqtfyfprebelnf.supabase.co';
+const SUPABASE_KEY='sb_publishable_Oq_deUEt1W75ONTA_maqhQ_VwylHKF6';
+const ADMIN_EMAIL='m2designai@gmail.com';
+
+async function sbFetch(path, opts={}){
+  const res = await fetch(SUPABASE_URL+path, {
+    ...opts,
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': 'Bearer '+(window._sbToken||SUPABASE_KEY),
+      'Content-Type': 'application/json',
+      ...(opts.headers||{})
+    }
+  });
+  return res.json();
+}
+
+async function doLogin(){
+  const email=sc('login-email').value.trim();
+  const pass=sc('login-pass').value.trim();
+  if(!email||!pass){showAuthMsg('Введите email и пароль',true);return;}
+  showAuthMsg('Входим...',false);
+  const res = await fetch(SUPABASE_URL+'/auth/v1/token?grant_type=password',{
+    method:'POST',
+    headers:{'apikey':SUPABASE_KEY,'Content-Type':'application/json'},
+    body:JSON.stringify({email,password:pass})
+  });
+  const data = await res.json();
+  if(data.error||!data.access_token){showAuthMsg('Неверный email или пароль',true);return;}
+  window._sbToken = data.access_token;
+  window._sbUser = data.user;
+  initApp(data.user);
+}
+
+async function doRegister(){
+  const email=sc('reg-email').value.trim();
+  const pass=sc('reg-pass').value.trim();
+  const name=sc('reg-name').value.trim();
+  if(!email||!pass||!name){showAuthMsg('Заполните все поля',true);return;}
+  showAuthMsg('Создаём аккаунт...',false);
+  const res = await fetch(SUPABASE_URL+'/auth/v1/signup',{
+    method:'POST',
+    headers:{'apikey':SUPABASE_KEY,'Content-Type':'application/json'},
+    body:JSON.stringify({email,password:pass})
+  });
+  const data = await res.json();
+  if(data.error){showAuthMsg(data.error,true);return;}
+  showAuthMsg('Аккаунт создан! Войдите с вашим email и паролем.',false);
+}
+
+function showAuthMsg(msg,isErr){
+  let el=sc('auth-msg');
+  if(!el){el=document.createElement('div');el.id='auth-msg';el.style.cssText='font-size:13px;margin-top:12px;text-align:center;padding:8px;border-radius:3px';sc('auth').querySelector('.auth-box').appendChild(el);}
+  el.style.color=isErr?'var(--err)':'var(--ok)';
+  el.style.background=isErr?'#fdf2f2':'#f0f5f0';
+  el.textContent=msg;
+}
+
+function initApp(user){
+  isAdmin=user.email===ADMIN_EMAIL;
+  sc('auth').style.display='none';
+  sc('app').style.display='flex';
+  if(isAdmin)sc('admin-btn').style.display='block';
+  sc('user-avatar').textContent=user.email.slice(0,2).toUpperCase();
+  renderClients();renderMsgs();renderTZ();renderAI();
+}
+
+<script>
 const CLIENTS=[
   {id:1,name:"Надежда Бейнер",av:"НБ",status:"active",preview:"Нравится столешница и простота",time:"10:09",
    projects:[{id:1,name:"Квартира 3к · Москва",stage:"Анкета заполнена",progress:65},{id:2,name:"Офис на Тверской",stage:"ТЗ согласовано",progress:90}]},
@@ -435,50 +504,7 @@ let msgs=[...MSGS],activeClient=0,activeProject=0,kubStep=0,isAdmin=true,aiTab="
 
 function sc(id){return document.getElementById(id)}
 
-const SUPABASE_URL='https://tuylrxfqtfyfprebelnf.supabase.co';
-const SUPABASE_KEY='sb_publishable_Oq_deUEt1W75ONTA_maqhQ_VwylHKF6';
-const ADMIN_EMAIL='m2designai@gmail.com';
-const sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
-function showAuthMsg(msg,isErr){
-  let el=sc('auth-msg');
-  if(!el){el=document.createElement('div');el.id='auth-msg';el.style.cssText='font-size:13px;margin-top:12px;text-align:center;padding:8px;border-radius:3px';sc('auth').querySelector('.auth-box').appendChild(el);}
-  el.style.color=isErr?'var(--err)':'var(--ok)';
-  el.style.background=isErr?'#fdf2f2':'#f0f5f0';
-  el.textContent=msg;
-}
-
-async function doLogin(){
-  const email=sc('login-email').value.trim();
-  const pass=sc('login-pass').value.trim();
-  if(!email||!pass){showAuthMsg('Введите email и пароль',true);return;}
-  showAuthMsg('Входим...',false);
-  const {data,error}=await sb.auth.signInWithPassword({email,password:pass});
-  if(error){showAuthMsg('Неверный email или пароль',true);return;}
-  initApp(data.user);
-}
-
-async function doRegister(){
-  const email=sc('reg-email').value.trim();
-  const pass=sc('reg-pass').value.trim();
-  const name=sc('reg-name').value.trim();
-  if(!email||!pass||!name){showAuthMsg('Заполните все поля',true);return;}
-  showAuthMsg('Создаём аккаунт...',false);
-  const {data,error}=await sb.auth.signUp({email,password:pass,options:{data:{name}}});
-  if(error){showAuthMsg(error.message,true);return;}
-  showAuthMsg('Готово! Проверьте email для подтверждения',false);
-}
-
-function initApp(user){
-  isAdmin=user.email===ADMIN_EMAIL;
-  sc('auth').style.display='none';
-  sc('app').style.display='flex';
-  if(isAdmin)sc('admin-btn').style.display='block';
-  sc('user-avatar').textContent=user.email.slice(0,2).toUpperCase();
-  renderClients();renderMsgs();renderTZ();renderAI();
-}
-
-sb.auth.getSession().then(({data:{session}})=>{if(session)initApp(session.user);});
 
 function switchAuthTab(t,el){
   document.querySelectorAll('.auth-tab').forEach(b=>b.classList.remove('active'));
