@@ -155,15 +155,15 @@ nav{height:60px;background:var(--surface);border-bottom:1px solid var(--border);
     <div class="serif auth-title">Добро пожаловать</div>
     <div class="auth-sub">Платформа для дизайнеров интерьера</div>
     <div class="auth-tabs">
-      <button class="auth-tab active" id="tab-login" onclick="showLogin()" >ВОЙТИ</button>
-      <button class="auth-tab" id="tab-reg" onclick="showRegister()" >РЕГИСТРАЦИЯ</button>
+      <button class="auth-tab active" id="tab-login">ВОЙТИ</button>
+      <button class="auth-tab" id="tab-reg">РЕГИСТРАЦИЯ</button>
     </div>
     <div id="login-form">
       <div class="field-label">EMAIL</div>
       <input class="field-input" type="email" id="login-email" placeholder="your@email.com">
       <div class="field-label">ПАРОЛЬ</div>
       <input class="field-input" type="password" id="login-pass" placeholder="••••••••">
-      <button class="btn-primary" id="btn-login" onclick="doLogin()">ВОЙТИ В ПЛАТФОРМУ</button>
+      <button class="btn-primary" id="btn-login">ВОЙТИ В ПЛАТФОРМУ</button>
     </div>
     <div id="register-form" style="display:none">
       <div class="field-label">ИМЯ</div>
@@ -172,7 +172,7 @@ nav{height:60px;background:var(--surface);border-bottom:1px solid var(--border);
       <input class="field-input" type="email" id="reg-email" placeholder="your@email.com">
       <div class="field-label">ПАРОЛЬ</div>
       <input class="field-input" type="password" id="reg-pass" placeholder="••••••••">
-      <button class="btn-primary" id="btn-reg" onclick="doRegister()">СОЗДАТЬ АККАУНТ</button>
+      <button class="btn-primary" id="btn-reg">СОЗДАТЬ АККАУНТ</button>
     </div>
     <div class="auth-msg" id="auth-msg"></div>
   </div>
@@ -197,9 +197,9 @@ nav{height:60px;background:var(--surface);border-bottom:1px solid var(--border);
         <div class="serif" style="font-size:22px;font-weight:300">Подписки дизайнеров</div>
         <button style="background:var(--dark);border:none;color:var(--bg);padding:9px 22px;border-radius:3px;cursor:pointer;font-size:12px;font-family:'Jost',sans-serif">+ ДОБАВИТЬ</button>
       </div>
-      <div class="user-row"><div class="user-info"><div class="user-av serif">ЕС</div><div><div class="user-name">Елена Смирнова</div><div class="user-email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="593c353c3738193d3c2a303e37772b2c">[email&#160;protected]</a></div></div></div><div style="display:flex;gap:10px;align-items:center"><span class="plan-badge plan-paid">Pro · 2 990 ₽/мес</span><button class="btn-back" style="flex:none;padding:5px 14px">Изменить</button></div></div>
-      <div class="user-row"><div class="user-info"><div class="user-av serif">СФ</div><div><div class="user-name">Студия Форма</div><div class="user-email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="70161f021d113003040514191f5e0205">[email&#160;protected]</a></div></div></div><div style="display:flex;gap:10px;align-items:center"><span class="plan-badge plan-manual">Безлимит · вручную</span><button class="btn-back" style="flex:none;padding:5px 14px">Изменить</button></div></div>
-      <div class="user-row"><div class="user-info"><div class="user-av serif">ИП</div><div><div class="user-name">Иван Петров</div><div class="user-email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0e67786f604e636f6762207c7b">[email&#160;protected]</a></div></div></div><div style="display:flex;gap:10px;align-items:center"><span class="plan-badge plan-trial">Пробный · 14 дней</span><button class="btn-back" style="flex:none;padding:5px 14px">Изменить</button></div></div>
+      <div class="user-row"><div class="user-info"><div class="user-av serif">ЕС</div><div><div class="user-name">Елена Смирнова</div><div class="user-email">elena@design.ru</div></div></div><div style="display:flex;gap:10px;align-items:center"><span class="plan-badge plan-paid">Pro · 2 990 ₽/мес</span></div></div>
+      <div class="user-row"><div class="user-info"><div class="user-av serif">СФ</div><div><div class="user-name">Студия Форма</div><div class="user-email">forma@studio.ru</div></div></div><div style="display:flex;gap:10px;align-items:center"><span class="plan-badge plan-manual">Безлимит · вручную</span></div></div>
+      <div class="user-row"><div class="user-info"><div class="user-av serif">ИП</div><div><div class="user-name">Иван Петров</div><div class="user-email">ivan@mail.ru</div></div></div><div style="display:flex;gap:10px;align-items:center"><span class="plan-badge plan-trial">Пробный · 14 дней</span></div></div>
     </div>
   </div>
 </div>
@@ -218,8 +218,8 @@ nav{height:60px;background:var(--surface);border-bottom:1px solid var(--border);
       <div id="kub-input"></div>
     </div>
     <div class="kub-btns">
-      <button class="btn-back" id="kub-back" onclick="kubPrev()">НАЗАД</button>
-      <button class="btn-next" id="kub-next" onclick="kubNext()">ДАЛЕЕ</button>
+      <button class="btn-back" id="kub-back">НАЗАД</button>
+      <button class="btn-next" id="kub-next">ДАЛЕЕ</button>
     </div>
   </div>
 </div>
@@ -234,8 +234,8 @@ nav{height:60px;background:var(--surface);border-bottom:1px solid var(--border);
       <button class="nav-link">Настройки</button>
     </div>
     <div class="nav-right">
-      <button class="btn-ghost" id="btn-new-client" onclick="openKub()">+ НОВЫЙ КЛИЕНТ</button>
-      <button class="btn-admin" id="admin-btn" style="display:none" onclick="openAdmin()">⚙ ADMIN</button>
+      <button class="btn-ghost" id="btn-new-client">+ НОВЫЙ КЛИЕНТ</button>
+      <button class="btn-admin" id="admin-btn" style="display:none">⚙ ADMIN</button>
       <div class="avatar serif" id="user-avatar">МС</div>
     </div>
   </nav>
@@ -255,8 +255,8 @@ nav{height:60px;background:var(--surface);border-bottom:1px solid var(--border);
           <span class="main-sub" id="project-name">Квартира 3к · Москва</span>
         </div>
         <div class="tabs">
-          <button class="tab active" id="tab-chat" onclick="switchTab('chat')">Чат</button>
-          <button class="tab" id="tab-tz" onclick="switchTab('tz')">Техзадание</button>
+          <button class="tab active" id="tab-chat">Чат</button>
+          <button class="tab" id="tab-tz">Техзадание</button>
         </div>
       </div>
       <div id="chat-panel" style="display:flex;flex-direction:column;flex:1;overflow:hidden">
@@ -266,14 +266,14 @@ nav{height:60px;background:var(--surface);border-bottom:1px solid var(--border);
             <button class="btn-attach">📎</button>
             <button class="btn-attach">🖼</button>
             <input class="msg-input" id="msg-input" placeholder="Напишите клиенту...">
-            <button class="btn-send" id="btn-send" onclick="sendMsg()">↑</button>
+            <button class="btn-send" id="btn-send">↑</button>
           </div>
         </div>
       </div>
       <div id="tz-panel" style="display:none;flex:1;overflow-y:auto">
         <div class="tz-wrap">
           <div class="tz-header">
-            <div><div class="serif tz-title">Техническое задание</div><div class="tz-sub">Формируется автоматически из диалога</div></div>
+            <div><div class="serif tz-title">Техническое задание</div><div class="tz-sub">Формируется из диалога</div></div>
             <div class="badges"><span class="badge badge-ok">4 подтверждено</span><span class="badge badge-err">1 отсутствует</span></div>
           </div>
           <div id="tz-list"></div>
@@ -284,8 +284,8 @@ nav{height:60px;background:var(--surface);border-bottom:1px solid var(--border);
     <div class="ai-panel">
       <div class="ai-head">
         <div class="ai-tabs">
-          <button class="ai-tab active" id="ai-tab-ai" onclick="switchAiTab('ai')">ИИ-советник</button>
-          <button class="ai-tab" id="ai-tab-profile" onclick="switchAiTab('profile')">Профиль</button>
+          <button class="ai-tab active" id="ai-tab-ai">ИИ-советник</button>
+          <button class="ai-tab" id="ai-tab-profile">Профиль</button>
         </div>
       </div>
       <div class="ai-body" id="ai-body"></div>
@@ -293,330 +293,6 @@ nav{height:60px;background:var(--surface);border-bottom:1px solid var(--border);
   </div>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-// JSONBin — база данных пользователей
-var JB_KEY = 'ВСТАВЬ_СЮДА_СВОЙ_КЛЮЧ'; // Вставь свой Master Key от JSONBin
-var JB_BIN = ''; // ID корзины — заполнится автоматически при первой регистрации
-var USERS_CACHE = [
-  { email: 'm2.designai@gmail.com', pass: 'M2admin2024', name: 'Максим', role: 'admin' }
-];
-
-function jbHeaders() {
-  return { 'Content-Type': 'application/json', 'X-Master-Key': JB_KEY };
-}
-
-function loadUsers(cb) {
-  if (!JB_BIN) { cb(USERS_CACHE); return; }
-  fetch('https://api.jsonbin.io/v3/b/' + JB_BIN + '/latest', { headers: jbHeaders() })
-    .then(function(r) { return r.json(); })
-    .then(function(d) { USERS_CACHE = d.record.users || USERS_CACHE; cb(USERS_CACHE); })
-    .catch(function() { cb(USERS_CACHE); });
-}
-
-function saveUsers(users, cb) {
-  if (!JB_BIN) {
-    fetch('https://api.jsonbin.io/v3/b', {
-      method: 'POST',
-      headers: Object.assign(jbHeaders(), { 'X-Bin-Name': 'm2-users', 'X-Bin-Private': 'true' }),
-      body: JSON.stringify({ users: users })
-    }).then(function(r) { return r.json(); })
-      .then(function(d) { JB_BIN = d.metadata.id; if(cb) cb(); })
-      .catch(function() { if(cb) cb(); });
-  } else {
-    fetch('https://api.jsonbin.io/v3/b/' + JB_BIN, {
-      method: 'PUT',
-      headers: jbHeaders(),
-      body: JSON.stringify({ users: users })
-    }).then(function() { if(cb) cb(); })
-      .catch(function() { if(cb) cb(); });
-  }
-}
-
-var CLIENTS = [
-  { name: 'Надежда Бейнер', av: 'НБ', status: 'active', preview: 'Нравится столешница', time: '10:09',
-    projects: [{ name: 'Квартира 3к · Москва', progress: 65 }, { name: 'Офис на Тверской', progress: 90 }] },
-  { name: 'Дмитрий Неронов', av: 'ДН', status: 'new', preview: 'Добрый день!', time: 'вчера',
-    projects: [{ name: 'Квартира · Владимир', progress: 30 }] },
-  { name: 'Анна Козлова', av: 'АК', status: 'done', preview: 'Спасибо, всё отлично!', time: 'пн',
-    projects: [{ name: 'Загородный дом', progress: 100 }] }
-];
-var MSGS = [
-  { from: 'client', text: 'Добрый день! Рада начать работу.', time: '10:02' },
-  { from: 'designer', text: 'Добрый день! Изучила анкету — есть несколько вопросов.', time: '10:04' },
-  { from: 'client', text: 'Конечно, спрашивайте!', time: '10:04' },
-  { from: 'client', text: 'Вот референс кухни который мне нравится', time: '10:06', img: 'kitchen.jpg' },
-  { from: 'designer', text: 'Прекрасный выбор. Что привлекает — цвет или форма?', time: '10:07' },
-  { from: 'client', text: 'Нравится столешница и лёгкость.', time: '10:09' }
-];
-var TZ = [
-  { k: 'ОСНОВНОЙ СТИЛЬ', v: 'Скандинавский минимализм', s: 'ok' },
-  { k: 'КУХНЯ · ФАСАДЫ', v: 'Белый МДФ, без ручек', s: 'ok' },
-  { k: 'НАПОЛЬНОЕ ПОКРЫТИЕ', v: 'Паркетная доска, светлая', s: 'ok' },
-  { k: 'ОСВЕЩЕНИЕ', v: 'Споты + декоративные подвесы', s: 'ok' },
-  { k: 'СТОЛЕШНИЦА', v: 'Уточняется в диалоге', s: 'pending' },
-  { k: 'БЮДЖЕТ КУХНИ', v: 'Не указан', s: 'missing' }
-];
-var HINTS = [
-  { type: 'ПРОТИВОРЕЧИЕ', text: 'В анкете классические карнизы, но референсы — минимализм.', p: 'high' },
-  { type: 'СПРОСИТЬ', text: 'Бюджет кухонного гарнитура не обсуждался.', p: 'high', btn: true },
-  { type: 'ИНСАЙТ', text: 'Клиент дважды сказал «лёгкость» — скандинавский предпочтительнее.', p: 'med' },
-  { type: 'ДЕЙСТВИЕ', text: 'Отправьте референс столешниц на согласование.', p: 'low' }
-];
-var PROFILE = [['Стиль','Скандинавский'],['Бюджет','Средний'],['Объект','3к · Москва'],['Семья','2 + ребёнок'],['Фокус','Свет и хранение']];
-var KUB_Q = [
-  { q: 'Как вас зовут?', h: 'Имя и удобное обращение', t: 'text' },
-  { q: 'Расскажите об объекте — квартира, дом или коммерческое помещение?', h: 'Тип и примерная площадь', t: 'text' },
-  { q: 'Как выглядел бы идеальный результат?', h: 'Опишите своими словами', t: 'area' },
-  { q: 'Есть ли интерьеры которые вам нравятся?', h: 'Пришлите 2–3 фото', t: 'file' }
-];
-
-var msgs = MSGS.slice();
-var activeClient = 0;
-var activeProject = 0;
-var kubStep = 0;
-var aiTab = 'ai';
-
-function g(id) { return document.getElementById(id); }
-
-function showMsg(txt, isErr) {
-  var el = g('auth-msg');
-  el.textContent = txt;
-  el.style.display = 'block';
-  el.style.color = isErr ? 'var(--err)' : 'var(--ok)';
-  el.style.background = isErr ? '#fdf2f2' : '#f0f5f0';
-}
-
-function showLogin() {
-  g('tab-login').classList.add('active');
-  g('tab-reg').classList.remove('active');
-  g('login-form').style.display = 'block';
-  g('register-form').style.display = 'none';
-}
-
-function showRegister() {
-  g('tab-reg').classList.add('active');
-  g('tab-login').classList.remove('active');
-  g('register-form').style.display = 'block';
-  g('login-form').style.display = 'none';
-}
-
-function doLogin() {
-  var email = g('login-email').value.trim();
-  var pass = g('login-pass').value.trim();
-  if (!email || !pass) { showMsg('Введите email и пароль', true); return; }
-  showMsg('Входим...', false);
-  loadUsers(function(users) {
-    var user = null;
-    for (var i = 0; i < users.length; i++) {
-      if (users[i].email === email && users[i].pass === pass) { user = users[i]; break; }
-    }
-    if (!user) { showMsg('Неверный email или пароль', true); return; }
-    initApp(user);
-  });
-}
-
-function doRegister() {
-  var email = g('reg-email').value.trim();
-  var pass = g('reg-pass').value.trim();
-  var name = g('reg-name').value.trim();
-  if (!email || !pass || !name) { showMsg('Заполните все поля', true); return; }
-  showMsg('Создаём аккаунт...', false);
-  loadUsers(function(users) {
-    for (var i = 0; i < users.length; i++) {
-      if (users[i].email === email) { showMsg('Email уже зарегистрирован', true); return; }
-    }
-    var newUser = { email: email, pass: pass, name: name, role: 'designer' };
-    users.push(newUser);
-    saveUsers(users, function() {
-      USERS_CACHE = users;
-      showMsg('Аккаунт создан! Войдите.', false);
-      showLogin();
-    });
-  });
-}
-
-function initApp(user) {
-  g('auth').style.display = 'none';
-  g('app').style.display = 'flex';
-  if (user.role === 'admin') g('admin-btn').style.display = 'block';
-  g('user-avatar').textContent = user.name.slice(0, 2).toUpperCase();
-  renderClients(); renderMsgs(); renderTZ(); renderAI();
-}
-
-function renderClients() {
-  var html = '';
-  for (var ci = 0; ci < CLIENTS.length; ci++) {
-    var c = CLIENTS[ci];
-    html += '<div class="client-item' + (ci === activeClient ? ' active' : '') + '" data-ci="' + ci + '">';
-    html += '<div class="client-row">';
-    html += '<div class="av-sm serif">' + c.av + (c.status === 'new' ? '<div class="new-dot"></div>' : '') + '</div>';
-    html += '<div class="client-info"><div class="client-name">' + c.name + '</div><div class="client-preview">' + c.preview + '</div></div>';
-    html += '<div class="client-time">' + c.time + '</div></div></div>';
-    if (ci === activeClient) {
-      html += '<div class="projects-list">';
-      for (var pi = 0; pi < c.projects.length; pi++) {
-        var p = c.projects[pi];
-        var fill = p.progress === 100 ? 'var(--ok)' : '#c4a882';
-        html += '<div class="proj-item' + (pi === activeProject ? ' active' : '') + '" data-ci="' + ci + '" data-pi="' + pi + '">';
-        html += '<div class="proj-name' + (pi === activeProject ? ' active' : '') + '">' + p.name + '</div>';
-        html += '<div class="prog-bar"><div class="prog-fill" style="width:' + p.progress + '%;background:' + fill + '"></div></div></div>';
-      }
-      html += '</div>';
-    }
-  }
-  g('clients-list').innerHTML = html;
-  var items = document.querySelectorAll('.client-item');
-  for (var i = 0; i < items.length; i++) {
-    items[i].addEventListener('click', function() {
-      activeClient = parseInt(this.getAttribute('data-ci'));
-      activeProject = 0;
-      g('client-name').textContent = CLIENTS[activeClient].name;
-      g('project-name').textContent = CLIENTS[activeClient].projects[0].name;
-      renderClients();
-    });
-  }
-  var projs = document.querySelectorAll('.proj-item');
-  for (var j = 0; j < projs.length; j++) {
-    projs[j].addEventListener('click', function(e) {
-      e.stopPropagation();
-      activeClient = parseInt(this.getAttribute('data-ci'));
-      activeProject = parseInt(this.getAttribute('data-pi'));
-      g('client-name').textContent = CLIENTS[activeClient].name;
-      g('project-name').textContent = CLIENTS[activeClient].projects[activeProject].name;
-      renderClients();
-    });
-  }
-}
-
-function renderMsgs() {
-  var el = g('messages');
-  var html = '';
-  for (var i = 0; i < msgs.length; i++) {
-    var m = msgs[i];
-    html += '<div class="msg' + (m.from === 'designer' ? ' right' : '') + '">';
-    if (m.from === 'client') html += '<div class="msg-av serif">' + CLIENTS[activeClient].av + '</div>';
-    html += '<div class="bubble' + (m.from === 'designer' ? ' mine' : '') + '">';
-    if (m.img) html += '<div class="bubble-img">🖼 ' + m.img + '</div>';
-    html += '<div class="bubble-text">' + m.text + '</div>';
-    html += '<div class="bubble-time">' + m.time + '</div></div></div>';
-  }
-  el.innerHTML = html;
-  el.scrollTop = el.scrollHeight;
-}
-
-function sendMsg() {
-  var inp = g('msg-input');
-  if (!inp.value.trim()) return;
-  msgs.push({ from: 'designer', text: inp.value, time: 'сейчас' });
-  inp.value = '';
-  renderMsgs();
-}
-
-function renderTZ() {
-  var html = '';
-  for (var i = 0; i < TZ.length; i++) {
-    var t = TZ[i];
-    var c = t.s === 'ok' ? 'var(--ok)' : t.s === 'pending' ? 'var(--warn)' : 'var(--err)';
-    var ic = t.s === 'ok' ? '✓' : t.s === 'pending' ? '·' : '!';
-    var bg = t.s === 'ok' ? '#f0f5f0' : t.s === 'pending' ? '#fdf8ee' : '#fdf2f2';
-    html += '<div class="tz-row" style="border-left-color:' + c + '">';
-    html += '<div><div class="tz-key">' + t.k + '</div><div class="tz-val' + (t.s === 'missing' ? ' missing' : '') + '">' + t.v + '</div></div>';
-    html += '<div class="tz-status" style="color:' + c + ';border-color:' + c + ';background:' + bg + '">' + ic + '</div></div>';
-  }
-  g('tz-list').innerHTML = html;
-}
-
-function renderAI() {
-  var el = g('ai-body');
-  var html = '';
-  if (aiTab === 'ai') {
-    html = '<div class="ai-status"><div class="ai-dot"></div><span class="ai-lbl">АНАЛИЗИРУЕТ ДИАЛОГ</span></div>';
-    for (var i = 0; i < HINTS.length; i++) {
-      var h = HINTS[i];
-      var c = h.p === 'high' ? 'var(--err)' : h.p === 'med' ? 'var(--warn)' : 'var(--light)';
-      html += '<div class="hint" style="border-left:2.5px solid ' + c + '">';
-      html += '<div class="hint-type" style="color:' + c + '">' + h.type + '</div>';
-      html += '<div class="hint-text">' + h.text + '</div>';
-      if (h.btn) html += '<button class="btn-use">ИСПОЛЬЗОВАТЬ →</button>';
-      html += '</div>';
-    }
-  } else {
-    html = '<div class="profile-card"><div class="profile-title">ПРОФИЛЬ КЛИЕНТА</div>';
-    for (var j = 0; j < PROFILE.length; j++) {
-      html += '<div class="profile-row"><span class="profile-key">' + PROFILE[j][0] + '</span><span class="profile-val">' + PROFILE[j][1] + '</span></div>';
-    }
-    html += '</div>';
-  }
-  el.innerHTML = html;
-}
-
-function renderKub() {
-  var q = KUB_Q[kubStep];
-  g('kub-step-lbl').textContent = 'шаг ' + (kubStep + 1) + ' из ' + KUB_Q.length;
-  g('kub-q').textContent = q.q;
-  g('kub-hint').textContent = q.h;
-  g('kub-back').style.display = kubStep > 0 ? 'flex' : 'none';
-  g('kub-next').textContent = kubStep < KUB_Q.length - 1 ? 'ДАЛЕЕ' : 'ЗАВЕРШИТЬ';
-  var prog = '';
-  for (var i = 0; i < KUB_Q.length; i++) {
-    prog += '<div style="height:2px;border-radius:1px;width:' + (i === kubStep ? 40 : 18) + 'px;background:' + (i < kubStep ? 'var(--ok)' : i === kubStep ? 'var(--accent)' : 'var(--border)') + '"></div>';
-  }
-  g('kub-progress').innerHTML = prog;
-  var area = g('kub-input');
-  if (q.t === 'file') {
-    area.innerHTML = '<div class="kub-upload"><div style="font-size:22px;color:#c4a882;margin-bottom:8px">↑</div><div style="font-size:13px;color:var(--mid)">Нажмите для загрузки фото</div></div>';
-  } else if (q.t === 'area') {
-    area.innerHTML = '<textarea class="kub-textarea" placeholder="Опишите своими словами..."></textarea>';
-  } else {
-    area.innerHTML = '<input class="field-input" style="margin-bottom:0" placeholder="Введите ответ...">';
-  }
-}
-
-// Привязка событий через addEventListener — без onclick в HTML
-window.addEventListener('load', function() {
-  g('btn-login').addEventListener('click', doLogin);
-  g('btn-reg').addEventListener('click', doRegister);
-  g('tab-login').addEventListener('click', showLogin);
-  g('tab-reg').addEventListener('click', showRegister);
-  g('btn-login-pass') && g('login-pass').addEventListener('keydown', function(e) { if (e.key === 'Enter') doLogin(); });
-  g('login-pass').addEventListener('keydown', function(e) { if (e.key === 'Enter') doLogin(); });
-
-  g('btn-send').addEventListener('click', sendMsg);
-  g('msg-input').addEventListener('keydown', function(e) { if (e.key === 'Enter') sendMsg(); });
-
-  g('tab-chat').addEventListener('click', function() {
-    g('tab-chat').classList.add('active'); g('tab-tz').classList.remove('active');
-    g('chat-panel').style.display = 'flex'; g('tz-panel').style.display = 'none';
-  });
-  g('tab-tz').addEventListener('click', function() {
-    g('tab-tz').classList.add('active'); g('tab-chat').classList.remove('active');
-    g('tz-panel').style.display = 'block'; g('chat-panel').style.display = 'none';
-  });
-
-  g('ai-tab-ai').addEventListener('click', function() {
-    g('ai-tab-ai').classList.add('active'); g('ai-tab-profile').classList.remove('active');
-    aiTab = 'ai'; renderAI();
-  });
-  g('ai-tab-profile').addEventListener('click', function() {
-    g('ai-tab-profile').classList.add('active'); g('ai-tab-ai').classList.remove('active');
-    aiTab = 'profile'; renderAI();
-  });
-
-  g('btn-new-client').addEventListener('click', function() {
-    g('kub-overlay').style.display = 'flex'; kubStep = 0; renderKub();
-  });
-  g('admin-btn').addEventListener('click', function() { g('admin-overlay').style.
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  var bl = document.getElementById('btn-login');
-  var br = document.getElementById('btn-reg');
-  var tl = document.getElementById('tab-login');
-  var tr = document.getElementById('tab-reg');
-  if(bl) bl.onclick = function(){ doLogin(); };
-  if(br) br.onclick = function(){ doRegister(); };
-  if(tl) tl.onclick = function(){ showLogin(); };
-  if(tr) tr.onclick = function(){ showRegister(); };
-});
-</script>
+<script src="app.js"></script>
 </body>
 </html>
