@@ -203,9 +203,9 @@ nav{height:60px;background:var(--surface);border-bottom:1px solid var(--border);
         <div class="serif table-title">Подписки дизайнеров</div>
         <button style="background:var(--dark);border:none;color:var(--bg);padding:9px 22px;border-radius:3px;cursor:pointer;font-size:12px;font-family:'Jost',sans-serif">+ ДОБАВИТЬ</button>
       </div>
-      <div class="user-row"><div class="user-info"><div class="user-av serif">ЕС</div><div><div class="user-name">Елена Смирнова</div><div class="user-email">elena@design.ru</div></div></div><div style="display:flex;gap:10px;align-items:center"><span class="plan-badge plan-paid">Pro · 2 990 ₽/мес</span><button class="btn-back" style="flex:none;padding:5px 14px">Изменить</button></div></div>
-      <div class="user-row"><div class="user-info"><div class="user-av serif">СФ</div><div><div class="user-name">Студия Форма</div><div class="user-email">forma@studio.ru</div></div></div><div style="display:flex;gap:10px;align-items:center"><span class="plan-badge plan-manual">Безлимит · вручную</span><button class="btn-back" style="flex:none;padding:5px 14px">Изменить</button></div></div>
-      <div class="user-row"><div class="user-info"><div class="user-av serif">ИП</div><div><div class="user-name">Иван Петров</div><div class="user-email">ivan@mail.ru</div></div></div><div style="display:flex;gap:10px;align-items:center"><span class="plan-badge plan-trial">Пробный · 14 дней</span><button class="btn-back" style="flex:none;padding:5px 14px">Изменить</button></div></div>
+      <div class="user-row"><div class="user-info"><div class="user-av serif">ЕС</div><div><div class="user-name">Елена Смирнова</div><div class="user-email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="395c555c5758795d5c4a505e57174b4c">[email&#160;protected]</a></div></div></div><div style="display:flex;gap:10px;align-items:center"><span class="plan-badge plan-paid">Pro · 2 990 ₽/мес</span><button class="btn-back" style="flex:none;padding:5px 14px">Изменить</button></div></div>
+      <div class="user-row"><div class="user-info"><div class="user-av serif">СФ</div><div><div class="user-name">Студия Форма</div><div class="user-email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="395f564b5458794a4d4c5d5056174b4c">[email&#160;protected]</a></div></div></div><div style="display:flex;gap:10px;align-items:center"><span class="plan-badge plan-manual">Безлимит · вручную</span><button class="btn-back" style="flex:none;padding:5px 14px">Изменить</button></div></div>
+      <div class="user-row"><div class="user-info"><div class="user-av serif">ИП</div><div><div class="user-name">Иван Петров</div><div class="user-email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="96ffe0f7f8d6fbf7fffab8e4e3">[email&#160;protected]</a></div></div></div><div style="display:flex;gap:10px;align-items:center"><span class="plan-badge plan-trial">Пробный · 14 дней</span><button class="btn-back" style="flex:none;padding:5px 14px">Изменить</button></div></div>
     </div>
   </div>
 </div>
@@ -299,10 +299,11 @@ nav{height:60px;background:var(--surface);border-bottom:1px solid var(--border);
   </div>
 </div>
 
-<script>
-var SB_URL = 'https://tuylrxfqtfyfprebelnf.supabase.co';
-var SB_KEY = 'sb_publishable_Oq_deUEt1W75ONTA_maqhQ_VwylHKF6';
-var ADMIN_EMAIL = 'm2designai@gmail.com';
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+var USERS = [
+  { email: 'm2designai@gmail.com', pass: 'M2admin2024', name: 'Максим', role: 'admin' },
+  { email: 'designer@m2.ru', pass: 'designer123', name: 'Дизайнер', role: 'designer' }
+];
 
 function showMsg(txt, isErr) {
   var el = document.getElementById('auth-msg');
@@ -316,15 +317,12 @@ function doLogin() {
   var email = document.getElementById('login-email').value.trim();
   var pass = document.getElementById('login-pass').value.trim();
   if (!email || !pass) { showMsg('Введите email и пароль', true); return; }
-  showMsg('Входим...', false);
-  fetch(SB_URL + '/auth/v1/token?grant_type=password', {
-    method: 'POST',
-    headers: { 'apikey': SB_KEY, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email: email, password: pass })
-  }).then(function(r) { return r.json(); }).then(function(d) {
-    if (!d.access_token) { showMsg('Неверный email или пароль', true); return; }
-    initApp(d.user);
-  }).catch(function() { showMsg('Ошибка соединения', true); });
+  var user = null;
+  for (var i = 0; i < USERS.length; i++) {
+    if (USERS[i].email === email && USERS[i].pass === pass) { user = USERS[i]; break; }
+  }
+  if (!user) { showMsg('Неверный email или пароль', true); return; }
+  initApp(user);
 }
 
 function doRegister() {
@@ -332,23 +330,16 @@ function doRegister() {
   var pass = document.getElementById('reg-pass').value.trim();
   var name = document.getElementById('reg-name').value.trim();
   if (!email || !pass || !name) { showMsg('Заполните все поля', true); return; }
-  showMsg('Создаём аккаунт...', false);
-  fetch(SB_URL + '/auth/v1/signup', {
-    method: 'POST',
-    headers: { 'apikey': SB_KEY, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email: email, password: pass })
-  }).then(function(r) { return r.json(); }).then(function(d) {
-    if (d.error) { showMsg(d.error, true); return; }
-    showMsg('Аккаунт создан! Войдите.', false);
-    document.querySelectorAll('.auth-tab')[0].click();
-  }).catch(function() { showMsg('Ошибка соединения', true); });
+  USERS.push({ email: email, pass: pass, name: name, role: 'designer' });
+  showMsg('Аккаунт создан! Войдите.', false);
+  document.querySelectorAll('.auth-tab')[0].click();
 }
 
 function initApp(user) {
   document.getElementById('auth').style.display = 'none';
   document.getElementById('app').style.display = 'flex';
-  if (user.email === ADMIN_EMAIL) document.getElementById('admin-btn').style.display = 'block';
-  document.getElementById('user-avatar').textContent = user.email.slice(0, 2).toUpperCase();
+  if (user.role === 'admin') document.getElementById('admin-btn').style.display = 'block';
+  document.getElementById('user-avatar').textContent = user.name.slice(0, 2).toUpperCase();
   renderClients(); renderMsgs(); renderTZ(); renderAI();
 }
 
@@ -527,14 +518,4 @@ function renderKub() {
   if (q.t === 'file') {
     area.innerHTML = '<div class="kub-upload"><div style="font-size:22px;color:#c4a882;margin-bottom:8px">↑</div><div style="font-size:13px;color:var(--mid)">Перетащите файлы или нажмите для загрузки</div><div style="font-size:12px;color:var(--light);margin-top:3px">JPG, PNG · до 20 МБ</div></div>';
   } else if (q.t === 'area') {
-    area.innerHTML = '<textarea class="kub-textarea" placeholder="Опишите своими словами..."></textarea>';
-  } else {
-    area.innerHTML = '<input class="field-input" style="margin-bottom:0" placeholder="Введите ответ...">';
-  }
-}
-
-function kubNext() { if (kubStep < KUB_Q.length - 1) { kubStep++; renderKub(); } else { document.getElementById('kub').style.display = 'none'; } }
-function kubPrev() { if (kubStep > 0) { kubStep--; renderKub(); } }
-</script>
-</body>
-</html>
+    area.innerHTML = '<textarea class="kub-tex
