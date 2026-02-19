@@ -128,7 +128,18 @@ function doRegister() {
   });
 }
 
+function doLogout() {
+  try { localStorage.removeItem('m2_user'); } catch(e) {}
+  g('app').style.display = 'none';
+  g('admin-btn').style.display = 'none';
+  g('auth').style.display = 'flex';
+  g('login-email').value = '';
+  g('login-pass').value = '';
+  showLogin();
+}
+
 function initApp(user) {
+  try { localStorage.setItem('m2_user', JSON.stringify(user)); } catch(e) {}
   g('auth').style.display = 'none';
   g('app').style.display = 'flex';
   if (user.role === 'admin') g('admin-btn').style.display = 'block';
@@ -295,4 +306,19 @@ document.addEventListener('DOMContentLoaded', function() {
     else { g('kub-overlay').style.display = 'none'; }
   });
   g('kub-back').addEventListener('click', function() { if (kubStep > 0) { kubStep--; renderKub(); } });
+  g('btn-logout').addEventListener('click', doLogout);
+
+  // Автовход если сессия сохранена
+  try {
+    var saved = localStorage.getItem('m2_user');
+    if (saved) {
+      var u = JSON.parse(saved);
+      if (u && u.email) {
+        initApp(u);
+        return;
+      }
+    }
+  } catch(e) {}
+  // Показываем экран входа только если нет сессии
+  g('auth').style.display = 'flex';
 });

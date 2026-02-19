@@ -149,7 +149,7 @@ nav{height:60px;background:var(--surface);border-bottom:1px solid var(--border);
 </head>
 <body>
 
-<div id="auth">
+<div id="auth" style="display:none">
   <div class="auth-box">
     <div class="serif auth-logo">М²</div>
     <div class="serif auth-title">Добро пожаловать</div>
@@ -197,9 +197,9 @@ nav{height:60px;background:var(--surface);border-bottom:1px solid var(--border);
         <div class="serif" style="font-size:22px;font-weight:300">Подписки дизайнеров</div>
         <button style="background:var(--dark);border:none;color:var(--bg);padding:9px 22px;border-radius:3px;cursor:pointer;font-size:12px;font-family:'Jost',sans-serif">+ ДОБАВИТЬ</button>
       </div>
-      <div class="user-row"><div class="user-info"><div class="user-av serif">ЕС</div><div><div class="user-name">Елена Смирнова</div><div class="user-email">elena@design.ru</div></div></div><div style="display:flex;gap:10px;align-items:center"><span class="plan-badge plan-paid">Pro · 2 990 ₽/мес</span></div></div>
-      <div class="user-row"><div class="user-info"><div class="user-av serif">СФ</div><div><div class="user-name">Студия Форма</div><div class="user-email">forma@studio.ru</div></div></div><div style="display:flex;gap:10px;align-items:center"><span class="plan-badge plan-manual">Безлимит · вручную</span></div></div>
-      <div class="user-row"><div class="user-info"><div class="user-av serif">ИП</div><div><div class="user-name">Иван Петров</div><div class="user-email">ivan@mail.ru</div></div></div><div style="display:flex;gap:10px;align-items:center"><span class="plan-badge plan-trial">Пробный · 14 дней</span></div></div>
+      <div class="user-row"><div class="user-info"><div class="user-av serif">ЕС</div><div><div class="user-name">Елена Смирнова</div><div class="user-email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="adc8c1c8c3ccedc9c8dec4cac383dfd8">[email&#160;protected]</a></div></div></div><div style="display:flex;gap:10px;align-items:center"><span class="plan-badge plan-paid">Pro · 2 990 ₽/мес</span></div></div>
+      <div class="user-row"><div class="user-info"><div class="user-av serif">СФ</div><div><div class="user-name">Студия Форма</div><div class="user-email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e78188958a86a7949392838e88c99592">[email&#160;protected]</a></div></div></div><div style="display:flex;gap:10px;align-items:center"><span class="plan-badge plan-manual">Безлимит · вручную</span></div></div>
+      <div class="user-row"><div class="user-info"><div class="user-av serif">ИП</div><div><div class="user-name">Иван Петров</div><div class="user-email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="acc5dacdc2ecc1cdc5c082ded9">[email&#160;protected]</a></div></div></div><div style="display:flex;gap:10px;align-items:center"><span class="plan-badge plan-trial">Пробный · 14 дней</span></div></div>
     </div>
   </div>
 </div>
@@ -237,6 +237,7 @@ nav{height:60px;background:var(--surface);border-bottom:1px solid var(--border);
       <button class="btn-ghost" id="btn-new-client">+ НОВЫЙ КЛИЕНТ</button>
       <button class="btn-admin" id="admin-btn" style="display:none">⚙ ADMIN</button>
       <div class="avatar serif" id="user-avatar">МС</div>
+      <button class="btn-admin" id="btn-logout" style="color:var(--err);border-color:var(--err)">ВЫХОД</button>
     </div>
   </nav>
   <div class="app-body">
@@ -282,17 +283,4 @@ nav{height:60px;background:var(--surface);border-bottom:1px solid var(--border);
       </div>
     </div>
     <div class="ai-panel">
-      <div class="ai-head">
-        <div class="ai-tabs">
-          <button class="ai-tab active" id="ai-tab-ai">ИИ-советник</button>
-          <button class="ai-tab" id="ai-tab-profile">Профиль</button>
-        </div>
-      </div>
-      <div class="ai-body" id="ai-body"></div>
-    </div>
-  </div>
-</div>
-
-<script src="app.js"></script>
-</body>
-</html>
+      <div class="ai
