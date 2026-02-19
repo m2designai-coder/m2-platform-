@@ -155,15 +155,15 @@ nav{height:60px;background:var(--surface);border-bottom:1px solid var(--border);
     <div class="serif auth-title">Добро пожаловать</div>
     <div class="auth-sub">Платформа для дизайнеров интерьера</div>
     <div class="auth-tabs">
-      <button class="auth-tab active" id="tab-login" >ВОЙТИ</button>
-      <button class="auth-tab" id="tab-reg" >РЕГИСТРАЦИЯ</button>
+      <button class="auth-tab active" id="tab-login" onclick="showLogin()" >ВОЙТИ</button>
+      <button class="auth-tab" id="tab-reg" onclick="showRegister()" >РЕГИСТРАЦИЯ</button>
     </div>
     <div id="login-form">
       <div class="field-label">EMAIL</div>
       <input class="field-input" type="email" id="login-email" placeholder="your@email.com">
       <div class="field-label">ПАРОЛЬ</div>
       <input class="field-input" type="password" id="login-pass" placeholder="••••••••">
-      <button class="btn-primary" id="btn-login">ВОЙТИ В ПЛАТФОРМУ</button>
+      <button class="btn-primary" id="btn-login" onclick="doLogin()">ВОЙТИ В ПЛАТФОРМУ</button>
     </div>
     <div id="register-form" style="display:none">
       <div class="field-label">ИМЯ</div>
@@ -172,7 +172,7 @@ nav{height:60px;background:var(--surface);border-bottom:1px solid var(--border);
       <input class="field-input" type="email" id="reg-email" placeholder="your@email.com">
       <div class="field-label">ПАРОЛЬ</div>
       <input class="field-input" type="password" id="reg-pass" placeholder="••••••••">
-      <button class="btn-primary" id="btn-reg">СОЗДАТЬ АККАУНТ</button>
+      <button class="btn-primary" id="btn-reg" onclick="doRegister()">СОЗДАТЬ АККАУНТ</button>
     </div>
     <div class="auth-msg" id="auth-msg"></div>
   </div>
@@ -197,9 +197,9 @@ nav{height:60px;background:var(--surface);border-bottom:1px solid var(--border);
         <div class="serif" style="font-size:22px;font-weight:300">Подписки дизайнеров</div>
         <button style="background:var(--dark);border:none;color:var(--bg);padding:9px 22px;border-radius:3px;cursor:pointer;font-size:12px;font-family:'Jost',sans-serif">+ ДОБАВИТЬ</button>
       </div>
-      <div class="user-row"><div class="user-info"><div class="user-av serif">ЕС</div><div><div class="user-name">Елена Смирнова</div><div class="user-email">elena@design.ru</div></div></div><div style="display:flex;gap:10px;align-items:center"><span class="plan-badge plan-paid">Pro · 2 990 ₽/мес</span><button class="btn-back" style="flex:none;padding:5px 14px">Изменить</button></div></div>
-      <div class="user-row"><div class="user-info"><div class="user-av serif">СФ</div><div><div class="user-name">Студия Форма</div><div class="user-email">forma@studio.ru</div></div></div><div style="display:flex;gap:10px;align-items:center"><span class="plan-badge plan-manual">Безлимит · вручную</span><button class="btn-back" style="flex:none;padding:5px 14px">Изменить</button></div></div>
-      <div class="user-row"><div class="user-info"><div class="user-av serif">ИП</div><div><div class="user-name">Иван Петров</div><div class="user-email">ivan@mail.ru</div></div></div><div style="display:flex;gap:10px;align-items:center"><span class="plan-badge plan-trial">Пробный · 14 дней</span><button class="btn-back" style="flex:none;padding:5px 14px">Изменить</button></div></div>
+      <div class="user-row"><div class="user-info"><div class="user-av serif">ЕС</div><div><div class="user-name">Елена Смирнова</div><div class="user-email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="593c353c3738193d3c2a303e37772b2c">[email&#160;protected]</a></div></div></div><div style="display:flex;gap:10px;align-items:center"><span class="plan-badge plan-paid">Pro · 2 990 ₽/мес</span><button class="btn-back" style="flex:none;padding:5px 14px">Изменить</button></div></div>
+      <div class="user-row"><div class="user-info"><div class="user-av serif">СФ</div><div><div class="user-name">Студия Форма</div><div class="user-email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="70161f021d113003040514191f5e0205">[email&#160;protected]</a></div></div></div><div style="display:flex;gap:10px;align-items:center"><span class="plan-badge plan-manual">Безлимит · вручную</span><button class="btn-back" style="flex:none;padding:5px 14px">Изменить</button></div></div>
+      <div class="user-row"><div class="user-info"><div class="user-av serif">ИП</div><div><div class="user-name">Иван Петров</div><div class="user-email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0e67786f604e636f6762207c7b">[email&#160;protected]</a></div></div></div><div style="display:flex;gap:10px;align-items:center"><span class="plan-badge plan-trial">Пробный · 14 дней</span><button class="btn-back" style="flex:none;padding:5px 14px">Изменить</button></div></div>
     </div>
   </div>
 </div>
@@ -218,8 +218,8 @@ nav{height:60px;background:var(--surface);border-bottom:1px solid var(--border);
       <div id="kub-input"></div>
     </div>
     <div class="kub-btns">
-      <button class="btn-back" id="kub-back">НАЗАД</button>
-      <button class="btn-next" id="kub-next">ДАЛЕЕ</button>
+      <button class="btn-back" id="kub-back" onclick="kubPrev()">НАЗАД</button>
+      <button class="btn-next" id="kub-next" onclick="kubNext()">ДАЛЕЕ</button>
     </div>
   </div>
 </div>
@@ -234,8 +234,8 @@ nav{height:60px;background:var(--surface);border-bottom:1px solid var(--border);
       <button class="nav-link">Настройки</button>
     </div>
     <div class="nav-right">
-      <button class="btn-ghost" id="btn-new-client">+ НОВЫЙ КЛИЕНТ</button>
-      <button class="btn-admin" id="admin-btn" style="display:none">⚙ ADMIN</button>
+      <button class="btn-ghost" id="btn-new-client" onclick="openKub()">+ НОВЫЙ КЛИЕНТ</button>
+      <button class="btn-admin" id="admin-btn" style="display:none" onclick="openAdmin()">⚙ ADMIN</button>
       <div class="avatar serif" id="user-avatar">МС</div>
     </div>
   </nav>
@@ -255,8 +255,8 @@ nav{height:60px;background:var(--surface);border-bottom:1px solid var(--border);
           <span class="main-sub" id="project-name">Квартира 3к · Москва</span>
         </div>
         <div class="tabs">
-          <button class="tab active" id="tab-chat">Чат</button>
-          <button class="tab" id="tab-tz">Техзадание</button>
+          <button class="tab active" id="tab-chat" onclick="switchTab('chat')">Чат</button>
+          <button class="tab" id="tab-tz" onclick="switchTab('tz')">Техзадание</button>
         </div>
       </div>
       <div id="chat-panel" style="display:flex;flex-direction:column;flex:1;overflow:hidden">
@@ -266,7 +266,7 @@ nav{height:60px;background:var(--surface);border-bottom:1px solid var(--border);
             <button class="btn-attach">📎</button>
             <button class="btn-attach">🖼</button>
             <input class="msg-input" id="msg-input" placeholder="Напишите клиенту...">
-            <button class="btn-send" id="btn-send">↑</button>
+            <button class="btn-send" id="btn-send" onclick="sendMsg()">↑</button>
           </div>
         </div>
       </div>
@@ -284,8 +284,8 @@ nav{height:60px;background:var(--surface);border-bottom:1px solid var(--border);
     <div class="ai-panel">
       <div class="ai-head">
         <div class="ai-tabs">
-          <button class="ai-tab active" id="ai-tab-ai">ИИ-советник</button>
-          <button class="ai-tab" id="ai-tab-profile">Профиль</button>
+          <button class="ai-tab active" id="ai-tab-ai" onclick="switchAiTab('ai')">ИИ-советник</button>
+          <button class="ai-tab" id="ai-tab-profile" onclick="switchAiTab('profile')">Профиль</button>
         </div>
       </div>
       <div class="ai-body" id="ai-body"></div>
@@ -293,13 +293,44 @@ nav{height:60px;background:var(--surface);border-bottom:1px solid var(--border);
   </div>
 </div>
 
-<script>
-(function() {
-
-var USERS = [
-  { email: 'm2.designai@gmail.com', pass: 'M2admin2024', name: 'Максим', role: 'admin' },
-  { email: 'designer@m2.ru', pass: 'designer123', name: 'Дизайнер', role: 'designer' }
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// JSONBin — база данных пользователей
+var JB_KEY = 'ВСТАВЬ_СЮДА_СВОЙ_КЛЮЧ'; // Вставь свой Master Key от JSONBin
+var JB_BIN = ''; // ID корзины — заполнится автоматически при первой регистрации
+var USERS_CACHE = [
+  { email: 'm2.designai@gmail.com', pass: 'M2admin2024', name: 'Максим', role: 'admin' }
 ];
+
+function jbHeaders() {
+  return { 'Content-Type': 'application/json', 'X-Master-Key': JB_KEY };
+}
+
+function loadUsers(cb) {
+  if (!JB_BIN) { cb(USERS_CACHE); return; }
+  fetch('https://api.jsonbin.io/v3/b/' + JB_BIN + '/latest', { headers: jbHeaders() })
+    .then(function(r) { return r.json(); })
+    .then(function(d) { USERS_CACHE = d.record.users || USERS_CACHE; cb(USERS_CACHE); })
+    .catch(function() { cb(USERS_CACHE); });
+}
+
+function saveUsers(users, cb) {
+  if (!JB_BIN) {
+    fetch('https://api.jsonbin.io/v3/b', {
+      method: 'POST',
+      headers: Object.assign(jbHeaders(), { 'X-Bin-Name': 'm2-users', 'X-Bin-Private': 'true' }),
+      body: JSON.stringify({ users: users })
+    }).then(function(r) { return r.json(); })
+      .then(function(d) { JB_BIN = d.metadata.id; if(cb) cb(); })
+      .catch(function() { if(cb) cb(); });
+  } else {
+    fetch('https://api.jsonbin.io/v3/b/' + JB_BIN, {
+      method: 'PUT',
+      headers: jbHeaders(),
+      body: JSON.stringify({ users: users })
+    }).then(function() { if(cb) cb(); })
+      .catch(function() { if(cb) cb(); });
+  }
+}
 
 var CLIENTS = [
   { name: 'Надежда Бейнер', av: 'НБ', status: 'active', preview: 'Нравится столешница', time: '10:09',
@@ -373,12 +404,15 @@ function doLogin() {
   var email = g('login-email').value.trim();
   var pass = g('login-pass').value.trim();
   if (!email || !pass) { showMsg('Введите email и пароль', true); return; }
-  var user = null;
-  for (var i = 0; i < USERS.length; i++) {
-    if (USERS[i].email === email && USERS[i].pass === pass) { user = USERS[i]; break; }
-  }
-  if (!user) { showMsg('Неверный email или пароль', true); return; }
-  initApp(user);
+  showMsg('Входим...', false);
+  loadUsers(function(users) {
+    var user = null;
+    for (var i = 0; i < users.length; i++) {
+      if (users[i].email === email && users[i].pass === pass) { user = users[i]; break; }
+    }
+    if (!user) { showMsg('Неверный email или пароль', true); return; }
+    initApp(user);
+  });
 }
 
 function doRegister() {
@@ -386,9 +420,19 @@ function doRegister() {
   var pass = g('reg-pass').value.trim();
   var name = g('reg-name').value.trim();
   if (!email || !pass || !name) { showMsg('Заполните все поля', true); return; }
-  USERS.push({ email: email, pass: pass, name: name, role: 'designer' });
-  showMsg('Аккаунт создан! Войдите.', false);
-  showLogin();
+  showMsg('Создаём аккаунт...', false);
+  loadUsers(function(users) {
+    for (var i = 0; i < users.length; i++) {
+      if (users[i].email === email) { showMsg('Email уже зарегистрирован', true); return; }
+    }
+    var newUser = { email: email, pass: pass, name: name, role: 'designer' };
+    users.push(newUser);
+    saveUsers(users, function() {
+      USERS_CACHE = users;
+      showMsg('Аккаунт создан! Войдите.', false);
+      showLogin();
+    });
+  });
 }
 
 function initApp(user) {
@@ -561,19 +605,18 @@ window.addEventListener('load', function() {
   g('btn-new-client').addEventListener('click', function() {
     g('kub-overlay').style.display = 'flex'; kubStep = 0; renderKub();
   });
-  g('admin-btn').addEventListener('click', function() { g('admin-overlay').style.display = 'block'; });
-  g('btn-close-admin').addEventListener('click', function() { g('admin-overlay').style.display = 'none'; });
-
-  g('kub-next').addEventListener('click', function() {
-    if (kubStep < KUB_Q.length - 1) { kubStep++; renderKub(); }
-    else { g('kub-overlay').style.display = 'none'; }
-  });
-  g('kub-back').addEventListener('click', function() {
-    if (kubStep > 0) { kubStep--; renderKub(); }
-  });
+  g('admin-btn').addEventListener('click', function() { g('admin-overlay').style.
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var bl = document.getElementById('btn-login');
+  var br = document.getElementById('btn-reg');
+  var tl = document.getElementById('tab-login');
+  var tr = document.getElementById('tab-reg');
+  if(bl) bl.onclick = function(){ doLogin(); };
+  if(br) br.onclick = function(){ doRegister(); };
+  if(tl) tl.onclick = function(){ showLogin(); };
+  if(tr) tr.onclick = function(){ showRegister(); };
 });
-
-})();
 </script>
 </body>
 </html>
