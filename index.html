@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>M2 Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#f5f0ea;--surface:#faf8f5;--border:#e8e0d4;--accent:#8a7055;--dark:#2c2419;--text:#1a1510;--mid:#7a6e62;--light:#a89e90;--ok:#6b8f6b;--warn:#9a7a40;--err:#8f5a5a}
+body{font-family:'Jost',sans-serif;background:var(--bg);color:var(--text);height:100vh;overflow:hidden;display:flex;flex-direction:column}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:#d4c9b8;border-radius:2px}
+.serif{font-family:'Cormorant Garamond',serif}
+
+/* AUTH */
+#auth{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:100;padding:24px}
+.auth-box{width:100%;max-width:420px;background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:48px 44px;box-shadow:0 2px 24px rgba(44,36,25,.07)}
+.auth-logo{font-size:11px;letter-spacing:6px;color:#c4a882;margin-bottom:16px}
+.auth-title{font-size:36px;font-weight:300;color:var(--text);margin-bottom:6px}
+.auth-sub{font-size:13px;color:var(--light);margin-bottom:36px}
+.auth-tabs{display:flex;background:var(--bg);border:1px solid var(--border);border-radius:3px;padding:3px;margin-bottom:28px}
+.auth-tab{flex:1;padding:7px;border:none;background:none;border-radius:2px;cursor:pointer;font-size:12px;letter-spacing:.5px;font-family:'Jost',sans-serif;color:var(--light);transition:all .2s}
+.auth-tab.active{background:var(--dark);color:var(--bg)}
+.field-label{font-size:11px;letter-spacing:1px;color:var(--light);margin-bottom:6px}
+.field-input{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:3px;padding:12px 16px;color:var(--text);font-size:14px;font-family:'Jost',sans-serif;margin-bottom:16px;transition:border-color .2s;outline:none}
+.field-input:focus{border-color:var(--accent)}
+.btn-primary{width:100%;background:var(--dark);border:none;color:var(--bg);padding:13px;border-radius:3px;font-size:12px;font-weight:500;letter-spacing:1px;font-family:'Jost',sans-serif;cursor:pointer;transition:all .2s;margin-top:4px}
+.btn-primary:hover{background:var(--accent)}
+
+/* NAV */
+nav{height:60px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 28px;gap:28px;flex-shrink:0;box-shadow:0 1px 8px rgba(44,36,25,.04)}
+.logo{font-size:21px;font-weight:400;letter-spacing:4px;color:var(--dark)}
+.nav-divider{width:1px;height:20px;background:var(--border)}
+.nav-links{display:flex;gap:3px}
+.nav-link{background:none;border:none;color:var(--light);padding:6px 14px;border-radius:3px;cursor:pointer;font-size:13px;font-family:'Jost',sans-serif;transition:all .2s}
+.nav-link:hover,.nav-link.active{background:var(--bg);border:1px solid var(--border);color:var(--text);margin:-1px}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.btn-ghost{background:none;border:1px solid var(--border);color:var(--accent);padding:7px 16px;border-radius:3px;cursor:pointer;font-size:12px;letter-spacing:.8px;font-family:'Jost',sans-serif;transition:all .2s}
+.btn-ghost:hover{border-color:var(--accent);background:var(--surface)}
+.btn-admin{background:none;border:1px solid var(--border);color:var(--light);padding:7px 16px;border-radius:3px;cursor:pointer;font-size:12px;letter-spacing:.8px;font-family:'Jost',sans-serif;transition:all .2s}
+.btn-admin:hover{color:var(--accent);border-color:var(--accent)}
+.avatar{width:34px;height:34px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;cursor:pointer;letter-spacing:1px}
+
+/* LAYOUT */
+.app{flex:1;display:flex;overflow:hidden}
+
+/* SIDEBAR */
+.sidebar{width:268px;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;flex-shrink:0}
+.sidebar-head{padding:18px 20px 12px}
+.sidebar-label{font-size:10px;letter-spacing:3px;color:var(--light);margin-bottom:12px}
+.search{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:3px;padding:8px 12px;color:var(--text);font-size:13px;font-family:'Jost',sans-serif;outline:none;transition:border-color .2s}
+.search:focus{border-color:var(--accent)}
+.clients{flex:1;overflow-y:auto}
+.client-item{padding:13px 20px;cursor:pointer;border-left:2px solid transparent;transition:all .15s}
+.client-item:hover{background:#ede8e0}
+.client-item.active{background:var(--bg);border-left-color:var(--accent)}
+.client-row{display:flex;gap:12px;align-items:center}
+.avatar-sm{width:36px;height:36px;background:var(--bg);border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--accent);flex-shrink:0;position:relative}
+.dot{position:absolute;bottom:0;right:0;width:8px;height:8px;background:#5a7a8f;border-radius:50%;border:1.5px solid var(--surface);animation:pulse 2.5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.client-info{flex:1;min-width:0}
+.client-name{font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:3px}
+.client-preview{font-size:11px;color:var(--light);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.client-time{font-size:10px;color:var(--light);flex-shrink:0}
+.projects{background:var(--bg);padding-bottom:6px}
+.project-item{padding:9px 20px 9px 34px;cursor:pointer;border-left:2px solid transparent;transition:all .15s}
+.project-item:hover{background:#ede8e0}
+.project-item.active{border-left-color:#c4a882}
+.project-name{font-size:12px;color:var(--mid);margin-bottom:5px}
+.project-name.active{color:var(--text)}
+.progress-bar{height:2px;background:var(--border);border-radius:1px;overflow:hidden}
+.progress-fill{height:100%;border-radius:1px;transition:width .6s ease}
+
+/* MAIN */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;background:var(--bg)}
+.main-head{padding:0 28px;height:56px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.main-title{font-size:19px;font-weight:300}
+.main-sub{font-size:13px;color:var(--mid)}
+.tabs{display:flex;background:var(--bg);border:1px solid var(--border);border-radius:3px;padding:3px}
+.tab{padding:5px 18px;border:none;background:none;color:var(--light);border-radius:2px;cursor:pointer;font-size:12px;font-family:'Jost',sans-serif;letter-spacing:.5px;transition:all .2s}
+.tab.active{background:var(--dark);color:var(--bg)}
+
+/* CHAT */
+.messages{flex:1;overflow-y:auto;padding:22px 28px 8px}
+.msg{display:flex;margin-bottom:14px;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.msg.right{justify-content:flex-end}
+.msg-avatar{width:28px;height:28px;background:var(--surface);border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--accent);margin-right:10px;flex-shrink:0;align-self:flex-end}
+.bubble{max-width:60%;padding:11px 16px;border-radius:3px 14px 14px 14px;background:var(--surface);border:1px solid var(--border);box-shadow:0 1px 4px rgba(44,36,25,.04)}
+.bubble.mine{border-radius:14px 3px 14px 14px;background:#eef4ee;border-color:#d0e4d0}
+.bubble-text{font-size:14px;line-height:1.65;color:var(--text)}
+.bubble-time{font-size:10px;color:var(--light);text-align:right;margin-top:5px}
+.bubble-img{background:var(--bg);border:1px solid var(--border);border-radius:3px;padding:9px 12px;margin-bottom:6px;display:flex;align-items:center;gap:8px;font-size:12px;color:var(--accent)}
+.chat-input{padding:12px 28px 20px;border-top:1px solid var(--border);background:var(--surface);flex-shrink:0}
+.input-row{display:flex;gap:8px;align-items:center}
+.btn-attach{width:38px;height:38px;background:var(--bg);border:1px solid var(--border);border-radius:3px;cursor:pointer;font-size:15px;transition:all .2s;flex-shrink:0}
+.btn-attach:hover{border-color:var(--accent)}
+.msg-input{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:3px;padding:10px 16px;color:var(--text);font-size:14px;font-family:'Jost',sans-serif;outline:none;transition:border-color .2s}
+.msg-input:focus{border-color:var(--accent)}
+.btn-send{width:38px;height:38px;background:var(--accent);border:none;color:#fff;border-radius:3px;cursor:pointer;font-size:17px;transition:all .2s;flex-shrink:0}
+.btn-send:hover{background:var(--dark);transform:scale(1.05)}
+
+/* TZ */
+.tz-panel{flex:1;overflow-y:auto;padding:22px 28px}
+.tz-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:22px}
+.tz-title{font-size:23px;font-weight:300}
+.tz-sub{font-size:12px;color:var(--light);margin-top:3px}
+.badges{display:flex;gap:8px}
+.badge{font-size:11px;padding:4px 12px;border-radius:20px;border:1px solid}
+.badge.ok{color:var(--ok);background:#f0f5f0;border-color:#c8ddc8}
+.badge.err{color:var(--err);background:#fdf2f2;border-color:#e8c8c8}
+.tz-row{display:flex;align-items:center;justify-content:space-between;padding:15px 18px;background:var(--surface);border:1px solid var(--border);border-radius:3px;margin-bottom:8px;cursor:pointer;transition:background .15s;border-left:3px solid}
+.tz-row:hover{background:#ede8e0}
+.tz-key{font-size:10px;letter-spacing:1.5px;color:var(--light);margin-bottom:5px}
+.tz-val{font-size:14px;color:var(--text)}
+.tz-val.missing{color:var(--err)}
+.tz-status{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;border:1px solid}
+.btn-add{margin-top:8px;width:100%;background:none;border:1.5px dashed var(--border);color:var(--light);padding:13px;border-radius:3px;cursor:pointer;font-size:12px;letter-spacing:.8px;font-family:'Jost',sans-serif;transition:all .2s}
+.btn-add:hover{border-color:var(--accent);color:var(--accent)}
+
+/* AI PANEL */
+.ai-panel{width:272px;background:var(--surface);border-left:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;flex-shrink:0}
+.ai-head{padding:0 16px;height:56px;border-bottom:1px solid var(--border);display:flex;align-items:center}
+.ai-tabs{flex:1;display:flex;background:var(--bg);border:1px solid var(--border);border-radius:3px;padding:3px}
+.ai-tab{flex:1;padding:5px 0;border:none;background:none;color:var(--light);border-radius:2px;cursor:pointer;font-size:11px;font-family:'Jost',sans-serif;letter-spacing:.5px;transition:all .2s}
+.ai-tab.active{background:var(--dark);color:var(--bg)}
+.ai-body{flex:1;overflow-y:auto;padding:14px 16px}
+.ai-status{display:flex;align-items:center;gap:7px;margin-bottom:14px}
+.ai-dot{width:6px;height:6px;background:var(--ok);border-radius:50%;animation:pulse 2.5s infinite}
+.ai-label{font-size:10px;color:var(--light);letter-spacing:1.5px}
+.hint{background:var(--bg);border:1px solid var(--border);border-radius:3px;padding:12px 14px;margin-bottom:8px;transition:transform .15s}
+.hint:hover{transform:translateX(2px)}
+.hint-type{font-size:10px;letter-spacing:1.5px;font-weight:500;margin-bottom:7px}
+.hint-text{font-size:12px;color:var(--mid);line-height:1.6;margin-bottom:0}
+.btn-use{margin-top:10px;background:none;border:1px solid var(--border);color:var(--mid);padding:5px 12px;border-radius:3px;cursor:pointer;font-size:11px;letter-spacing:.5px;font-family:'Jost',sans-serif;transition:all .2s}
+.btn-use:hover{background:var(--dark);color:var(--bg);border-color:var(--dark)}
+.profile-card{background:var(--bg);border:1px solid var(--border);border-radius:3px;padding:16px;margin-bottom:12px}
+.profile-title{font-size:10px;letter-spacing:2px;color:var(--light);margin-bottom:16px}
+.profile-row{display:flex;justify-content:space-between;margin-bottom:10px}
+.profile-key{font-size:11px;color:var(--light)}
+.profile-val{font-size:12px;color:var(--text)}
+
+/* ADMIN */
+#admin{display:none;position:fixed;inset:0;background:var(--bg);overflow-y:auto;z-index:50;padding:40px 48px}
+.admin-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:48px}
+.admin-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:36px}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:26px 30px}
+.stat-num{font-size:48px;font-weight:300;color:var(--accent);line-height:1}
+.stat-label{font-size:14px;font-weight:500;margin-top:10px;margin-bottom:3px}
+.stat-sub{font-size:12px;color:var(--light)}
+.admin-table{background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:30px 34px}
+.table-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:24px}
+.table-title{font-size:22px;font-weight:300}
+.user-row{display:flex;align-items:center;justify-content:space-between;padding:15px 10px;border-radius:3px;transition:background .15s;border-bottom:1px solid var(--border)}
+.user-row:last-child{border-bottom:none}
+.user-row:hover{background:#f0ebe2}
+.user-info{display:flex;align-items:center;gap:14px}
+.user-avatar{width:36px;height:36px;background:var(--bg);border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--accent)}
+.user-name{font-size:14px;font-weight:500}
+.user-email{font-size:12px;color:var(--light);margin-top:2px}
+.plan-badge{font-size:12px;padding:5px 14px;border-radius:20px;border:1px solid}
+.plan-manual{color:var(--ok);background:#f0f5f0;border-color:#c8ddc8}
+.plan-paid{color:var(--mid);background:var(--bg);border-color:var(--border)}
+.plan-trial{color:var(--warn);background:#fdf8ee;border-color:#e8d8b0}
+
+/* KUB */
+#kub{display:none;position:fixed;inset:0;background:var(--bg);z-index:50;display:none;align-items:center;justify-content:center;padding:24px}
+.kub-box{width:100%;max-width:560px}
+.kub-logo{font-size:11px;letter-spacing:6px;color:#c4a882;text-align:center;margin-bottom:14px}
+.kub-title{font-size:38px;font-weight:300;text-align:center;margin-bottom:6px}
+.kub-step{font-size:12px;color:var(--light);text-align:center;letter-spacing:1px;margin-bottom:36px}
+.kub-progress{display:flex;gap:6px;justify-content:center;margin-bottom:40px}
+.kub-dot{height:2px;border-radius:1px;transition:all .4s}
+.kub-card{background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:36px 40px;margin-bottom:14px;box-shadow:0 2px 20px rgba(44,36,25,.06)}
+.kub-q-row{display:flex;gap:14px;margin-bottom:26px}
+.kub-icon{width:32px;height:32px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;flex-shrink:0;letter-spacing:1px}
+.kub-q{font-size:18px;font-weight:300;line-height:1.55;margin-bottom:5px}
+.kub-hint{font-size:12px;color:var(--light)}
+.kub-textarea{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:3px;padding:12px 16px;color:var(--text);font-size:14px;resize:none;height:90px;font-family:'Jost',sans-serif;line-height:1.6;outline:none;transition:border-color .2s}
+.kub-textarea:focus{border-color:var(--accent)}
+.kub-upload{border:1.5px dashed var(--border);border-radius:3px;padding:28px 20px;text-align:center;cursor:pointer;transition:border-color .2s}
+.kub-upload:hover{border-color:var(--accent)}
+.kub-upload-icon{font-size:22px;color:#c4a882;margin-bottom:8px}
+.kub-upload-text{font-size:13px;color:var(--mid)}
+.kub-upload-sub{font-size:12px;color:var(--light);margin-top:3px}
+.kub-btns{display:flex;gap:10px}
+.btn-back{flex:1;background:none;border:1px solid var(--border);color:var(--mid);padding:13px;border-radius:3px;cursor:pointer;font-size:12px;letter-spacing:.8px;font-family:'Jost',sans-serif;transition:all .2s}
+.btn-back:hover{border-color:var(--accent);color:var(--accent)}
+.btn-next{flex:2;background:var(--dark);border:none;color:var(--bg);padding:13px;border-radius:3px;cursor:pointer;font-size:12px;font-weight:500;letter-spacing:.8px;font-family:'Jost',sans-serif;transition:all .2s}
+.btn-next:hover{background:var(--accent)}
+
+@media(max-width:768px){
+  .ai-panel{display:none}
+  .sidebar{width:220px}
+}
+@media(max-width:560px){
+  .sidebar{display:none}
+  nav{padding:0 16px}
+  .messages{padding:16px 16px 8px}
+  .chat-input{padding:10px 16px 16px}
+}
+</style>
+</head>
+<body>
+
+<!-- AUTH -->
+<div id="auth">
+  <div class="auth-box">
+    <div class="serif auth-logo">M2 PLATFORM</div>
+    <div class="serif auth-title">Добро пожаловать</div>
+    <div class="auth-sub">Платформа для дизайнеров интерьера</div>
+    <div class="auth-tabs">
+      <button class="auth-tab active" onclick="switchAuthTab('login',this)">ВОЙТИ</button>
+      <button class="auth-tab" onclick="switchAuthTab('register',this)">РЕГИСТРАЦИЯ</button>
+    </div>
+    <div id="login-form">
+      <div class="field-label">EMAIL</div>
+      <input class="field-input" type="email" id="login-email" placeholder="your@email.com">
+      <div class="field-label">ПАРОЛЬ</div>
+      <input class="field-input" type="password" id="login-pass" placeholder="••••••••">
+      <button class="btn-primary" onclick="doLogin()">ВОЙТИ В ПЛАТФОРМУ</button>
+    </div>
+    <div id="register-form" style="display:none">
+      <div class="field-label">ИМЯ</div>
+      <input class="field-input" type="text" placeholder="Как вас зовут?">
+      <div class="field-label">EMAIL</div>
+      <input class="field-input" type="email" placeholder="your@email.com">
+      <div class="field-label">ПАРОЛЬ</div>
+      <input class="field-input" type="password" placeholder="••••••••">
+      <button class="btn-primary" onclick="doLogin()">СОЗДАТЬ АККАУНТ</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div id="admin">
+  <div style="max-width:940px;margin:0 auto">
+    <div class="admin-head">
+      <div>
+        <div class="serif" style="font-size:11px;letter-spacing:6px;color:#c4a882;margin-bottom:10px">M2 PLATFORM</div>
+        <div class="serif" style="font-size:36px;font-weight:300">Администратор</div>
+      </div>
+      <button class="btn-ghost" onclick="closeAdmin()">← ВЕРНУТЬСЯ</button>
+    </div>
+    <div class="admin-stats">
+      <div class="stat-card"><div class="serif stat-num">3</div><div class="stat-label">Дизайнера</div><div class="stat-sub">активных подписки</div></div>
+      <div class="stat-card"><div class="serif stat-num">12</div><div class="stat-label">Клиентов</div><div class="stat-sub">в базе платформы</div></div>
+      <div class="stat-card"><div class="serif stat-num">18</div><div class="stat-label">Проектов</div><div class="stat-sub">в работе сейчас</div></div>
+    </div>
+    <div class="admin-table">
+      <div class="table-head">
+        <div class="serif table-title">Подписки дизайнеров</div>
+        <button class="btn-next" style="flex:none;padding:9px 22px">+ ДОБАВИТЬ</button>
+      </div>
+      <div class="user-row">
+        <div class="user-info">
+          <div class="user-avatar serif">ЕС</div>
+          <div><div class="user-name">Елена Смирнова</div><div class="user-email">elena@design.ru</div></div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center">
+          <span class="plan-badge plan-paid">Pro · 2 990 ₽/мес</span>
+          <button class="btn-back" style="flex:none;padding:5px 14px">Изменить</button>
+        </div>
+      </div>
+      <div class="user-row">
+        <div class="user-info">
+          <div class="user-avatar serif">СФ</div>
+          <div><div class="user-name">Студия Форма</div><div class="user-email">forma@studio.ru</div></div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center">
+          <span class="plan-badge plan-manual">Безлимит · вручную</span>
+          <button class="btn-back" style="flex:none;padding:5px 14px">Изменить</button>
+        </div>
+      </div>
+      <div class="user-row">
+        <div class="user-info">
+          <div class="user-avatar serif">ИП</div>
+          <div><div class="user-name">Иван Петров</div><div class="user-email">ivan@mail.ru</div></div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center">
+          <span class="plan-badge plan-trial">Пробный · 14 дней</span>
+          <button class="btn-back" style="flex:none;padding:5px 14px">Изменить</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- KUB -->
+<div id="kub" style="display:none">
+  <div class="kub-box">
+    <div class="serif kub-logo">M2 PLATFORM</div>
+    <div class="serif kub-title">Знакомство</div>
+    <div class="kub-step" id="kub-step-label">шаг 1 из 4</div>
+    <div class="kub-progress" id="kub-progress"></div>
+    <div class="kub-card">
+      <div class="kub-q-row">
+        <div class="kub-icon serif">M2</div>
+        <div>
+          <div class="serif kub-q" id="kub-q"></div>
+          <div class="kub-hint" id="kub-hint"></div>
+        </div>
+      </div>
+      <div id="kub-input-area"></div>
+    </div>
+    <div class="kub-btns">
+      <button class="btn-back" id="kub-back" onclick="kubPrev()" style="display:none">НАЗАД</button>
+      <button class="btn-next" id="kub-next" onclick="kubNext()">ДАЛЕЕ</button>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="app" style="display:none;flex-direction:column;height:100vh">
+  <nav>
+    <div class="serif logo">M2</div>
+    <div class="nav-divider"></div>
+    <div class="nav-links">
+      <button class="nav-link active">Проекты</button>
+      <button class="nav-link">Аналитика</button>
+      <button class="nav-link">Настройки</button>
+    </div>
+    <div class="nav-right">
+      <button class="btn-ghost" onclick="openKub()">+ НОВЫЙ КЛИЕНТ</button>
+      <button class="btn-admin" id="admin-btn" style="display:none" onclick="openAdmin()">⚙ ADMIN</button>
+      <div class="avatar serif" id="user-avatar">МЛ</div>
+    </div>
+  </nav>
+  <div class="app">
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="sidebar-head">
+        <div class="serif sidebar-label">КЛИЕНТЫ</div>
+        <input class="search" placeholder="Поиск...">
+      </div>
+      <div class="clients" id="clients-list"></div>
+    </div>
+    <!-- MAIN PANEL -->
+    <div class="main">
+      <div class="main-head">
+        <div>
+          <span class="serif main-title" id="client-name">Надежда Бейнер</span>
+          <span style="color:var(--border);margin:0 10px">·</span>
+          <span class="main-sub" id="project-name">Квартира 3к · Москва</span>
+        </div>
+        <div class="tabs">
+          <button class="tab active" onclick="switchTab('chat',this)">Чат</button>
+          <button class="tab" onclick="switchTab('tz',this)">Техзадание</button>
+        </div>
+      </div>
+      <!-- CHAT -->
+      <div id="chat-panel" style="display:flex;flex-direction:column;flex:1;overflow:hidden">
+        <div class="messages" id="messages"></div>
+        <div class="chat-input">
+          <div class="input-row">
+            <button class="btn-attach">📎</button>
+            <button class="btn-attach">🖼</button>
+            <input class="msg-input" id="msg-input" placeholder="Напишите клиенту..." onkeydown="if(event.key==='Enter')sendMsg()">
+            <button class="btn-send" onclick="sendMsg()">↑</button>
+          </div>
+        </div>
+      </div>
+      <!-- TZ -->
+      <div id="tz-panel" style="display:none;flex:1;overflow-y:auto">
+        <div class="tz-panel">
+          <div class="tz-header">
+            <div>
+              <div class="serif tz-title">Техническое задание</div>
+              <div class="tz-sub">Формируется автоматически из диалога</div>
+            </div>
+            <div class="badges">
+              <span class="badge ok">4 подтверждено</span>
+              <span class="badge err">1 отсутствует</span>
+            </div>
+          </div>
+          <div id="tz-list"></div>
+          <button class="btn-add">+ ДОБАВИТЬ РАЗДЕЛ</button>
+        </div>
+      </div>
+    </div>
+    <!-- AI PANEL -->
+    <div class="ai-panel">
+      <div class="ai-head">
+        <div class="ai-tabs">
+          <button class="ai-tab active" onclick="switchAiTab('ai',this)">ИИ-советник</button>
+          <button class="ai-tab" onclick="switchAiTab('profile',this)">Профиль</button>
+        </div>
+      </div>
+      <div class="ai-body" id="ai-body"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const CLIENTS=[
+  {id:1,name:"Надежда Бейнер",av:"НБ",status:"active",preview:"Нравится столешница и простота",time:"10:09",
+   projects:[{id:1,name:"Квартира 3к · Москва",stage:"Анкета заполнена",progress:65},{id:2,name:"Офис на Тверской",stage:"ТЗ согласовано",progress:90}]},
+  {id:2,name:"Дмитрий Неронов",av:"ДН",status:"new",preview:"Добрый день! Рад начать работу",time:"вчера",
+   projects:[{id:3,name:"Квартира · Владимир",stage:"Чат активен",progress:30}]},
+  {id:3,name:"Анна Козлова",av:"АК",status:"done",preview:"Спасибо, всё отлично получилось!",time:"пн",
+   projects:[{id:4,name:"Загородный дом",stage:"Завершён",progress:100}]}
+];
+const MSGS=[
+  {from:"client",text:"Добрый день! Очень рада начать работу с вами.",time:"10:02"},
+  {from:"designer",text:"Добрый день, Надежда! Изучила вашу анкету — у вас очень чёткое видение. Есть несколько вопросов.",time:"10:04"},
+  {from:"client",text:"Конечно, спрашивайте!",time:"10:04"},
+  {from:"client",text:"Вот референс кухни который мне очень нравится",time:"10:06",img:"kitchen_reference.jpg"},
+  {from:"designer",text:"Прекрасный выбор. Светлые фасады, минимум декора. Что привлекает больше — цвет или форма?",time:"10:07"},
+  {from:"client",text:"Больше всего нравится столешница и общее ощущение лёгкости.",time:"10:09"}
+];
+const TZ=[
+  {k:"ОСНОВНОЙ СТИЛЬ",v:"Скандинавский минимализм",s:"ok"},
+  {k:"КУХНЯ · ФАСАДЫ",v:"Белый МДФ, без ручек",s:"ok"},
+  {k:"НАПОЛЬНОЕ ПОКРЫТИЕ",v:"Паркетная доска, светлая",s:"ok"},
+  {k:"ОСВЕЩЕНИЕ",v:"Споты + декоративные подвесы",s:"ok"},
+  {k:"СТОЛЕШНИЦА",v:"Уточняется в диалоге",s:"pending"},
+  {k:"БЮДЖЕТ КУХНИ",v:"Не указан",s:"missing"}
+];
+const HINTS=[
+  {type:"ПРОТИВОРЕЧИЕ",text:"В анкете выбраны классические карнизы, но референсы — чистый минимализм. Уточните.",p:"high"},
+  {type:"СПРОСИТЬ",text:"Бюджет кухонного гарнитура не обсуждался. Хороший момент.",p:"high",btn:true},
+  {type:"ИНСАЙТ",text:"Клиент дважды сказал «лёгкость» — скандинавский стиль предпочтительнее классики.",p:"med"},
+  {type:"ДЕЙСТВИЕ",text:"Отправьте референс столешниц на согласование — тема открыта.",p:"low"}
+];
+const PROFILE=[["Стиль","Скандинавский"],["Бюджет","Средний"],["Объект","3к · Москва"],["Семья","2 + ребёнок"],["Фокус","Свет и хранение"]];
+const KUB_Q=[
+  {q:"Как вас зовут и как к вам обращаться?",h:"Имя и удобное обращение",t:"text"},
+  {q:"Расскажите об объекте — квартира, дом или коммерческое помещение?",h:"Тип и примерная площадь",t:"text"},
+  {q:"Если бы у вас была волшебная палочка — как выглядел бы идеальный результат?",h:"Опишите своими словами, без ограничений",t:"area"},
+  {q:"Есть ли интерьеры которые вам нравятся? Пришлите фото или референсы.",h:"Минимум 2–3 изображения",t:"file"}
+];
+
+let msgs=[...MSGS],activeClient=0,activeProject=0,kubStep=0,isAdmin=true,aiTab="ai";
+
+function sc(id){return document.getElementById(id)}
+
+function doLogin(){
+  sc('auth').style.display='none';
+  sc('app').style.display='flex';
+  if(isAdmin)sc('admin-btn').style.display='block';
+  renderClients();renderMsgs();renderTZ();renderAI();
+}
+
+function switchAuthTab(t,el){
+  document.querySelectorAll('.auth-tab').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  sc('login-form').style.display=t==='login'?'block':'none';
+  sc('register-form').style.display=t==='register'?'block':'none';
+}
+
+function openAdmin(){sc('admin').style.display='block'}
+function closeAdmin(){sc('admin').style.display='none'}
+
+function openKub(){sc('kub').style.display='flex';kubStep=0;renderKub()}
+function closeKub(){sc('kub').style.display='none'}
+
+function renderKub(){
+  const q=KUB_Q[kubStep];
+  sc('kub-step-label').textContent=`шаг ${kubStep+1} из ${KUB_Q.length}`;
+  sc('kub-q').textContent=q.q;
+  sc('kub-hint').textContent=q.h;
+  sc('kub-back').style.display=kubStep>0?'block':'none';
+  sc('kub-next').textContent=kubStep<KUB_Q.length-1?'ДАЛЕЕ':'ЗАВЕРШИТЬ';
+  const prog=sc('kub-progress');
+  prog.innerHTML=KUB_Q.map((_,i)=>`<div class="kub-dot" style="width:${i===kubStep?40:18}px;background:${i<kubStep?'var(--ok)':i===kubStep?'var(--accent)':'var(--border)'}"></div>`).join('');
+  const area=sc('kub-input-area');
+  if(q.t==='file'){
+    area.innerHTML=`<div class="kub-upload"><div class="kub-upload-icon">↑</div><div class="kub-upload-text">Перетащите файлы или нажмите для загрузки</div><div class="kub-upload-sub">JPG, PNG · до 20 МБ</div></div>`;
+  }else if(q.t==='area'){
+    area.innerHTML=`<textarea class="kub-textarea" placeholder="Опишите своими словами..."></textarea>`;
+  }else{
+    area.innerHTML=`<input class="field-input" style="margin-bottom:0" placeholder="Введите ответ...">`;
+  }
+}
+function kubNext(){if(kubStep<KUB_Q.length-1){kubStep++;renderKub();}else closeKub();}
+function kubPrev(){if(kubStep>0){kubStep--;renderKub();}}
+
+function renderClients(){
+  const el=sc('clients-list');
+  el.innerHTML=CLIENTS.map((c,ci)=>`
+    <div class="client-item${ci===activeClient?' active':''}" onclick="selectClient(${ci})">
+      <div class="client-row">
+        <div class="avatar-sm serif">${c.av}${c.status==='new'?'<div class="dot"></div>':''}</div>
+        <div class="client-info">
+          <div class="client-name">${c.name}</div>
+          <div class="client-preview">${c.preview}</div>
+        </div>
+        <div class="client-time">${c.time}</div>
+      </div>
+    </div>
+    ${ci===activeClient?`<div class="projects">${c.projects.map((p,pi)=>`
+      <div class="project-item${pi===activeProject?' active':''}" onclick="selectProject(${ci},${pi})">
+        <div class="project-name${pi===activeProject?' active':''}">${p.name}</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:${p.progress}%;background:${p.progress===100?'var(--ok)':'#c4a882'}"></div></div>
+      </div>`).join('')}</div>`:''}
+  `).join('');
+}
+
+function selectClient(i){activeClient=i;activeProject=0;sc('client-name').textContent=CLIENTS[i].name;sc('project-name').textContent=CLIENTS[i].projects[0].name;renderClients();}
+function selectProject(ci,pi){activeClient=ci;activeProject=pi;sc('client-name').textContent=CLIENTS[ci].name;sc('project-name').textContent=CLIENTS[ci].projects[pi].name;renderClients();}
+
+function renderMsgs(){
+  const el=sc('messages');
+  el.innerHTML=msgs.map(m=>`
+    <div class="msg${m.from==='designer'?' right':''}">
+      ${m.from==='client'?`<div class="msg-avatar serif">${CLIENTS[activeClient].av}</div>`:''}
+      <div class="bubble${m.from==='designer'?' mine':''}">
+        ${m.img?`<div class="bubble-img">🖼 ${m.img}</div>`:''}
+        <div class="bubble-text">${m.text}</div>
+        <div class="bubble-time">${m.time}</div>
+      </div>
+    </div>`).join('');
+  el.scrollTop=el.scrollHeight;
+}
+
+function sendMsg(){
+  const inp=sc('msg-input');
+  if(!inp.value.trim())return;
+  msgs.push({from:'designer',text:inp.value,time:'сейчас'});
+  inp.value='';renderMsgs();
+}
+
+function renderTZ(){
+  sc('tz-list').innerHTML=TZ.map(t=>{
+    const c=t.s==='ok'?'var(--ok)':t.s==='pending'?'var(--warn)':'var(--err)';
+    const ic=t.s==='ok'?'✓':t.s==='pending'?'·':'!';
+    return`<div class="tz-row" style="border-left-color:${c}">
+      <div><div class="tz-key">${t.k}</div><div class="tz-val${t.s==='missing'?' missing':''}">${t.v}</div></div>
+      <div class="tz-status" style="color:${c};border-color:${c};background:${t.s==='ok'?'#f0f5f0':t.s==='pending'?'#fdf8ee':'#fdf2f2'}">${ic}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderAI(){
+  const el=sc('ai-body');
+  if(aiTab==='ai'){
+    el.innerHTML=`<div class="ai-status"><div class="ai-dot"></div><span class="ai-label">АНАЛИЗИРУЕТ ДИАЛОГ</span></div>`+
+    HINTS.map(h=>`<div class="hint" style="border-left:2.5px solid ${h.p==='high'?'var(--err)':h.p==='med'?'var(--warn)':'var(--light)'}">
+      <div class="hint-type" style="color:${h.p==='high'?'var(--err)':h.p==='med'?'var(--warn)':'var(--light)'}">${h.type}</div>
+      <div class="hint-text">${h.text}</div>
+      ${h.btn?`<button class="btn-use">ИСПОЛЬЗОВАТЬ →</button>`:''}
+    </div>`).join('');
+  }else{
+    el.innerHTML=`<div class="profile-card"><div class="profile-title">ПРОФИЛЬ КЛИЕНТА</div>${PROFILE.map(([k,v])=>`<div class="profile-row"><span class="profile-key">${k}</span><span class="profile-val">${v}</span></div>`).join('')}</div>
+    <div class="profile-card"><div class="profile-title">РЕФЕРЕНСЫ</div>
+    ${['kitchen_reference.jpg','living_room_02.jpg'].map(f=>`<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px"><div style="width:36px;height:28px;background:var(--bg);border:1px solid var(--border);border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:13px">🖼</div><span style="font-size:11px;color:var(--mid)">${f}</span></div>`).join('')}</div>`;
+  }
+}
+
+function switchTab(t,el){
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  sc('chat-panel').style.display=t==='chat'?'flex':'none';
+  sc('tz-panel').style.display=t==='tz'?'block':'none';
+}
+
+function switchAiTab(t,el){
+  document.querySelectorAll('.ai-tab').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  aiTab=t;renderAI();
+}
+</script>
+</body>
+</html>
