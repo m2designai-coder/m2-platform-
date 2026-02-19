@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>M2 Platform</title>
+<title>М²</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--bg:#f5f0ea;--surface:#faf8f5;--border:#e8e0d4;--accent:#8a7055;--dark:#2c2419;--text:#1a1510;--mid:#7a6e62;--light:#a89e90;--ok:#6b8f6b;--warn:#9a7a40;--err:#8f5a5a}
@@ -206,7 +207,7 @@ nav{height:60px;background:var(--surface);border-bottom:1px solid var(--border);
 <!-- AUTH -->
 <div id="auth">
   <div class="auth-box">
-    <div class="serif auth-logo">M2 PLATFORM</div>
+    <div class="serif auth-logo">М²</div>
     <div class="serif auth-title">Добро пожаловать</div>
     <div class="auth-sub">Платформа для дизайнеров интерьера</div>
     <div class="auth-tabs">
@@ -222,12 +223,12 @@ nav{height:60px;background:var(--surface);border-bottom:1px solid var(--border);
     </div>
     <div id="register-form" style="display:none">
       <div class="field-label">ИМЯ</div>
-      <input class="field-input" type="text" placeholder="Как вас зовут?">
+      <input class="field-input" type="text" id="reg-name" placeholder="Как вас зовут?">
       <div class="field-label">EMAIL</div>
-      <input class="field-input" type="email" placeholder="your@email.com">
+      <input class="field-input" type="email" id="reg-email" placeholder="your@email.com">
       <div class="field-label">ПАРОЛЬ</div>
-      <input class="field-input" type="password" placeholder="••••••••">
-      <button class="btn-primary" onclick="doLogin()">СОЗДАТЬ АККАУНТ</button>
+      <input class="field-input" type="password" id="reg-pass" placeholder="••••••••">
+      <button class="btn-primary" onclick="doRegister()">СОЗДАТЬ АККАУНТ</button>
     </div>
   </div>
 </div>
@@ -237,7 +238,7 @@ nav{height:60px;background:var(--surface);border-bottom:1px solid var(--border);
   <div style="max-width:940px;margin:0 auto">
     <div class="admin-head">
       <div>
-        <div class="serif" style="font-size:11px;letter-spacing:6px;color:#c4a882;margin-bottom:10px">M2 PLATFORM</div>
+        <div class="serif" style="font-size:11px;letter-spacing:6px;color:#c4a882;margin-bottom:10px">М²</div>
         <div class="serif" style="font-size:36px;font-weight:300">Администратор</div>
       </div>
       <button class="btn-ghost" onclick="closeAdmin()">← ВЕРНУТЬСЯ</button>
@@ -255,7 +256,7 @@ nav{height:60px;background:var(--surface);border-bottom:1px solid var(--border);
       <div class="user-row">
         <div class="user-info">
           <div class="user-avatar serif">ЕС</div>
-          <div><div class="user-name">Елена Смирнова</div><div class="user-email">elena@design.ru</div></div>
+          <div><div class="user-name">Елена Смирнова</div><div class="user-email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="caafa6afa4ab8aaeafb9a3ada4e4b8bf">[email&#160;protected]</a></div></div>
         </div>
         <div style="display:flex;gap:10px;align-items:center">
           <span class="plan-badge plan-paid">Pro · 2 990 ₽/мес</span>
@@ -265,7 +266,7 @@ nav{height:60px;background:var(--surface);border-bottom:1px solid var(--border);
       <div class="user-row">
         <div class="user-info">
           <div class="user-avatar serif">СФ</div>
-          <div><div class="user-name">Студия Форма</div><div class="user-email">forma@studio.ru</div></div>
+          <div><div class="user-name">Студия Форма</div><div class="user-email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b2d4ddc0dfd3f2c1c6c7d6dbdd9cc0c7">[email&#160;protected]</a></div></div>
         </div>
         <div style="display:flex;gap:10px;align-items:center">
           <span class="plan-badge plan-manual">Безлимит · вручную</span>
@@ -275,7 +276,7 @@ nav{height:60px;background:var(--surface);border-bottom:1px solid var(--border);
       <div class="user-row">
         <div class="user-info">
           <div class="user-avatar serif">ИП</div>
-          <div><div class="user-name">Иван Петров</div><div class="user-email">ivan@mail.ru</div></div>
+          <div><div class="user-name">Иван Петров</div><div class="user-email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f29b84939cb29f939b9edc8087">[email&#160;protected]</a></div></div>
         </div>
         <div style="display:flex;gap:10px;align-items:center">
           <span class="plan-badge plan-trial">Пробный · 14 дней</span>
@@ -289,13 +290,13 @@ nav{height:60px;background:var(--surface);border-bottom:1px solid var(--border);
 <!-- KUB -->
 <div id="kub" style="display:none">
   <div class="kub-box">
-    <div class="serif kub-logo">M2 PLATFORM</div>
+    <div class="serif kub-logo">М²</div>
     <div class="serif kub-title">Знакомство</div>
     <div class="kub-step" id="kub-step-label">шаг 1 из 4</div>
     <div class="kub-progress" id="kub-progress"></div>
     <div class="kub-card">
       <div class="kub-q-row">
-        <div class="kub-icon serif">M2</div>
+        <div class="kub-icon serif">М²</div>
         <div>
           <div class="serif kub-q" id="kub-q"></div>
           <div class="kub-hint" id="kub-hint"></div>
@@ -313,7 +314,7 @@ nav{height:60px;background:var(--surface);border-bottom:1px solid var(--border);
 <!-- MAIN APP -->
 <div id="app" style="display:none;flex-direction:column;height:100vh">
   <nav>
-    <div class="serif logo">M2</div>
+    <div class="serif logo">М²</div>
     <div class="nav-divider"></div>
     <div class="nav-links">
       <button class="nav-link active">Проекты</button>
@@ -391,7 +392,7 @@ nav{height:60px;background:var(--surface);border-bottom:1px solid var(--border);
   </div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 const CLIENTS=[
   {id:1,name:"Надежда Бейнер",av:"НБ",status:"active",preview:"Нравится столешница и простота",time:"10:09",
    projects:[{id:1,name:"Квартира 3к · Москва",stage:"Анкета заполнена",progress:65},{id:2,name:"Офис на Тверской",stage:"ТЗ согласовано",progress:90}]},
@@ -434,12 +435,50 @@ let msgs=[...MSGS],activeClient=0,activeProject=0,kubStep=0,isAdmin=true,aiTab="
 
 function sc(id){return document.getElementById(id)}
 
-function doLogin(){
+const SUPABASE_URL='https://tuylrxfqtfyfprebelnf.supabase.co';
+const SUPABASE_KEY='sb_publishable_Oq_deUEt1W75ONTA_rwFTzuJwBzCDHGbGi';
+const ADMIN_EMAIL='m2designai@gmail.com';
+const sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+
+function showAuthMsg(msg,isErr){
+  let el=sc('auth-msg');
+  if(!el){el=document.createElement('div');el.id='auth-msg';el.style.cssText='font-size:13px;margin-top:12px;text-align:center;padding:8px;border-radius:3px';sc('auth').querySelector('.auth-box').appendChild(el);}
+  el.style.color=isErr?'var(--err)':'var(--ok)';
+  el.style.background=isErr?'#fdf2f2':'#f0f5f0';
+  el.textContent=msg;
+}
+
+async function doLogin(){
+  const email=sc('login-email').value.trim();
+  const pass=sc('login-pass').value.trim();
+  if(!email||!pass){showAuthMsg('Введите email и пароль',true);return;}
+  showAuthMsg('Входим...',false);
+  const {data,error}=await sb.auth.signInWithPassword({email,password:pass});
+  if(error){showAuthMsg('Неверный email или пароль',true);return;}
+  initApp(data.user);
+}
+
+async function doRegister(){
+  const email=sc('reg-email').value.trim();
+  const pass=sc('reg-pass').value.trim();
+  const name=sc('reg-name').value.trim();
+  if(!email||!pass||!name){showAuthMsg('Заполните все поля',true);return;}
+  showAuthMsg('Создаём аккаунт...',false);
+  const {data,error}=await sb.auth.signUp({email,password:pass,options:{data:{name}}});
+  if(error){showAuthMsg(error.message,true);return;}
+  showAuthMsg('Готово! Проверьте email для подтверждения',false);
+}
+
+function initApp(user){
+  isAdmin=user.email===ADMIN_EMAIL;
   sc('auth').style.display='none';
   sc('app').style.display='flex';
   if(isAdmin)sc('admin-btn').style.display='block';
+  sc('user-avatar').textContent=user.email.slice(0,2).toUpperCase();
   renderClients();renderMsgs();renderTZ();renderAI();
 }
+
+sb.auth.getSession().then(({data:{session}})=>{if(session)initApp(session.user);});
 
 function switchAuthTab(t,el){
   document.querySelectorAll('.auth-tab').forEach(b=>b.classList.remove('active'));
@@ -543,22 +582,4 @@ function renderAI(){
   }else{
     el.innerHTML=`<div class="profile-card"><div class="profile-title">ПРОФИЛЬ КЛИЕНТА</div>${PROFILE.map(([k,v])=>`<div class="profile-row"><span class="profile-key">${k}</span><span class="profile-val">${v}</span></div>`).join('')}</div>
     <div class="profile-card"><div class="profile-title">РЕФЕРЕНСЫ</div>
-    ${['kitchen_reference.jpg','living_room_02.jpg'].map(f=>`<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px"><div style="width:36px;height:28px;background:var(--bg);border:1px solid var(--border);border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:13px">🖼</div><span style="font-size:11px;color:var(--mid)">${f}</span></div>`).join('')}</div>`;
-  }
-}
-
-function switchTab(t,el){
-  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
-  el.classList.add('active');
-  sc('chat-panel').style.display=t==='chat'?'flex':'none';
-  sc('tz-panel').style.display=t==='tz'?'block':'none';
-}
-
-function switchAiTab(t,el){
-  document.querySelectorAll('.ai-tab').forEach(b=>b.classList.remove('active'));
-  el.classList.add('active');
-  aiTab=t;renderAI();
-}
-</script>
-</body>
-</html>
+    ${['kitchen_reference.jpg','living_room_02.jpg'].map(f=>`<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px"><div style="width:36px;height:28px;background:var(--bg);border:1px solid var(--border);border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:13px">🖼</div><span style="font-size:11px;color:var(--mid)">${f}</span></div>`).join(''
