@@ -279,41 +279,43 @@ function renderKub() {
   }
 }
 
+function bind(id, ev, fn) { var el = g(id); if (el) el.addEventListener(ev, fn); }
+
 document.addEventListener('DOMContentLoaded', function() {
-  g('tab-login').addEventListener('click', showLogin);
-  g('tab-reg').addEventListener('click', showRegister);
-  g('btn-login').addEventListener('click', doLogin);
-  g('btn-reg').addEventListener('click', doRegister);
-  g('login-pass').addEventListener('keydown', function(e) { if (e.key === 'Enter') doLogin(); });
-  g('btn-send').addEventListener('click', sendMsg);
-  g('msg-input').addEventListener('keydown', function(e) { if (e.key === 'Enter') sendMsg(); });
-  g('tab-chat').addEventListener('click', function() {
+  bind('tab-login', 'click', showLogin);
+  bind('tab-reg', 'click', showRegister);
+  bind('btn-login', 'click', doLogin);
+  bind('btn-reg', 'click', doRegister);
+  bind('login-pass', 'keydown', function(e) { if (e.key === 'Enter') doLogin(); });
+  bind('btn-send', 'click', sendMsg);
+  bind('msg-input', 'keydown', function(e) { if (e.key === 'Enter') sendMsg(); });
+  bind('tab-chat', 'click', function() {
     g('tab-chat').classList.add('active'); g('tab-tz').classList.remove('active');
     g('chat-panel').style.display = 'flex'; g('tz-panel').style.display = 'none';
   });
-  g('tab-tz').addEventListener('click', function() {
+  bind('tab-tz', 'click', function() {
     g('tab-tz').classList.add('active'); g('tab-chat').classList.remove('active');
     g('tz-panel').style.display = 'block'; g('chat-panel').style.display = 'none';
   });
-  g('ai-tab-ai').addEventListener('click', function() {
+  bind('ai-tab-ai', 'click', function() {
     g('ai-tab-ai').classList.add('active'); g('ai-tab-profile').classList.remove('active');
     aiTab = 'ai'; renderAI();
   });
-  g('ai-tab-profile').addEventListener('click', function() {
+  bind('ai-tab-profile', 'click', function() {
     g('ai-tab-profile').classList.add('active'); g('ai-tab-ai').classList.remove('active');
     aiTab = 'profile'; renderAI();
   });
-  g('btn-new-client').addEventListener('click', function() {
+  bind('btn-new-client', 'click', function() {
     g('kub-overlay').style.display = 'flex'; kubStep = 0; renderKub();
   });
-  g('admin-btn').addEventListener('click', function() { g('admin-overlay').style.display = 'block'; });
-  g('btn-close-admin').addEventListener('click', function() { g('admin-overlay').style.display = 'none'; });
-  g('kub-next').addEventListener('click', function() {
+  bind('admin-btn', 'click', function() { g('admin-overlay').style.display = 'block'; });
+  bind('btn-close-admin', 'click', function() { g('admin-overlay').style.display = 'none'; });
+  bind('kub-next', 'click', function() {
     if (kubStep < KUB_Q.length - 1) { kubStep++; renderKub(); }
     else { g('kub-overlay').style.display = 'none'; }
   });
-  g('kub-back').addEventListener('click', function() { if (kubStep > 0) { kubStep--; renderKub(); } });
-  g('btn-logout').addEventListener('click', doLogout);
+  bind('kub-back', 'click', function() { if (kubStep > 0) { kubStep--; renderKub(); } });
+  bind('btn-logout', 'click', doLogout);
 
   // Автовход если сессия сохранена
   try {
