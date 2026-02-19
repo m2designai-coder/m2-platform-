@@ -1,4 +1,6 @@
-// Ключи подключены из config.js
+// Ключи из config.js
+if (typeof JB_KEY === 'undefined') var JB_KEY = '';
+if (typeof JB_BIN === 'undefined') var JB_BIN = '';
 var USERS_CACHE = [
   { email: 'm2.designai@gmail.com', pass: 'M2admin2024', name: 'Максим', role: 'admin' }
 ];
