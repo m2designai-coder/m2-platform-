@@ -1,5 +1,4 @@
-var JB_KEY = '$2a$10$y4yDR/rA8QJYeV.UptkYXugEWaimhhVFXnculizcuHBehhjt3OiEa';
-var JB_BIN = '69972731ae596e708f3795ec';
+// Ключи подключены из config.js
 var USERS_CACHE = [
   { email: 'm2.designai@gmail.com', pass: 'M2admin2024', name: 'Максим', role: 'admin' }
 ];
@@ -319,6 +318,4 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
   } catch(e) {}
-  // Показываем экран входа только если нет сессии
-  g('auth').style.display = 'flex';
 });
