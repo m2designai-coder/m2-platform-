@@ -71,11 +71,17 @@ function jbHeaders() {
 }
 
 function loadUsers(cb) {
-  if (!JB_BIN || JB_KEY === 'ВСТАВЬ_КЛЮЧ_СЮДА') { cb(USERS_CACHE); return; }
+  if (!JB_BIN || !JB_KEY || JB_KEY === 'ВСТАВЬ_КЛЮЧ_JSONBIN_СЮДА') { cb(USERS_CACHE); return; }
+  var done = false;
+  var timer = setTimeout(function() {
+    if (!done) { done = true; cb(USERS_CACHE); }
+  }, 3000);
   fetch('https://api.jsonbin.io/v3/b/' + JB_BIN + '/latest', { headers: jbHeaders() })
     .then(function(r) { return r.json(); })
-    .then(function(d) { if (d.record && d.record.users) USERS_CACHE = d.record.users; cb(USERS_CACHE); })
-    .catch(function() { cb(USERS_CACHE); });
+    .then(function(d) {
+      if (!done) { done = true; clearTimeout(timer); if (d.record && d.record.users) USERS_CACHE = d.record.users; cb(USERS_CACHE); }
+    })
+    .catch(function() { if (!done) { done = true; clearTimeout(timer); cb(USERS_CACHE); } });
 }
 
 function saveUsers(users, cb) {
