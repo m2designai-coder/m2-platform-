@@ -87,7 +87,7 @@ function loadUsers(cb) {
 }
 
 function saveUsers(users, cb) {
-  if (JB_KEY === 'ВСТАВЬ_КЛЮЧ_СЮДА') { if (cb) cb(); return; }
+  if (!JB_KEY || JB_KEY === 'ВСТАВЬ_КЛЮЧ_СЮДА' || JB_KEY === 'ВСТАВЬ_КЛЮЧ_JSONBIN_СЮДА') { if (cb) cb(); return; }
   if (!JB_BIN) {
     fetch('https://api.jsonbin.io/v3/b', {
       method: 'POST',
