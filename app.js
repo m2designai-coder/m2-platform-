@@ -1,6 +1,5 @@
-// Ключи из config.js (если config.js загружен раньше — используем его значения)
-if (typeof JB_KEY === 'undefined') var JB_KEY = '';
-if (typeof JB_BIN === 'undefined') var JB_BIN = '';
+var JB_KEY = '$2a$10$4K59IvvbuUNF.Gw4tLp5yu1VgLzj27Jb.nga/q3xIyk4DTOGC7JMi';
+var JB_BIN = '69972731ae596e708f3795ec';
 var USERS_CACHE = [
   { email: 'm2.designai@gmail.com', pass: 'M2admin2024', name: 'Максим', role: 'admin' }
 ];
