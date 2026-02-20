@@ -147,7 +147,11 @@ function doLogout() {
 }
 
 function initApp(user) {
-  try { localStorage.setItem('m2_user', JSON.stringify(user)); } catch(e) {}
+  console.log('initApp called, user:', user ? user.email : 'null');
+  try { 
+    localStorage.setItem('m2_user', JSON.stringify(user));
+    console.log('saved to localStorage:', localStorage.getItem('m2_user'));
+  } catch(e) { console.log('localStorage error:', e); }
   g('auth').style.display = 'none';
   g('app').style.display = 'flex';
   if (user.role === 'admin') g('admin-btn').style.display = 'block';
