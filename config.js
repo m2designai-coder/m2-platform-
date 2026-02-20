@@ -2,7 +2,7 @@
 // КОНФИГУРАЦИЯ М² — ВСТАВЬ КЛЮЧИ СЮДА
 // ====================================
 
-var JB_KEY = '$2a$10$SlOz0g5Yr87s4Raw65tyheyQgyhMsbpkoNvHEsZhPEAHGSavXJZZa';
+var JB_KEY = '$2a$10$4K59IvvbuUNF.Gw4tLp5yu1VgLzj27Jb.nga/q3xIyk4DTOGC7JMi';
 var JB_BIN = '69972731ae596e708f3795ec';
 
 // ====================================
