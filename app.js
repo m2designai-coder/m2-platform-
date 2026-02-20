@@ -74,17 +74,26 @@ function jbHeaders() {
 }
 
 function loadUsers(cb) {
-  if (!JB_BIN || !JB_KEY || JB_KEY === 'ВСТАВЬ_КЛЮЧ_JSONBIN_СЮДА') { cb(USERS_CACHE); return; }
+  console.log('loadUsers called, JB_KEY exists:', !!JB_KEY, 'JB_BIN:', JB_BIN);
+  if (!JB_BIN || !JB_KEY || JB_KEY === 'ВСТАВЬ_КЛЮЧ_JSONBIN_СЮДА') { 
+    console.log('using local cache');
+    cb(USERS_CACHE); return; 
+  }
   var done = false;
   var timer = setTimeout(function() {
-    if (!done) { done = true; cb(USERS_CACHE); }
-  }, 3000);
+    if (!done) { done = true; console.log('JSONBin timeout - using cache'); cb(USERS_CACHE); }
+  }, 1500);
   fetch('https://api.jsonbin.io/v3/b/' + JB_BIN + '/latest', { headers: jbHeaders() })
-    .then(function(r) { return r.json(); })
+    .then(function(r) { console.log('JSONBin status:', r.status); return r.json(); })
     .then(function(d) {
-      if (!done) { done = true; clearTimeout(timer); if (d.record && d.record.users) USERS_CACHE = d.record.users; cb(USERS_CACHE); }
+      if (!done) { done = true; clearTimeout(timer); 
+        console.log('JSONBin response:', JSON.stringify(d).slice(0,100));
+        if (d.record && d.record.users) USERS_CACHE = d.record.users; 
+        cb(USERS_CACHE); }
     })
-    .catch(function() { if (!done) { done = true; clearTimeout(timer); cb(USERS_CACHE); } });
+    .catch(function(e) { 
+      if (!done) { done = true; clearTimeout(timer); console.log('JSONBin error:', e); cb(USERS_CACHE); } 
+    });
 }
 
 function saveUsers(users, cb) {
