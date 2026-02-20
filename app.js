@@ -152,7 +152,10 @@ function initApp(user) {
   g('app').style.display = 'flex';
   if (user.role === 'admin') g('admin-btn').style.display = 'block';
   g('user-avatar').textContent = user.name.slice(0, 2).toUpperCase();
-  renderClients(); renderMsgs(); renderTZ(); renderAI();
+  try { renderClients(); } catch(e) {}
+  try { renderMsgs(); } catch(e) {}
+  try { renderTZ(); } catch(e) {}
+  try { renderAI(); } catch(e) {}
 }
 
 function renderClients() {
