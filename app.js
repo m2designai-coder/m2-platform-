@@ -1,6 +1,7 @@
-// Ключи из config.js
-if (typeof JB_KEY === 'undefined') var JB_KEY = '';
-if (typeof JB_BIN === 'undefined') var JB_BIN = '';
+// Ключи из config.js — config.js должен загружаться первым
+// Если ключи не заданы в config.js — будут пустыми
+var JB_KEY = (typeof JB_KEY !== 'undefined' && JB_KEY) ? JB_KEY : '';
+var JB_BIN = (typeof JB_BIN !== 'undefined' && JB_BIN) ? JB_BIN : '';
 var USERS_CACHE = [
   { email: 'm2.designai@gmail.com', pass: 'M2admin2024', name: 'Максим', role: 'admin' }
 ];
@@ -202,6 +203,7 @@ function renderClients() {
 
 function renderMsgs() {
   var el = g('messages');
+  if (!el) return;
   var html = '';
   for (var i = 0; i < msgs.length; i++) {
     var m = msgs[i];
@@ -234,11 +236,12 @@ function renderTZ() {
     html += '<div class="tz-row" style="border-left-color:' + c + '"><div><div class="tz-key">' + t.k + '</div><div class="tz-val' + (t.s === 'missing' ? ' missing' : '') + '">' + t.v + '</div></div>';
     html += '<div class="tz-status" style="color:' + c + ';border-color:' + c + ';background:' + bg + '">' + ic + '</div></div>';
   }
-  g('tz-list').innerHTML = html;
+  var tzEl = g('tz-list'); if (tzEl) tzEl.innerHTML = html;
 }
 
 function renderAI() {
   var el = g('ai-body');
+  if (!el) return;
   var html = '';
   if (aiTab === 'ai') {
     html = '<div class="ai-status"><div class="ai-dot"></div><span class="ai-lbl">АНАЛИЗИРУЕТ ДИАЛОГ</span></div>';
