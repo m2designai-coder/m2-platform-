@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>КУБ · М²</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#f5f0ea;--surface:#faf8f5;--border:#e8e0d4;--accent:#8a7055;--dark:#2c2419;--text:#1a1510;--mid:#7a6e62;--light:#a89e90;--ok:#6b8f6b}
+body{font-family:'Jost',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.serif{font-family:'Cormorant Garamond',serif}
+.wrap{width:100%;max-width:580px}
+.logo{text-align:center;font-size:11px;letter-spacing:6px;color:#c4a882;margin-bottom:14px}
+.title{text-align:center;font-size:42px;font-weight:300;margin-bottom:6px}
+.step-lbl{text-align:center;font-size:12px;color:var(--light);letter-spacing:1px;margin-bottom:28px}
+.progress{display:flex;gap:6px;justify-content:center;margin-bottom:36px}
+.prog-seg{height:2px;border-radius:1px;transition:all .3s}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:36px 40px;margin-bottom:14px}
+.q-row{display:flex;gap:14px;margin-bottom:24px}
+.q-icon{width:32px;height:32px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff;flex-shrink:0;font-family:'Cormorant Garamond',serif}
+.q-text{font-size:19px;font-weight:300;line-height:1.55;font-family:'Cormorant Garamond',serif}
+.q-hint{font-size:12px;color:var(--light);margin-top:5px}
+.ai-bubble{background:var(--bg);border:1px solid var(--border);border-radius:3px 14px 14px 14px;padding:14px 18px;margin-bottom:16px;font-size:14px;line-height:1.65;color:var(--mid);display:none}
+.ai-bubble.show{display:block}
+.ai-typing{display:none;align-items:center;gap:6px;margin-bottom:16px;font-size:12px;color:var(--light)}
+.ai-typing.show{display:flex}
+.dot{width:4px;height:4px;background:var(--light);border-radius:50%;animation:bounce .8s infinite}
+.dot:nth-child(2){animation-delay:.15s}
+.dot:nth-child(3){animation-delay:.3s}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.field-input{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:3px;padding:12px 16px;color:var(--text);font-size:14px;font-family:'Jost',sans-serif;outline:none;transition:border-color .2s}
+.field-input:focus{border-color:var(--accent)}
+textarea.field-input{resize:none;height:90px}
+.upload-area{border:1.5px dashed var(--border);border-radius:3px;padding:28px 20px;text-align:center;cursor:pointer;transition:border-color .2s}
+.upload-area:hover{border-color:var(--accent)}
+.btns{display:flex;gap:10px}
+.btn-back{flex:1;background:none;border:1px solid var(--border);color:var(--mid);padding:13px;border-radius:3px;cursor:pointer;font-size:12px;font-family:'Jost',sans-serif;transition:all .2s}
+.btn-back:hover{border-color:var(--accent);color:var(--accent)}
+.btn-next{flex:2;background:var(--dark);border:none;color:var(--bg);padding:13px;border-radius:3px;cursor:pointer;font-size:12px;font-weight:500;font-family:'Jost',sans-serif;transition:all .2s}
+.btn-next:hover{background:var(--accent)}
+.btn-next:disabled{opacity:.5;cursor:not-allowed}
+.done-card{background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:48px 40px;text-align:center;display:none}
+.done-card.show{display:block}
+.done-icon{font-size:36px;margin-bottom:20px}
+.done-title{font-size:32px;font-weight:300;margin-bottom:10px}
+.done-sub{font-size:14px;color:var(--light);margin-bottom:32px;line-height:1.6}
+.summary{background:var(--bg);border:1px solid var(--border);border-radius:3px;padding:20px;text-align:left;margin-bottom:24px}
+.sum-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px}
+.sum-row:last-child{border-bottom:none}
+.sum-key{color:var(--light)}
+.sum-val{color:var(--text);font-weight:500;max-width:60%;text-align:right}
+.btn-restart{background:none;border:1px solid var(--border);color:var(--mid);padding:11px 28px;border-radius:3px;cursor:pointer;font-size:12px;font-family:'Jost',sans-serif}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="logo serif">М²</div>
+  <div class="serif title" id="main-title">Знакомство</div>
+  <div class="step-lbl" id="step-lbl">шаг 1 из 5</div>
+  <div class="progress" id="progress"></div>
+
+  <div id="kub-card" class="card">
+    <div class="q-row">
+      <div class="q-icon serif">М²</div>
+      <div>
+        <div class="q-text" id="q-text"></div>
+        <div class="q-hint" id="q-hint"></div>
+      </div>
+    </div>
+    <div class="ai-typing" id="ai-typing">
+      <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+      <span>КУБ думает...</span>
+    </div>
+    <div class="ai-bubble" id="ai-bubble"></div>
+    <div id="answer-area"></div>
+  </div>
+
+  <div class="btns">
+    <button class="btn-back" id="btn-back">НАЗАД</button>
+    <button class="btn-next" id="btn-next">ДАЛЕЕ</button>
+  </div>
+
+  <div id="done-card" class="done-card">
+    <div class="done-icon">✦</div>
+    <div class="serif done-title">Отлично, <span id="done-name"></span>!</div>
+    <div class="done-sub">КУБ собрал первичную информацию о вашем проекте.<br>Дизайнер свяжется с вами в ближайшее время.</div>
+    <div class="summary" id="summary"></div>
+    <button class="btn-restart" onclick="restart()">НАЧАТЬ ЗАНОВО</button>
+  </div>
+</div>
+
+<script>
+var QUESTIONS = [
+  { id: 'name', q: 'Как вас зовут?', hint: 'Имя и удобное обращение', type: 'text', placeholder: 'Например: Анна' },
+  { id: 'object', q: 'Расскажите об объекте', hint: 'Тип, площадь, город', type: 'text', placeholder: 'Например: квартира 85м², Москва' },
+  { id: 'style', q: 'Какой стиль вам близок?', hint: 'Опишите своими словами или назовите любимые интерьеры', type: 'textarea', placeholder: 'Например: скандинавский, тепло, натуральные материалы...' },
+  { id: 'budget', q: 'Каков ориентировочный бюджет проекта?', hint: 'Любая цифра поможет лучше подобрать решения', type: 'text', placeholder: 'Например: 2–3 млн рублей' },
+  { id: 'dream', q: 'Опишите свой идеальный результат', hint: 'Что должны чувствовать вы и ваши близкие в этом пространстве?', type: 'textarea', placeholder: 'Например: хочется уюта, чтобы дети могли играть, а вечером была атмосфера для отдыха...' }
+];
+
+var answers = {};
+var step = 0;
+var history = [];
+
+function g(id) { return document.getElementById(id); }
+
+function renderProgress() {
+  var html = '';
+  for (var i = 0; i < QUESTIONS.length; i++) {
+    var w = i === step ? 40 : 18;
+    var bg = i < step ? 'var(--ok)' : i === step ? 'var(--accent)' : 'var(--border)';
+    html += '<div class="prog-seg" style="width:' + w + 'px;background:' + bg + '"></div>';
+  }
+  g('progress').innerHTML = html;
+  g('step-lbl').textContent = 'шаг ' + (step + 1) + ' из ' + QUESTIONS.length;
+}
+
+function renderQuestion() {
+  var q = QUESTIONS[step];
+  g('q-text').textContent = q.q;
+  g('q-hint').textContent = q.hint;
+  g('btn-back').style.display = step > 0 ? 'block' : 'none';
+  g('btn-next').textContent = step < QUESTIONS.length - 1 ? 'ДАЛЕЕ' : 'ЗАВЕРШИТЬ';
+
+  var area = g('answer-area');
+  var saved = answers[q.id] || '';
+  if (q.type === 'textarea') {
+    area.innerHTML = '<textarea class="field-input" id="ans" placeholder="' + q.placeholder + '">' + saved + '</textarea>';
+  } else {
+    area.innerHTML = '<input class="field-input" id="ans" type="text" placeholder="' + q.placeholder + '" value="' + saved + '">';
+  }
+
+  g('ai-bubble').classList.remove('show');
+  g('ai-typing').classList.remove('show');
+
+  // Если уже есть ответ — показываем реакцию ИИ
+  if (saved && history.length > step) {
+    g('ai-bubble').textContent = history[step];
+    g('ai-bubble').classList.add('show');
+  }
+
+  renderProgress();
+}
+
+function getAnswer() {
+  var el = g('ans');
+  return el ? el.value.trim() : '';
+}
+
+async function askClaude(userAnswer) {
+  var q = QUESTIONS[step];
+  
+  // Собираем контекст предыдущих ответов
+  var context = '';
+  for (var i = 0; i < step; i++) {
+    if (answers[QUESTIONS[i].id]) {
+      context += QUESTIONS[i].q + '\nОтвет: ' + answers[QUESTIONS[i].id] + '\n\n';
+    }
+  }
+
+  var prompt = 'Ты КУБ — умный ИИ-интервьюер студии дизайна интерьера М². Ты общаешься с потенциальным клиентом.\n\n';
+  if (context) prompt += 'Предыдущие ответы клиента:\n' + context;
+  prompt += 'Текущий вопрос: ' + q.q + '\nОтвет клиента: ' + userAnswer + '\n\n';
+  prompt += 'Напиши короткую (1-2 предложения) живую реакцию на ответ клиента. Будь тёплым, профессиональным. Можешь уточнить деталь или сделать наблюдение которое показывает что ты услышал клиента. Не задавай новых вопросов — следующий вопрос будет задан автоматически. Пиши на русском.';
+
+  try {
+    var response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 150,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+    var data = await response.json();
+    return data.content && data.content[0] ? data.content[0].text : null;
+  } catch(e) {
+    return null;
+  }
+}
+
+async function nextStep() {
+  var answer = getAnswer();
+  if (!answer) return;
+
+  var q = QUESTIONS[step];
+  answers[q.id] = answer;
+
+  if (step < QUESTIONS.length - 1) {
+    // Показываем реакцию ИИ
+    g('ai-typing').classList.add('show');
+    g('btn-next').disabled = true;
+
+    var reaction = await askClaude(answer);
+    
+    g('ai-typing').classList.remove('show');
+    
+    if (reaction) {
+      history[step] = reaction;
+      g('ai-bubble').textContent = reaction;
+      g('ai-bubble').classList.add('show');
+    }
+
+    // Пауза чтобы клиент прочёл реакцию
+    await new Promise(function(res) { setTimeout(res, reaction ? 1200 : 0); });
+    
+    g('btn-next').disabled = false;
+    step++;
+    renderQuestion();
+  } else {
+    showDone();
+  }
+}
+
+function showDone() {
+  g('kub-card').style.display = 'none';
+  document.querySelector('.btns').style.display = 'none';
+  g('main-title').textContent = 'Готово';
+  g('step-lbl').textContent = 'анкета заполнена';
+  g('progress').innerHTML = '';
+
+  var name = answers['name'] || 'Гость';
+  g('done-name').textContent = name.split(' ')[0];
+
+  var labels = { name: 'Имя', object: 'Объект', style: 'Стиль', budget: 'Бюджет', dream: 'Пожелания' };
+  var html = '';
+  for (var key in labels) {
+    if (answers[key]) {
+      var val = answers[key].length > 40 ? answers[key].slice(0, 40) + '...' : answers[key];
+      html += '<div class="sum-row"><span class="sum-key">' + labels[key] + '</span><span class="sum-val">' + val + '</span></div>';
+    }
+  }
+  g('summary').innerHTML = html;
+  g('done-card').classList.add('show');
+}
+
+function restart() {
+  answers = {};
+  history = [];
+  step = 0;
+  g('kub-card').style.display = 'block';
+  document.querySelector('.btns').style.display = 'flex';
+  g('main-title').textContent = 'Знакомство';
+  g('done-card').classList.remove('show');
+  renderQuestion();
+}
+
+g('btn-next').addEventListener('click', nextStep);
+g('btn-back').addEventListener('click', function() {
+  if (step > 0) { step--; renderQuestion(); }
+});
+g('btn-next').addEventListener('keydown', function(e) { if (e.key === 'Enter') nextStep(); });
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') nextStep();
+});
+
+renderQuestion();
+</script>
+</body>
+</html>
