@@ -1,4 +1,4 @@
-var JB_KEY = 'ВСТАВЬ_КЛЮЧ_СЮДА';
+var JB_KEY = '$2a$10$s43Tp5baPH/6fMoJBpb9oOBaFU7fmiouAQPyrmBFvisPqHyPfLF9C';
 var JB_BIN = '69972731ae596e708f3795ec';
 var USERS_CACHE = [
   { email: 'm2.designai@gmail.com', pass: 'M2admin2024', name: 'Максим', role: 'admin' }
