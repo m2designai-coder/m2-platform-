@@ -1,7 +1,5 @@
-// Ключи из config.js — config.js должен загружаться первым
-// Если ключи не заданы в config.js — будут пустыми
-var JB_KEY = (typeof JB_KEY !== 'undefined' && JB_KEY) ? JB_KEY : '';
-var JB_BIN = (typeof JB_BIN !== 'undefined' && JB_BIN) ? JB_BIN : '';
+// Ключи берутся из config.js
+// Не переопределяем их здесь
 var USERS_CACHE = [
   { email: 'm2.designai@gmail.com', pass: 'M2admin2024', name: 'Максим', role: 'admin' }
 ];
