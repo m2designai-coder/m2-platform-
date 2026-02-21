@@ -7,51 +7,69 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#f5f0ea;--surface:#faf8f5;--border:#e8e0d4;--accent:#8a7055;--dark:#2c2419;--text:#1a1510;--mid:#7a6e62;--light:#a89e90;--ok:#6b8f6b;--err:#c0392b}
+:root{--bg:#f5f0ea;--surface:#faf8f5;--border:#e8e0d4;--accent:#8a7055;--dark:#2c2419;--text:#1a1510;--mid:#7a6e62;--light:#a89e90;--ok:#6b8f6b}
 body{font-family:'Jost',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
 .serif{font-family:'Cormorant Garamond',serif}
-.wrap{width:100%;max-width:600px}
+.wrap{width:100%;max-width:620px}
 .logo{text-align:center;font-size:11px;letter-spacing:6px;color:#c4a882;margin-bottom:14px}
 .main-title{text-align:center;font-size:40px;font-weight:300;margin-bottom:6px}
-.step-lbl{text-align:center;font-size:12px;color:var(--light);letter-spacing:1px;margin-bottom:28px}
-.progress-wrap{margin-bottom:32px}
+.step-lbl{text-align:center;font-size:12px;color:var(--light);letter-spacing:1px;margin-bottom:24px}
+.progress-wrap{margin-bottom:28px}
 .progress-bar{height:2px;background:var(--border);border-radius:1px;overflow:hidden}
-.progress-fill{height:100%;background:var(--accent);border-radius:1px;transition:width .4s ease}
+.progress-fill{height:100%;background:var(--accent);border-radius:1px;transition:width .4s}
 .progress-text{font-size:11px;color:var(--light);text-align:right;margin-top:6px}
-
-/* КАРТОЧКА */
 .card{background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:36px 40px;margin-bottom:14px}
-.block-label{font-size:10px;letter-spacing:3px;color:var(--accent);margin-bottom:20px}
+.block-label{font-size:10px;letter-spacing:3px;color:var(--accent);margin-bottom:18px}
 .q-row{display:flex;gap:14px;margin-bottom:24px}
 .q-icon{width:32px;height:32px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff;flex-shrink:0;font-family:'Cormorant Garamond',serif}
 .q-body{flex:1}
-.q-text{font-size:19px;font-weight:300;line-height:1.55;font-family:'Cormorant Garamond',serif}
+.q-text{font-size:19px;font-weight:300;line-height:1.5;font-family:'Cormorant Garamond',serif}
 .q-hint{font-size:12px;color:var(--light);margin-top:5px}
-
-/* ИИ */
-.ai-typing{display:none;align-items:center;gap:6px;margin-bottom:16px;font-size:12px;color:var(--light)}
+.ai-typing{display:none;align-items:center;gap:6px;margin-bottom:14px;font-size:12px;color:var(--light)}
 .ai-typing.show{display:flex}
-.dot{width:4px;height:4px;background:var(--light);border-radius:50%;animation:bounce .8s infinite}
+.dot{width:4px;height:4px;background:var(--light);border-radius:50%;animation:bop .8s infinite}
 .dot:nth-child(2){animation-delay:.15s}.dot:nth-child(3){animation-delay:.3s}
-@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
-.ai-bubble{background:var(--bg);border:1px solid var(--border);border-radius:3px 14px 14px 14px;padding:14px 18px;margin-bottom:16px;font-size:14px;line-height:1.65;color:var(--mid);display:none}
+@keyframes bop{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.ai-bubble{background:var(--bg);border:1px solid var(--border);border-radius:3px 14px 14px 14px;padding:13px 17px;margin-bottom:14px;font-size:14px;line-height:1.6;color:var(--mid);display:none}
 .ai-bubble.show{display:block}
 
-/* ОТВЕТЫ */
+/* ПОЛЯ */
 .field-input{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:3px;padding:12px 16px;color:var(--text);font-size:14px;font-family:'Jost',sans-serif;outline:none;transition:border-color .2s}
 .field-input:focus{border-color:var(--accent)}
 textarea.field-input{resize:none;height:90px}
-.options-list{display:flex;flex-direction:column;gap:8px}
-.option-item{background:var(--bg);border:1px solid var(--border);border-radius:3px;padding:12px 16px;cursor:pointer;font-size:14px;transition:all .2s;display:flex;align-items:center;gap:10px}
-.option-item:hover{border-color:var(--accent)}
-.option-item.selected{border-color:var(--accent);background:var(--surface)}
-.option-check{width:16px;height:16px;border:1.5px solid var(--border);border-radius:50%;flex-shrink:0;transition:all .2s}
-.option-item.selected .option-check{background:var(--accent);border-color:var(--accent)}
-.multi-hint{font-size:11px;color:var(--light);margin-bottom:10px}
-.chips-wrap{display:flex;flex-wrap:wrap;gap:8px}
-.chip{background:var(--bg);border:1px solid var(--border);border-radius:20px;padding:8px 16px;cursor:pointer;font-size:13px;transition:all .2s}
+
+/* ОДИНОЧНЫЙ ВЫБОР */
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{background:var(--bg);border:1px solid var(--border);border-radius:3px;padding:12px 16px;cursor:pointer;font-size:14px;transition:all .2s;display:flex;align-items:center;gap:10px}
+.opt:hover{border-color:var(--accent)}
+.opt.sel{border-color:var(--accent);background:var(--surface)}
+.opt-radio{width:16px;height:16px;border:1.5px solid var(--border);border-radius:50%;flex-shrink:0;transition:all .2s}
+.opt.sel .opt-radio{background:var(--accent);border-color:var(--accent)}
+
+/* МНОЖЕСТВЕННЫЙ ВЫБОР */
+.multi-hint{font-size:11px;color:var(--light);margin-bottom:10px;letter-spacing:.5px}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:0}
+.chip{background:var(--bg);border:1px solid var(--border);border-radius:20px;padding:8px 15px;cursor:pointer;font-size:13px;transition:all .2s}
 .chip:hover{border-color:var(--accent)}
-.chip.selected{border-color:var(--accent);background:var(--surface);color:var(--accent)}
+.chip.sel{border-color:var(--accent);background:var(--surface);color:var(--accent)}
+
+/* ПОЛЕ "ДРУГОЕ" */
+.other-wrap{margin-top:11px;display:none}
+.other-wrap.show{display:block}
+
+/* ПОМЕЩЕНИЯ С СЧЁТЧИКОМ */
+.rooms-list{display:flex;flex-direction:column;gap:6px}
+.room-row{background:var(--bg);border:1px solid var(--border);border-radius:3px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;transition:border-color .2s}
+.room-row.sel{border-color:var(--accent);background:var(--surface)}
+.room-left{display:flex;align-items:center;gap:10px;cursor:pointer;flex:1}
+.room-box{width:16px;height:16px;border:1.5px solid var(--border);border-radius:3px;flex-shrink:0;transition:all .2s;display:flex;align-items:center;justify-content:center;font-size:9px;color:transparent}
+.room-row.sel .room-box{background:var(--accent);border-color:var(--accent);color:#fff}
+.room-label{font-size:14px}
+.counter{display:none;align-items:center;gap:8px}
+.room-row.sel .counter{display:flex}
+.cnt-btn{width:26px;height:26px;border:1px solid var(--border);border-radius:50%;background:var(--bg);cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center;color:var(--mid);line-height:1;transition:all .2s}
+.cnt-btn:hover{border-color:var(--accent);color:var(--accent)}
+.cnt-val{font-size:14px;min-width:18px;text-align:center;font-weight:500}
 
 /* КНОПКИ */
 .btns{display:flex;gap:10px}
@@ -61,42 +79,40 @@ textarea.field-input{resize:none;height:90px}
 .btn-next:hover{background:var(--accent)}
 .btn-next:disabled{opacity:.4;cursor:not-allowed}
 
-/* ЭКРАН ИДЕНТИФИКАЦИИ */
-.id-screen{text-align:center;padding:48px 40px}
-.id-title{font-size:32px;font-weight:300;margin-bottom:10px}
-.id-sub{font-size:14px;color:var(--light);margin-bottom:32px;line-height:1.6}
-.id-fields{display:flex;flex-direction:column;gap:12px;margin-bottom:24px}
+/* ID ЭКРАН */
+.id-body{padding:8px 0 4px}
+.id-title{font-size:30px;font-weight:300;margin-bottom:10px}
+.id-sub{font-size:14px;color:var(--light);margin-bottom:26px;line-height:1.6}
+.id-fields{display:flex;flex-direction:column;gap:11px;margin-bottom:18px}
 .btn-start{width:100%;background:var(--dark);border:none;color:var(--bg);padding:14px;border-radius:3px;cursor:pointer;font-size:13px;font-weight:500;font-family:'Jost',sans-serif;transition:background .2s}
 .btn-start:hover{background:var(--accent)}
-.returning-note{font-size:12px;color:var(--light);margin-top:12px}
+.return-note{font-size:12px;color:var(--ok);margin-top:10px;text-align:center;min-height:18px}
+
+/* ЗАГРУЗКА */
+.load-wrap{text-align:center;padding:56px 20px}
+.load-icon{font-size:32px;margin-bottom:16px;display:inline-block;animation:spin 2s linear infinite}
+@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
 
 /* ФИНАЛ */
 .done-card{background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:48px 40px;text-align:center;display:none}
 .done-card.show{display:block}
 .done-icon{font-size:36px;margin-bottom:20px}
 .done-title{font-size:32px;font-weight:300;margin-bottom:10px}
-.done-sub{font-size:14px;color:var(--light);margin-bottom:32px;line-height:1.6}
-.summary-list{background:var(--bg);border:1px solid var(--border);border-radius:3px;padding:20px;text-align:left;margin-bottom:24px}
+.done-sub{font-size:14px;color:var(--light);margin-bottom:28px;line-height:1.6}
+.sum-list{background:var(--bg);border:1px solid var(--border);border-radius:3px;padding:18px 20px;text-align:left;margin-bottom:22px}
 .sum-row{padding:8px 0;border-bottom:1px solid var(--border);font-size:13px;display:flex;justify-content:space-between;gap:16px}
 .sum-row:last-child{border-bottom:none}
-.sum-key{color:var(--light);flex-shrink:0}
-.sum-val{color:var(--text);text-align:right}
+.sum-k{color:var(--light);flex-shrink:0}
+.sum-v{color:var(--text);text-align:right}
 .btn-restart{background:none;border:1px solid var(--border);color:var(--mid);padding:11px 28px;border-radius:3px;cursor:pointer;font-size:12px;font-family:'Jost',sans-serif}
 
-/* ЗАГРУЗКА */
-.loading-screen{text-align:center;padding:60px 20px}
-.loading-icon{font-size:32px;margin-bottom:16px;animation:spin 2s linear infinite;display:inline-block}
-@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-.loading-text{font-size:14px;color:var(--light)}
-
 /* СОХРАНЕНИЕ */
-.save-indicator{position:fixed;bottom:20px;right:20px;background:var(--dark);color:var(--bg);padding:8px 16px;border-radius:3px;font-size:12px;opacity:0;transition:opacity .3s;pointer-events:none}
-.save-indicator.show{opacity:1}
+.save-badge{position:fixed;bottom:20px;right:20px;background:var(--dark);color:var(--bg);padding:8px 16px;border-radius:3px;font-size:12px;opacity:0;transition:opacity .3s;pointer-events:none}
+.save-badge.show{opacity:1}
 </style>
 </head>
 <body>
-
-<div class="save-indicator" id="save-indicator">Сохранено ✓</div>
+<div class="save-badge" id="save-badge">Сохранено ✓</div>
 
 <div class="wrap">
   <div class="logo serif">М²</div>
@@ -104,30 +120,27 @@ textarea.field-input{resize:none;height:90px}
   <div class="step-lbl" id="step-lbl">интервью с дизайнером</div>
 
   <!-- ЗАГРУЗКА -->
-  <div class="card" id="loading-screen">
-    <div class="loading-screen">
-      <div class="loading-icon">◈</div>
-      <div class="loading-text">Загружаем анкету...</div>
-    </div>
+  <div class="card" id="scr-load">
+    <div class="load-wrap"><div class="load-icon">◈</div><div style="font-size:14px;color:var(--light)">Загружаем анкету...</div></div>
   </div>
 
-  <!-- ИДЕНТИФИКАЦИЯ -->
-  <div class="card" id="id-screen" style="display:none">
-    <div class="id-screen">
-      <div class="serif id-title">Добро пожаловать</div>
-      <div class="id-sub">Введите ваше имя и номер телефона.<br>Это позволит продолжить анкету с любого устройства.</div>
+  <!-- ID -->
+  <div class="card" id="scr-id" style="display:none">
+    <div class="id-body serif"><div class="id-title">Добро пожаловать</div></div>
+    <div style="margin-top:8px">
+      <div class="id-sub">Введите имя и телефон — прогресс сохранится и можно продолжить с любого устройства.</div>
       <div class="id-fields">
         <input class="field-input" id="id-name" placeholder="Ваше имя">
         <input class="field-input" id="id-phone" placeholder="Номер телефона" type="tel">
       </div>
       <button class="btn-start" onclick="startOrResume()">НАЧАТЬ АНКЕТУ</button>
-      <div class="returning-note" id="returning-note"></div>
+      <div class="return-note" id="return-note"></div>
     </div>
   </div>
 
   <!-- ВОПРОС -->
-  <div id="kub-card" class="card" style="display:none">
-    <div class="block-label" id="block-label"></div>
+  <div class="card" id="scr-q" style="display:none">
+    <div class="block-label" id="blk-label"></div>
     <div class="q-row">
       <div class="q-icon serif">М²</div>
       <div class="q-body">
@@ -135,17 +148,14 @@ textarea.field-input{resize:none;height:90px}
         <div class="q-hint" id="q-hint"></div>
       </div>
     </div>
-    <div class="ai-typing" id="ai-typing">
-      <div class="dot"></div><div class="dot"></div><div class="dot"></div>
-      <span>КУБ думает...</span>
-    </div>
+    <div class="ai-typing" id="ai-typing"><div class="dot"></div><div class="dot"></div><div class="dot"></div><span>КУБ думает...</span></div>
     <div class="ai-bubble" id="ai-bubble"></div>
-    <div id="answer-area"></div>
+    <div id="ans-area"></div>
   </div>
 
-  <div class="progress-wrap" id="progress-wrap" style="display:none">
-    <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
-    <div class="progress-text" id="progress-text"></div>
+  <div class="progress-wrap" id="prog-wrap" style="display:none">
+    <div class="progress-bar"><div class="progress-fill" id="prog-fill"></div></div>
+    <div class="progress-text" id="prog-text"></div>
   </div>
 
   <div class="btns" id="btns" style="display:none">
@@ -154,454 +164,434 @@ textarea.field-input{resize:none;height:90px}
   </div>
 
   <!-- ФИНАЛ -->
-  <div id="done-card" class="done-card">
+  <div class="done-card" id="scr-done">
     <div class="done-icon">✦</div>
     <div class="serif done-title">Готово, <span id="done-name"></span>!</div>
     <div class="done-sub">КУБ собрал всю необходимую информацию.<br>Дизайнер изучит анкету и свяжется с вами.</div>
-    <div class="summary-list" id="summary-list"></div>
+    <div class="sum-list" id="sum-list"></div>
     <button class="btn-restart" onclick="restart()">ЗАПОЛНИТЬ ЗАНОВО</button>
   </div>
 </div>
 
 <script>
-// ═══════════════════════════════════════
-// КОНФИГ
-// ═══════════════════════════════════════
-var JB_KEY = (typeof window.JB_KEY !== 'undefined') ? window.JB_KEY : '$2a$10$s43Tp5baPH/6fMoJBpb9oOBaFU7fmiouAQPyrmBFvisPqHyPfLF9C';
-var JB_TPL  = '6999fdfcae596e708f3d7440'; // шаблоны
-var JB_CLIENTS = '6998ac15ae596e708f3ad436'; // клиенты/анкеты
+var JB_KEY     = (typeof window.JB_KEY!=='undefined') ? window.JB_KEY : 'ВСТАВЬ_КЛЮЧ';
+var JB_TPL     = '6999fdfcae596e708f3d7440';
+var JB_CLIENTS = '6998ac15ae596e708f3ad436';
 
-// ═══════════════════════════════════════
-// СОСТОЯНИЕ
-// ═══════════════════════════════════════
-var step = 0;
-var answers = {};
-var aiHistory = {};
-var clientKey = null; // phone-based key
-var template = null;
-var QUESTIONS = [];
+var step=0, answers={}, aiHist={}, clientKey=null, template=null, QUESTIONS=[], tplId=null;
 
-// ═══════════════════════════════════════
-// ПОЛНАЯ АНКЕТА (из анкеты М²)
-// ═══════════════════════════════════════
-var ALL_BLOCKS = [
+// ─── ВОПРОСЫ ───────────────────────────────────────────────────────────────
+var ALL = [
 
-  // БЛОК 1: ЗНАКОМСТВО
-  { id: 'name', block: 'ЗНАКОМСТВО', q: 'Как вас зовут?', hint: 'Имя и удобное обращение', type: 'text', placeholder: 'Например: Анна' },
-  { id: 'phone_confirm', block: 'ЗНАКОМСТВО', q: 'Ваш контактный телефон', hint: 'Для связи с дизайнером', type: 'text', placeholder: '+7 900 000-00-00', skipIfPhone: true },
-  { id: 'email', block: 'ЗНАКОМСТВО', q: 'Электронная почта', hint: 'Необязательно', type: 'text', placeholder: 'example@mail.ru' },
-  { id: 'source', block: 'ЗНАКОМСТВО', q: 'Откуда вы узнали о нас?', hint: '', type: 'options', options: ['Instagram', 'ВКонтакте', 'Реклама', 'От знакомых', 'Другое'] },
+  // ЗНАКОМСТВО
+  {id:'name',   blk:'ЗНАКОМСТВО', q:'Как вас зовут?', hint:'Имя и удобное обращение', type:'text', ph:'Например: Анна', req:true},
+  {id:'email',  blk:'ЗНАКОМСТВО', q:'Электронная почта', hint:'Необязательно — для отправки результатов', type:'text', ph:'example@mail.ru'},
+  {id:'source', blk:'ЗНАКОМСТВО', q:'Откуда вы узнали о нас?', hint:'', type:'single', opts:['Instagram','ВКонтакте','Реклама','По рекомендации','Другое'], other:true},
 
-  // БЛОК 2: ОБЪЕКТ
-  { id: 'object_type', block: 'ОБ ОБЪЕКТЕ', q: 'Тип объекта', hint: '', type: 'options', options: ['Квартира', 'Частный дом', 'Офис', 'Другое'] },
-  { id: 'object_address', block: 'ОБ ОБЪЕКТЕ', q: 'Город и район объекта', hint: 'Полный адрес не нужен', type: 'text', placeholder: 'Например: Москва, Красногвардейский район' },
-  { id: 'object_area', block: 'ОБ ОБЪЕКТЕ', q: 'Общая площадь объекта', hint: 'Приблизительно', type: 'text', placeholder: 'Например: 85 м²' },
-  { id: 'object_purpose', block: 'ОБ ОБЪЕКТЕ', q: 'Назначение объекта', hint: '', type: 'options', options: ['Постоянное проживание', 'Иногда проводить время', 'Для гостей / аренда', 'Офис / работа'] },
-  { id: 'object_rooms', block: 'ОБ ОБЪЕКТЕ', q: 'Какие помещения нужно включить в проект?', hint: 'Выберите все нужные', type: 'multi', options: ['Прихожая', 'Кухня-столовая', 'Гостиная', 'Спальня', 'Детская', 'Ванная', 'Санузел', 'Кабинет', 'Гардеробная', 'Лоджия/Балкон', 'Прачечная', 'Гостевая'] },
-  { id: 'project_scope', block: 'ОБ ОБЪЕКТЕ', q: 'Что планируете заказать?', hint: '', type: 'options', options: ['Весь объект целиком', 'Отдельные помещения', 'Пока не решил(а)'] },
+  // ОБЪЕКТ — сначала масштаб, потом помещения
+  {id:'scope',   blk:'ОБ ОБЪЕКТЕ', q:'Что планируете заказать?', hint:'', type:'single', opts:['Дизайн всего объекта','Отдельные помещения','Пока не решил(а)'], req:true},
+  {id:'obj_type',blk:'ОБ ОБЪЕКТЕ', q:'Тип объекта', hint:'', type:'single', opts:['Квартира','Частный дом / коттедж','Таунхаус','Офис','Другое'], other:true, req:true},
+  {id:'obj_addr',blk:'ОБ ОБЪЕКТЕ', q:'Город и район объекта', hint:'Полный адрес не нужен', type:'text', ph:'Например: Москва, Хорошёво-Мнёвники'},
+  {id:'obj_area',blk:'ОБ ОБЪЕКТЕ', q:'Общая площадь', hint:'Приблизительно', type:'text', ph:'Например: 85 м²'},
+  {id:'obj_purp',blk:'ОБ ОБЪЕКТЕ', q:'Назначение объекта', hint:'', type:'single', opts:['Постоянное проживание','Сезонное / дача','Инвестиция / аренда','Офис / коворкинг']},
+  // Помещения — с счётчиком для комнат которых может быть несколько
+  {id:'rooms',   blk:'ОБ ОБЪЕКТЕ', q:'Какие помещения включить в проект?', hint:'Выберите нужные — для некоторых можно указать количество', type:'rooms',
+    roomList:[
+      {name:'Прихожая',       multi:false},
+      {name:'Кухня-столовая', multi:false},
+      {name:'Гостиная',       multi:false},
+      {name:'Спальня',        multi:true},
+      {name:'Детская',        multi:true},
+      {name:'Ванная',         multi:true},
+      {name:'Санузел',        multi:true},
+      {name:'Гостевая',       multi:true},
+      {name:'Кабинет',        multi:false},
+      {name:'Гардеробная',    multi:false},
+      {name:'Лоджия / Балкон',multi:true},
+      {name:'Прачечная',      multi:false},
+      {name:'Кинотеатр',      multi:false},
+      {name:'Винный погреб',  multi:false},
+      {name:'Лестница',       multi:false},
+    ]},
 
-  // БЛОК 3: ПСИХОЛОГИЯ
-  { id: 'wish_magic', block: 'ПОЖЕЛАНИЯ', q: 'Если бы у вас была волшебная палочка — что бы вы сделали с вашим пространством?', hint: 'Опишите своими словами, без ограничений', type: 'textarea', placeholder: 'Например: хочу чтобы дома было светло, уютно, дети могли играть...' },
-  { id: 'anti_wish', block: 'ПОЖЕЛАНИЯ', q: 'Чего вы точно НЕ хотите видеть в своём доме?', hint: 'Стили, элементы, цвета которые вам не нравятся', type: 'textarea', placeholder: 'Например: не хочу тёмных цветов, вычурную лепнину, много открытых полок...' },
-  { id: 'family_plans', block: 'ПОЖЕЛАНИЯ', q: 'Ваши планы развития семьи на ближайшие 5–10 лет?', hint: 'Планируете детей, возможен переезд родственников?', type: 'textarea', placeholder: 'Например: планируем ребёнка через 2 года...' },
-  { id: 'allergy', block: 'ПОЖЕЛАНИЯ', q: 'Есть ли аллергия у кого-то из семьи?', hint: 'Это влияет на выбор материалов', type: 'options', options: ['Нет аллергии', 'Есть — на пыль', 'Есть — на животных', 'Есть — на химию', 'Другое'] },
-  { id: 'guests', block: 'ПОЖЕЛАНИЯ', q: 'Как часто принимаете гостей?', hint: 'И сколько человек обычно?', type: 'options', options: ['Редко (пару раз в год)', 'Иногда (раз в месяц)', 'Часто (каждую неделю)', 'Очень часто'] },
-  { id: 'pets', block: 'ПОЖЕЛАНИЯ', q: 'Есть ли домашние животные?', hint: 'Это влияет на выбор материалов и планировку', type: 'options', options: ['Нет', 'Кошка', 'Собака (маленькая)', 'Собака (большая)', 'Другие'] },
-  { id: 'work_home', block: 'ПОЖЕЛАНИЯ', q: 'Планируете ли работать дома?', hint: 'Нужно ли предусмотреть рабочее место?', type: 'options', options: ['Нет', 'Иногда (ноутбук)', 'Да — нужен кабинет', 'Да — нужна переговорная'] },
-  { id: 'privacy', block: 'ПОЖЕЛАНИЯ', q: 'Нужно ли место для уединения — личный уголок?', hint: '', type: 'options', options: ['Нет', 'Хотелось бы', 'Да, обязательно'] },
-  { id: 'storage', block: 'ПОЖЕЛАНИЯ', q: 'Сколько места нужно для одежды?', hint: '', type: 'options', options: ['Стандартный шкаф', 'Шкаф в каждой комнате', 'Отдельная гардеробная', 'Очень много — большой гардероб'] },
-  { id: 'realization', block: 'ПОЖЕЛАНИЯ', q: 'Когда планируете реализацию проекта?', hint: '', type: 'options', options: ['Сразу после проекта', 'Через 3–6 месяцев', 'Через год и более', 'Поэтапно'] },
+  // ПОЖЕЛАНИЯ
+  {id:'wish',      blk:'ПОЖЕЛАНИЯ', q:'Если бы у вас была волшебная палочка — что бы вы сделали с этим пространством?', hint:'Опишите без ограничений', type:'textarea', ph:'Например: хочу чтобы дома было светло, уютно, дети могли играть свободно...', req:true},
+  {id:'anti_wish', blk:'ПОЖЕЛАНИЯ', q:'Чего вы точно НЕ хотите в своём доме?', hint:'Стили, элементы, цвета которые не нравятся', type:'textarea', ph:'Например: не хочу тёмных цветов, лепнину, много открытых полок...'},
+  {id:'timeline',  blk:'ПОЖЕЛАНИЯ', q:'Когда планируете реализацию проекта?', hint:'', type:'single', opts:['Сразу после проекта','Через 3–6 месяцев','Через год и более','Поэтапно','Пока не знаю']},
+  {id:'viewing',   blk:'ПОЖЕЛАНИЯ', q:'Как предпочитаете смотреть материалы?', hint:'', type:'single', opts:['Встреча в студии / офисе','Онлайн-встреча (Zoom, видеозвонок)','Вживую на объекте','По каталогам и ссылкам — самостоятельно']},
 
-  // БЛОК 4: СЕМЬЯ
-  { id: 'family_count', block: 'СОСТАВ СЕМЬИ', q: 'Сколько человек будет проживать?', hint: '', type: 'options', options: ['1 человек', '2 человека', '3 человека', '4 человека', '5 и более'] },
-  { id: 'family_children', block: 'СОСТАВ СЕМЬИ', q: 'Есть ли дети? Их возраст?', hint: '', type: 'text', placeholder: 'Например: дочь 5 лет, сын 10 лет' },
-  { id: 'family_hobbies', block: 'СОСТАВ СЕМЬИ', q: 'Хобби и увлечения членов семьи', hint: 'Что нужно предусмотреть в проекте?', type: 'textarea', placeholder: 'Например: муж — гитара, жена — живопись, дети — лего...' },
+  // СЕМЬЯ
+  {id:'fam_count',   blk:'СОСТАВ СЕМЬИ', q:'Сколько человек будет проживать?', hint:'', type:'single', opts:['1 человек','2 человека','3 человека','4 человека','5 и более']},
+  {id:'fam_children',blk:'СОСТАВ СЕМЬИ', q:'Есть ли дети? Их возраст?', hint:'', type:'text', ph:'Например: дочь 5 лет, сын 10 лет. Или: нет детей'},
+  {id:'fam_plans',   blk:'СОСТАВ СЕМЬИ', q:'Планы семьи на ближайшие 5–10 лет?', hint:'Пополнение семьи, переезд родственников, другие изменения?', type:'textarea', ph:'Например: планируем второго ребёнка через 2 года...'},
+  {id:'fam_hobbies', blk:'СОСТАВ СЕМЬИ', q:'Хобби и увлечения членов семьи', hint:'Что нужно предусмотреть в планировке?', type:'textarea', ph:'Например: муж — гитара и велосипеды, жена — живопись, дети — лего...'},
+  {id:'bioritm',     blk:'СОСТАВ СЕМЬИ', q:'Режим дня семьи', hint:'Поможет правильно зонировать тишину и активность', type:'single', opts:['Все жаворонки — рано встаём','Все совы — поздно ложимся','Разный режим у всех','Стандартный режим']},
+  // АЛЛЕРГИЯ — множественный выбор
+  {id:'allergy', blk:'СОСТАВ СЕМЬИ', q:'Есть ли аллергия у кого-то из семьи?', hint:'Выберите все подходящие — это влияет на выбор материалов', type:'multi',
+    opts:['Нет аллергии','На пыль / пылевые клещи','На шерсть животных','На химию / лакокраску','На плесень / сырость','Другое'], other:true},
+  // ПИТОМЦЫ — множественный
+  {id:'pets', blk:'СОСТАВ СЕМЬИ', q:'Есть ли домашние животные?', hint:'', type:'multi',
+    opts:['Нет','Кошка','Небольшая собака','Крупная собака','Другие питомцы'], other:true},
 
-  // БЛОК 5: БЮДЖЕТ
-  { id: 'budget_total', block: 'БЮДЖЕТ', q: 'Общий бюджет на ремонт под ключ', hint: 'С мебелью, материалами и работами', type: 'options', options: ['До 1 млн руб', '1–2 млн руб', '2–3 млн руб', '3–5 млн руб', '5–10 млн руб', 'Свыше 10 млн руб', 'Пока не определился'] },
-  { id: 'budget_furniture', block: 'БЮДЖЕТ', q: 'Предпочтения по мебели', hint: '', type: 'options', options: ['Бюджетная (IKEA, отечественные)', 'Средний сегмент (известные фабрики)', 'Премиум (под заказ, эксклюзив)', 'Пока не знаю'] },
-  { id: 'budget_santech', block: 'БЮДЖЕТ', q: 'Предпочтения по сантехнике', hint: '', type: 'options', options: ['Бюджетная', 'Средний сегмент', 'Премиум / эксклюзив', 'Пока не знаю'] },
-  { id: 'budget_doors', block: 'БЮДЖЕТ', q: 'Бюджет на одну межкомнатную дверь', hint: '', type: 'options', options: ['До 10–15 тыс руб', '15–30 тыс руб', '30–50 тыс руб', 'Более 50 тыс руб'] },
+  // ОБРАЗ ЖИЗНИ
+  {id:'guests',   blk:'ОБРАЗ ЖИЗНИ', q:'Как часто принимаете гостей?', hint:'', type:'single', opts:['Редко (пару раз в год)','Иногда (раз в месяц)','Часто (каждую неделю)','Очень часто — это важная зона']},
+  {id:'work_home',blk:'ОБРАЗ ЖИЗНИ', q:'Планируете ли работать из дома?', hint:'', type:'single', opts:['Нет','Иногда (ноутбук на кухне)','Да — нужно рабочее место','Да — нужен отдельный кабинет']},
+  {id:'privacy',  blk:'ОБРАЗ ЖИЗНИ', q:'Нужно ли личное место для уединения?', hint:'Уголок только для себя', type:'single', opts:['Нет','Хотелось бы','Да, обязательно']},
+  {id:'clothes',  blk:'ОБРАЗ ЖИЗНИ', q:'Сколько места нужно под одежду?', hint:'', type:'single', opts:['Стандартный шкаф-купе','По шкафу в каждой комнате','Отдельная гардеробная','Очень большой гардероб — это важно']},
+  {id:'servants', blk:'ОБРАЗ ЖИЗНИ', q:'Есть ли помощники по дому?', hint:'Нужны ли отдельные помещения?', type:'single', opts:['Нет','Приходящий персонал','Проживающий — нужна комната персонала']},
+  {id:'smoking',  blk:'ОБРАЗ ЖИЗНИ', q:'Курят ли в доме?', hint:'Влияет на вентиляцию и зонирование', type:'single', opts:['Никто не курит','Только на балконе','В доме — нужна зона для курения']},
 
-  // БЛОК 6: СТИЛЬ
-  { id: 'style_pref', block: 'СТИЛЬ', q: 'Какой стиль вам близок?', hint: 'Опишите своими словами или назовите несколько', type: 'textarea', placeholder: 'Например: скандинавский, минимализм, тепло и натуральные материалы...' },
-  { id: 'style_color', block: 'СТИЛЬ', q: 'Предпочтения по цвету', hint: 'Выберите подходящие', type: 'multi', options: ['Белый / очень светлый', 'Нейтральные тёплые', 'Пастельные', 'Серые тона', 'Контрастные сочетания', 'Яркие акценты', 'Тёмные насыщенные'] },
-  { id: 'style_color_no', block: 'СТИЛЬ', q: 'Какие цвета точно НЕ использовать?', hint: '', type: 'text', placeholder: 'Например: оранжевый, ярко-зелёный...' },
-  { id: 'style_metal', block: 'СТИЛЬ', q: 'Металл в интерьере — что нравится?', hint: 'Цвет фурнитуры, смесителей, светильников', type: 'multi', options: ['Хром / матовый хром', 'Золото / матовое золото', 'Латунь', 'Медь / бронза', 'Чёрный металл', 'Не важно'] },
+  // БЮДЖЕТ
+  {id:'budget',      blk:'БЮДЖЕТ', q:'Общий бюджет на ремонт под ключ', hint:'С мебелью, материалами и работами — любая цифра поможет правильно подобрать решения', type:'single', req:true,
+    opts:['До 1 млн руб','1–2 млн руб','2–3 млн руб','3–5 млн руб','5–10 млн руб','Свыше 10 млн руб','Пока не определился']},
+  {id:'bud_furn',    blk:'БЮДЖЕТ', q:'Предпочтения по мебели', hint:'', type:'single', opts:['Бюджетная (IKEA, масс-маркет)','Средний сегмент (известные фабрики)','Премиум и эксклюзив','Пока не знаю']},
+  {id:'bud_santech', blk:'БЮДЖЕТ', q:'Предпочтения по сантехнике', hint:'', type:'single', opts:['Бюджетная','Средний сегмент','Премиум','Пока не знаю']},
+  {id:'bud_doors',   blk:'БЮДЖЕТ', q:'Бюджет на одну межкомнатную дверь', hint:'', type:'single', opts:['До 15 тыс руб','15–30 тыс руб','30–60 тыс руб','Более 60 тыс руб','Оставить существующие']},
+  {id:'bud_mats',    blk:'БЮДЖЕТ', q:'Бюджет на отделочные материалы (за м²)', hint:'', type:'single', opts:['До 3 000 руб/м²','3 000–7 000 руб/м²','7 000–15 000 руб/м²','Без ограничений']},
 
-  // БЛОК 7: МАТЕРИАЛЫ
-  { id: 'mat_walls', block: 'МАТЕРИАЛЫ', q: 'Предпочтения по стенам', hint: 'Выберите что нравится', type: 'multi', options: ['Покраска', 'Обои', 'Декоративная штукатурка', 'Микроцемент', 'Плитка/керамогранит', 'Дерево/панели', 'Кирпич/лофт', 'Не знаю'] },
-  { id: 'mat_floor', block: 'МАТЕРИАЛЫ', q: 'Предпочтения по полу', hint: '', type: 'multi', options: ['Паркетная доска', 'Ламинат', 'Керамогранит', 'Наливной пол', 'Ковролин', 'Винил/LVT', 'Не знаю'] },
-  { id: 'mat_ceiling', block: 'МАТЕРИАЛЫ', q: 'Предпочтения по потолку', hint: '', type: 'multi', options: ['Покраска (чистовой)', 'Натяжной матовый', 'Натяжной глянцевый', 'ГКЛ многоуровневый', 'С подсветкой', 'Дерево/балки', 'Не знаю'] },
-  { id: 'mat_budget', block: 'МАТЕРИАЛЫ', q: 'Бюджет на отделочные материалы (за м²)', hint: '', type: 'options', options: ['До 3000 руб/м²', '3000–7000 руб/м²', '7000–15000 руб/м²', 'Без ограничений'] },
+  // СТИЛЬ
+  {id:'style',       blk:'СТИЛЬ', q:'Какой стиль вам близок?', hint:'Опишите своими словами или назовите несколько', type:'textarea', ph:'Например: скандинавский, минимализм, тепло и натуральные материалы, чуть ар-деко...', req:true},
+  {id:'color_like',  blk:'СТИЛЬ', q:'Предпочтения по цвету', hint:'Выберите подходящие', type:'multi', opts:['Белый / очень светлый','Нейтральные тёплые (беж, молоко, слоновая кость)','Пастельные оттенки','Серые тона','Контрастные сочетания','Яркие акценты (диван, стена)','Тёмные насыщенные']},
+  {id:'color_no',    blk:'СТИЛЬ', q:'Какие цвета точно НЕ использовать?', hint:'', type:'text', ph:'Например: оранжевый, ярко-зелёный, сиреневый...'},
+  {id:'metal',       blk:'СТИЛЬ', q:'Металл в интерьере — что нравится?', hint:'Цвет фурнитуры, смесителей, светильников', type:'multi', opts:['Хром / матовый хром','Золото / матовое золото','Латунь','Медь / бронза','Чёрный матовый металл','Не важно — на усмотрение дизайнера']},
+  {id:'open_shelves',blk:'СТИЛЬ', q:'Как относитесь к открытым полкам и стеллажам?', hint:'', type:'single', opts:['Минимум открытого — всё за дверцами','Немного — для декора и книг','Люблю открытые стеллажи','Не важно']},
 
-  // БЛОК 8: ИНЖЕНЕРИЯ
-  { id: 'eng_warm_floor', block: 'ИНЖЕНЕРИЯ', q: 'Тёплые полы', hint: '', type: 'multi', options: ['Не нужны', 'Электрические (ванная)', 'Электрические (вся квартира)', 'Водяные', 'Пока не знаю'] },
-  { id: 'eng_ac', block: 'ИНЖЕНЕРИЯ', q: 'Кондиционирование', hint: '', type: 'multi', options: ['Настенный кондиционер', 'Канальное кондиционирование', 'Приточная вентиляция (бризер)', 'Не нужно'] },
-  { id: 'eng_smart', block: 'ИНЖЕНЕРИЯ', q: 'Умный дом / автоматика', hint: '', type: 'options', options: ['Не интересует', 'Базовая автоматика (свет, шторы)', 'Полноценный умный дом', 'Хочу узнать подробнее'] },
+  // МАТЕРИАЛЫ
+  {id:'mat_walls',  blk:'МАТЕРИАЛЫ', q:'Предпочтения по стенам', hint:'Выберите всё что нравится', type:'multi', opts:['Покраска','Обои','Декоративная штукатурка','Микроцемент','Плитка / керамогранит','Дерево / рейки / панели','Кирпич / лофт','Натуральный камень','Не знаю — доверяю дизайнеру']},
+  {id:'mat_floor',  blk:'МАТЕРИАЛЫ', q:'Предпочтения по полу', hint:'', type:'multi', opts:['Паркетная доска / массив','Ламинат','Керамогранит','Наливной пол','Ковролин / ковёр','Винил / LVT','Не знаю — доверяю дизайнеру']},
+  {id:'mat_ceiling',blk:'МАТЕРИАЛЫ', q:'Предпочтения по потолку', hint:'', type:'multi', opts:['Покраска (ровный чистовой)','Натяжной матовый','Натяжной глянцевый','ГКЛ многоуровневый','С подсветкой / LED-лентой','Дерево / балки','Не знаю — доверяю дизайнеру']},
 
-  // БЛОК 9: ПЕРЕПЛАНИРОВКА
-  { id: 'replan', block: 'ПЕРЕПЛАНИРОВКА', q: 'Планируете ли перепланировку?', hint: '', type: 'options', options: ['Нет, оставляем как есть', 'Небольшие изменения', 'Да, кардинальные изменения', 'Пока не знаю'] },
-  { id: 'balcony', block: 'ПЕРЕПЛАНИРОВКА', q: 'Балкон / лоджия', hint: '', type: 'multi', options: ['Нет балкона', 'Объединить с комнатой', 'Утеплить и остеклить', 'Оставить как есть', 'Сделать рабочее место'] },
+  // ИНЖЕНЕРИЯ
+  {id:'eng_floor', blk:'ИНЖЕНЕРИЯ', q:'Тёплые полы — где планируете?', hint:'Выберите все нужные варианты', type:'multi',
+    opts:['Не нужны','В ванной / санузле (электрические)','В прихожей (электрические)','На кухне (электрические)','По всей квартире (электрические)','Водяные (актуально для частного дома)','Пока не решил(а)']},
+  {id:'eng_ac',    blk:'ИНЖЕНЕРИЯ', q:'Кондиционирование и вентиляция', hint:'', type:'multi',
+    opts:['Настенные сплит-системы в комнатах','Канальная система (скрытая, за потолком)','Приточная вентиляция / бризер','Рекуператор воздуха','Осушитель / увлажнитель','Не планирую / не знаю']},
+  {id:'eng_special',blk:'ИНЖЕНЕРИЯ', q:'Особое оборудование', hint:'Отметьте что нужно предусмотреть', type:'multi',
+    opts:['Сейф','Камин (настоящий)','Биокамин / декоративный камин','Видеопроектор и экран','Стационарная аудиосистема','Спортивные тренажёры','Аквариум','Ничего особенного'], other:true},
+  {id:'eng_smart', blk:'ИНЖЕНЕРИЯ', q:'Умный дом', hint:'', type:'single',
+    opts:['Не интересует','Базовая автоматика (свет, шторы, температура)','Полноценный умный дом','Хочу узнать подробнее на консультации']},
+  {id:'eng_tv',    blk:'ИНЖЕНЕРИЯ', q:'ТВ и интернет', hint:'', type:'multi',
+    opts:['Кабельное / спутниковое ТВ','Только Smart TV и стриминг','Сетевые розетки RJ45 в комнатах','Wi-Fi точки доступа по квартире','Всё через один роутер — не важно']},
 
-  // БЛОК 10: ФИНАЛ
-  { id: 'important', block: 'ГЛАВНОЕ', q: 'Что для вас самое важное в будущем интерьере?', hint: 'Три главных приоритета', type: 'textarea', placeholder: 'Например: функциональность, натуральные материалы, чтобы было легко убираться...' },
-  { id: 'questions', block: 'ГЛАВНОЕ', q: 'Есть ли вопросы к дизайнеру?', hint: 'Необязательно', type: 'textarea', placeholder: 'Любые вопросы которые хотите прояснить до встречи...' }
+  // ПЕРЕПЛАНИРОВКА
+  {id:'replan',      blk:'ПЕРЕПЛАНИРОВКА', q:'Планируете ли перепланировку?', hint:'', type:'single', opts:['Нет, оставляем планировку как есть','Небольшие изменения','Да, кардинальные изменения','Пока не знаю']},
+  {id:'replan_legal',blk:'ПЕРЕПЛАНИРОВКА', q:'Оформление перепланировки', hint:'', type:'single',
+    opts:['Узаконим через проектную документацию','Без оформления','Ещё не думал(а) об этом'],
+    skipIf:{id:'replan', val:'Нет, оставляем планировку как есть'}},
+  {id:'balcony',     blk:'ПЕРЕПЛАНИРОВКА', q:'Балкон / лоджия', hint:'', type:'multi',
+    opts:['Нет балкона','Объединить с комнатой','Утеплить и остеклить','Оставить как есть','Сделать кабинет / рабочее место','Сделать зону хранения','Сделать зону отдыха']},
+
+  // ГЛАВНОЕ
+  {id:'priorities',blk:'ГЛАВНОЕ', q:'Три главных приоритета в будущем интерьере', hint:'Что для вас важнее всего — это основа для дизайнера', type:'textarea', ph:'Например: максимальная функциональность, натуральные материалы, чтобы легко убираться...', req:true},
+  {id:'extra_q',   blk:'ГЛАВНОЕ', q:'Есть ли вопросы к дизайнеру?', hint:'Необязательно', type:'textarea', ph:'Любые вопросы которые хотите прояснить до встречи...'},
 ];
 
-// ═══════════════════════════════════════
-// ИНИТ
-// ═══════════════════════════════════════
-var tplId = null;
-
-window.addEventListener('load', async function() {
-  // Читаем параметр шаблона из URL
-  var params = new URLSearchParams(window.location.search);
-  tplId = params.get('tpl');
-
-  if (tplId) {
-    await loadTemplate(tplId);
-  } else {
-    // Без шаблона — используем полную анкету
-    template = null;
-    QUESTIONS = ALL_BLOCKS.slice();
-    showIdScreen();
-  }
+// ─── ИНИТ ──────────────────────────────────────────────────────────────────
+window.addEventListener('load', async function(){
+  var p = new URLSearchParams(window.location.search);
+  tplId = p.get('tpl');
+  if (tplId) await loadTemplate(tplId);
+  else { QUESTIONS=ALL.slice(); showId(); }
 });
 
-async function loadTemplate(id) {
-  try {
-    var r = await fetch('https://api.jsonbin.io/v3/b/' + JB_TPL + '/latest', {
-      headers: {'X-Master-Key': JB_KEY}
+async function loadTemplate(id){
+  try{
+    var r=await fetch('https://api.jsonbin.io/v3/b/'+JB_TPL+'/latest',{headers:{'X-Master-Key':JB_KEY}});
+    var d=await r.json();
+    var tpls=d.record.templates||[];
+    template=tpls.find(function(t){return t.id===id;});
+    if(template) filterQuestions(template); else QUESTIONS=ALL.slice();
+  }catch(e){QUESTIONS=ALL.slice();}
+  showId();
+}
+
+function filterQuestions(tpl){
+  var b=tpl.blocks||{};
+  var map={'ЗНАКОМСТВО':true,'ОБ ОБЪЕКТЕ':true,'ГЛАВНОЕ':true,
+    'ПОЖЕЛАНИЯ':b.psychology!==false,'СОСТАВ СЕМЬИ':b.family!==false,
+    'ОБРАЗ ЖИЗНИ':b.psychology!==false,'БЮДЖЕТ':b.budget!==false,
+    'СТИЛЬ':b.style!==false,'МАТЕРИАЛЫ':b.materials!==false,
+    'ИНЖЕНЕРИЯ':b.engineering!==false,'ПЕРЕПЛАНИРОВКА':b.replan!==false};
+  QUESTIONS=ALL.filter(function(q){return map[q.blk]!==false;});
+}
+
+function showId(){
+  document.getElementById('scr-load').style.display='none';
+  document.getElementById('scr-id').style.display='block';
+}
+
+// ─── ИДЕНТИФИКАЦИЯ ──────────────────────────────────────────────────────────
+async function startOrResume(){
+  var name=document.getElementById('id-name').value.trim();
+  var phone=document.getElementById('id-phone').value.trim().replace(/\D/g,'');
+  if(!name){document.getElementById('id-name').focus();return;}
+  if(!phone||phone.length<10){document.getElementById('id-phone').focus();return;}
+  clientKey='client_'+phone;
+  var saved=await loadProg(clientKey);
+  if(saved&&saved.answers&&Object.keys(saved.answers).length>2){
+    answers=saved.answers; step=saved.step||0;
+    document.getElementById('return-note').textContent='✓ Найдена сохранённая анкета, продолжаем...';
+    setTimeout(go,700);
+  } else {
+    answers={name:name,phone:phone}; step=0; go();
+  }
+}
+
+function go(){
+  document.getElementById('scr-id').style.display='none';
+  document.getElementById('scr-q').style.display='block';
+  document.getElementById('prog-wrap').style.display='block';
+  document.getElementById('btns').style.display='flex';
+  render();
+}
+
+// ─── ПРОГРЕСС ───────────────────────────────────────────────────────────────
+async function loadProg(key){
+  try{
+    var r=await fetch('https://api.jsonbin.io/v3/b/'+JB_CLIENTS+'/latest',{headers:{'X-Master-Key':JB_KEY}});
+    var d=await r.json(); return (d.record||{})[key]||null;
+  }catch(e){return null;}
+}
+
+async function saveProg(){
+  if(!clientKey)return;
+  try{
+    var r=await fetch('https://api.jsonbin.io/v3/b/'+JB_CLIENTS+'/latest',{headers:{'X-Master-Key':JB_KEY}});
+    var d=await r.json(); var data=d.record||{};
+    data[clientKey]={answers:answers,step:step,template:tplId,updated:new Date().toISOString()};
+    await fetch('https://api.jsonbin.io/v3/b/'+JB_CLIENTS,{method:'PUT',
+      headers:{'X-Master-Key':JB_KEY,'Content-Type':'application/json'},body:JSON.stringify(data)});
+    var b=document.getElementById('save-badge');
+    b.classList.add('show'); setTimeout(function(){b.classList.remove('show');},1500);
+  }catch(e){}
+}
+
+// ─── РЕНДЕР ─────────────────────────────────────────────────────────────────
+function shouldSkip(q){
+  if(!q.skipIf)return false;
+  return answers[q.skipIf.id]===q.skipIf.val;
+}
+
+function render(){
+  while(step<QUESTIONS.length && shouldSkip(QUESTIONS[step])) step++;
+  if(step>=QUESTIONS.length){done();return;}
+
+  var q=QUESTIONS[step];
+  var pct=Math.round(step/QUESTIONS.length*100);
+  document.getElementById('prog-fill').style.width=pct+'%';
+  document.getElementById('prog-text').textContent='вопрос '+(step+1)+' из '+QUESTIONS.length;
+  document.getElementById('blk-label').textContent=q.blk||'';
+  document.getElementById('q-text').textContent=q.q;
+  document.getElementById('q-hint').textContent=q.hint||'';
+  document.getElementById('main-title').textContent=q.blk||'КУБ';
+
+  var bbl=document.getElementById('ai-bubble');
+  if(aiHist[step]){bbl.textContent=aiHist[step];bbl.classList.add('show');}
+  else{bbl.classList.remove('show');bbl.textContent='';}
+
+  renderAnswer(q);
+  document.getElementById('btn-back').style.visibility=step>0?'visible':'hidden';
+}
+
+function renderAnswer(q){
+  var area=document.getElementById('ans-area');
+  var saved=answers[q.id]||'';
+
+  if(q.type==='text'){
+    area.innerHTML='<input class="field-input" id="ai" placeholder="'+(q.ph||'')+'" value="'+E(saved)+'">';
+    var i=document.getElementById('ai');
+    i.onkeydown=function(e){if(e.key==='Enter')next();};
+    setTimeout(function(){i.focus();},80);
+
+  }else if(q.type==='textarea'){
+    area.innerHTML='<textarea class="field-input" id="ai" placeholder="'+(q.ph||'')+'">'+E(saved)+'</textarea>';
+    setTimeout(function(){document.getElementById('ai').focus();},80);
+
+  }else if(q.type==='single'){
+    var html='<div class="opts">';
+    q.opts.forEach(function(o){
+      var s=saved===o?' sel':'';
+      html+='<div class="opt'+s+'" onclick="pickOpt(this,\''+E(o)+'\')"><div class="opt-radio"></div>'+o+'</div>';
     });
-    var d = await r.json();
-    var templates = d.record.templates || [];
-    template = templates.find(function(t){ return t.id === id; });
-    if (template) {
-      buildQuestionsFromTemplate(template);
-    } else {
-      QUESTIONS = ALL_BLOCKS.slice();
+    html+='</div>';
+    if(q.other){
+      var ov=(saved&&!q.opts.includes(saved))?saved:'';
+      html+='<div class="other-wrap'+(ov?' show':'')+'" id="ow"><input class="field-input" id="oi" placeholder="Укажите свой вариант..." value="'+E(ov)+'"></div>';
     }
-  } catch(e) {
-    QUESTIONS = ALL_BLOCKS.slice();
-  }
-  showIdScreen();
-}
+    area.innerHTML=html;
 
-function buildQuestionsFromTemplate(tpl) {
-  var blocks = tpl.blocks || {};
-  // Фильтруем вопросы по включённым блокам шаблона
-  QUESTIONS = ALL_BLOCKS.filter(function(q) {
-    var blockMap = {
-      'ЗНАКОМСТВО': true, // всегда
-      'ОБ ОБЪЕКТЕ': true, // всегда
-      'ПОЖЕЛАНИЯ': blocks.psychology !== false,
-      'СОСТАВ СЕМЬИ': blocks.family !== false,
-      'БЮДЖЕТ': blocks.budget !== false,
-      'СТИЛЬ': blocks.style !== false,
-      'МАТЕРИАЛЫ': blocks.materials !== false,
-      'ИНЖЕНЕРИЯ': blocks.engineering !== false,
-      'ПЕРЕПЛАНИРОВКА': blocks.replan !== false,
-      'ГЛАВНОЕ': true // всегда
-    };
-    return blockMap[q.block] !== false;
-  });
-}
-
-// ═══════════════════════════════════════
-// ИДЕНТИФИКАЦИЯ
-// ═══════════════════════════════════════
-function showIdScreen() {
-  document.getElementById('loading-screen').style.display = 'none';
-  document.getElementById('id-screen').style.display = 'block';
-}
-
-async function startOrResume() {
-  var name = document.getElementById('id-name').value.trim();
-  var phone = document.getElementById('id-phone').value.trim().replace(/\D/g,'');
-  if (!name) { document.getElementById('id-name').focus(); return; }
-  if (!phone || phone.length < 10) { document.getElementById('id-phone').focus(); return; }
-
-  clientKey = 'client_' + phone;
-
-  // Пробуем загрузить прогресс
-  var saved = await loadProgress(clientKey);
-  if (saved && saved.answers && Object.keys(saved.answers).length > 0) {
-    answers = saved.answers;
-    step = saved.step || 0;
-    document.getElementById('returning-note').textContent = '✓ Найдена сохранённая анкета, продолжаем...';
-    setTimeout(startInterview, 800);
-  } else {
-    answers = { name: name, phone: phone };
-    step = 0;
-    startInterview();
-  }
-}
-
-function startInterview() {
-  document.getElementById('id-screen').style.display = 'none';
-  document.getElementById('kub-card').style.display = 'block';
-  document.getElementById('progress-wrap').style.display = 'block';
-  document.getElementById('btns').style.display = 'flex';
-  renderQuestion();
-}
-
-// ═══════════════════════════════════════
-// ПРОГРЕСС JSONBIN
-// ═══════════════════════════════════════
-async function loadProgress(key) {
-  try {
-    var r = await fetch('https://api.jsonbin.io/v3/b/' + JB_CLIENTS + '/latest', {
-      headers: {'X-Master-Key': JB_KEY}
+  }else if(q.type==='multi'){
+    var arr=saved?saved.split('|'):[];
+    var html='<div class="multi-hint">Можно выбрать несколько</div><div class="chips">';
+    q.opts.forEach(function(o){
+      var s=arr.includes(o)?' sel':'';
+      html+='<div class="chip'+s+'" onclick="pickChip(this)">'+o+'</div>';
     });
-    var d = await r.json();
-    var data = d.record;
-    return data[key] || null;
-  } catch(e) { return null; }
-}
+    html+='</div>';
+    if(q.other){
+      var custom=arr.find(function(v){return!q.opts.includes(v);})||'';
+      html+='<div class="other-wrap'+(custom?' show':'')+'" id="ow"><input class="field-input" id="oi" placeholder="Другое — укажите..." value="'+E(custom)+'"></div>';
+    }
+    area.innerHTML=html;
 
-async function saveProgress() {
-  try {
-    // Загружаем текущие данные
-    var r = await fetch('https://api.jsonbin.io/v3/b/' + JB_CLIENTS + '/latest', {
-      headers: {'X-Master-Key': JB_KEY}
+  }else if(q.type==='rooms'){
+    var saved_rooms={};
+    if(saved){saved.split('|').forEach(function(p){var kv=p.split(':');if(kv[0])saved_rooms[kv[0]]=parseInt(kv[1])||1;});}
+    var html='<div class="rooms-list">';
+    q.roomList.forEach(function(r){
+      var cnt=saved_rooms[r.name]||1;
+      var s=saved_rooms[r.name]?' sel':'';
+      html+='<div class="room-row'+s+'" id="rr-'+E(r.name)+'">';
+      html+='<div class="room-left" onclick="togRoom(\''+E(r.name)+'\')"><div class="room-box">✓</div><div class="room-label">'+r.name+'</div></div>';
+      if(r.multi){
+        html+='<div class="counter">';
+        html+='<button class="cnt-btn" onclick="chgCnt(\''+E(r.name)+'\',-1)">−</button>';
+        html+='<span class="cnt-val" id="cv-'+E(r.name)+'">'+cnt+'</span>';
+        html+='<button class="cnt-btn" onclick="chgCnt(\''+E(r.name)+'\',1)">+</button>';
+        html+='</div>';
+      }
+      html+='</div>';
     });
-    var d = await r.json();
-    var data = d.record || {};
-
-    // Обновляем запись клиента
-    data[clientKey] = {
-      answers: answers,
-      step: step,
-      template: tplId,
-      updated: new Date().toISOString()
-    };
-
-    await fetch('https://api.jsonbin.io/v3/b/' + JB_CLIENTS, {
-      method: 'PUT',
-      headers: {'X-Master-Key': JB_KEY, 'Content-Type': 'application/json'},
-      body: JSON.stringify(data)
-    });
-
-    // Показываем индикатор
-    var ind = document.getElementById('save-indicator');
-    ind.classList.add('show');
-    setTimeout(function(){ ind.classList.remove('show'); }, 1500);
-  } catch(e) {}
-}
-
-// ═══════════════════════════════════════
-// РЕНДЕР ВОПРОСА
-// ═══════════════════════════════════════
-function renderQuestion() {
-  // Пропускаем телефон если уже ввели
-  while (step < QUESTIONS.length && QUESTIONS[step].skipIfPhone && answers.phone) {
-    answers[QUESTIONS[step].id] = answers.phone;
-    step++;
+    html+='</div>';
+    area.innerHTML=html;
   }
+}
 
-  if (step >= QUESTIONS.length) { showDone(); return; }
+function E(s){return String(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/'/g,'&#39;');}
 
-  var q = QUESTIONS[step];
-  var pct = Math.round((step / QUESTIONS.length) * 100);
+function pickOpt(el,val){
+  document.querySelectorAll('.opt').forEach(function(o){o.classList.remove('sel');});
+  el.classList.add('sel');
+  var ow=document.getElementById('ow');
+  if(ow) ow.classList.toggle('show', val==='Другое');
+}
 
-  document.getElementById('progress-fill').style.width = pct + '%';
-  document.getElementById('progress-text').textContent = 'вопрос ' + (step+1) + ' из ' + QUESTIONS.length;
-  document.getElementById('block-label').textContent = q.block || '';
-  document.getElementById('q-text').textContent = q.q;
-  document.getElementById('q-hint').textContent = q.hint || '';
+function pickChip(el){
+  el.classList.toggle('sel');
+  var txt=el.textContent.trim();
+  var ow=document.getElementById('ow');
+  if(ow&&txt==='Другое') ow.classList.toggle('show',el.classList.contains('sel'));
+}
 
-  // ИИ реакция
-  var bubble = document.getElementById('ai-bubble');
-  if (aiHistory[step]) {
-    bubble.textContent = aiHistory[step];
-    bubble.classList.add('show');
-  } else {
-    bubble.classList.remove('show');
-    bubble.textContent = '';
+function togRoom(name){
+  var row=document.getElementById('rr-'+name);
+  if(row) row.classList.toggle('sel');
+}
+function chgCnt(name,d){
+  var row=document.getElementById('rr-'+name);
+  var cv=document.getElementById('cv-'+name);
+  if(!row||!cv)return;
+  if(!row.classList.contains('sel')) row.classList.add('sel');
+  var v=parseInt(cv.textContent)+d;
+  if(v<1)v=1; if(v>9)v=9;
+  cv.textContent=v;
+}
+
+// ─── ПОЛУЧИТЬ ОТВЕТ ──────────────────────────────────────────────────────────
+function getAns(){
+  var q=QUESTIONS[step];
+  if(q.type==='text'||q.type==='textarea'){
+    var el=document.getElementById('ai'); return el?el.value.trim():'';
   }
-
-  // Поле ответа
-  var area = document.getElementById('answer-area');
-  var saved = answers[q.id] || '';
-
-  if (q.type === 'text') {
-    area.innerHTML = '<input class="field-input" id="answer-input" placeholder="'+q.placeholder+'" value="'+escHtml(saved)+'">';
-    var inp = document.getElementById('answer-input');
-    inp.addEventListener('keydown', function(e){ if(e.key==='Enter') nextStep(); });
-    setTimeout(function(){ inp.focus(); }, 100);
-
-  } else if (q.type === 'textarea') {
-    area.innerHTML = '<textarea class="field-input" id="answer-input" placeholder="'+q.placeholder+'">'+escHtml(saved)+'</textarea>';
-    setTimeout(function(){ document.getElementById('answer-input').focus(); }, 100);
-
-  } else if (q.type === 'options') {
-    area.innerHTML = '<div class="options-list">'+
-      q.options.map(function(opt){
-        var sel = saved === opt ? ' selected' : '';
-        return '<div class="option-item'+sel+'" onclick="selectOption(this,\''+escHtml(opt)+'\')">'+
-          '<div class="option-check"></div>'+opt+'</div>';
-      }).join('') + '</div>';
-
-  } else if (q.type === 'multi') {
-    var savedArr = saved ? saved.split('|') : [];
-    area.innerHTML = '<div class="multi-hint">Можно выбрать несколько</div><div class="chips-wrap">'+
-      q.options.map(function(opt){
-        var sel = savedArr.includes(opt) ? ' selected' : '';
-        return '<div class="chip'+sel+'" onclick="toggleChip(this,\''+escHtml(opt)+'\')">'+opt+'</div>';
-      }).join('') + '</div>';
+  if(q.type==='single'){
+    var sel=document.querySelector('.opt.sel'); if(!sel)return'';
+    var v=sel.textContent.trim();
+    if(v==='Другое'){var oi=document.getElementById('oi'); return oi&&oi.value.trim()?oi.value.trim():'Другое';}
+    return v;
   }
-
-  document.getElementById('btn-back').style.visibility = step > 0 ? 'visible' : 'hidden';
-  document.getElementById('main-title').textContent = q.block || 'КУБ';
-}
-
-function escHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
-
-function selectOption(el, val) {
-  document.querySelectorAll('.option-item').forEach(function(o){ o.classList.remove('selected'); });
-  el.classList.add('selected');
-}
-
-function toggleChip(el) {
-  el.classList.toggle('selected');
-}
-
-function getAnswer() {
-  var q = QUESTIONS[step];
-  if (q.type === 'text' || q.type === 'textarea') {
-    var inp = document.getElementById('answer-input');
-    return inp ? inp.value.trim() : '';
-  } else if (q.type === 'options') {
-    var sel = document.querySelector('.option-item.selected');
-    return sel ? sel.textContent.trim() : '';
-  } else if (q.type === 'multi') {
-    var chips = document.querySelectorAll('.chip.selected');
-    var vals = Array.from(chips).map(function(c){ return c.textContent.trim(); });
+  if(q.type==='multi'){
+    var chips=Array.from(document.querySelectorAll('.chip.sel'));
+    var vals=chips.map(function(c){return c.textContent.trim();});
+    var oi=document.getElementById('oi');
+    if(oi&&oi.value.trim()){
+      var idx=vals.indexOf('Другое');
+      if(idx>=0) vals[idx]=oi.value.trim(); else vals.push(oi.value.trim());
+    }
     return vals.join('|');
+  }
+  if(q.type==='rooms'){
+    var res=[];
+    document.querySelectorAll('.room-row.sel').forEach(function(row){
+      var lbl=row.querySelector('.room-label'); var cv=row.querySelector('.cnt-val');
+      if(lbl) res.push(lbl.textContent.trim()+':'+(cv?cv.textContent.trim():'1'));
+    });
+    return res.join('|');
   }
   return '';
 }
 
-// ═══════════════════════════════════════
-// НАВИГАЦИЯ
-// ═══════════════════════════════════════
-document.getElementById('btn-back').addEventListener('click', function() {
-  if (step > 0) { step--; renderQuestion(); }
-});
+// ─── НАВИГАЦИЯ ───────────────────────────────────────────────────────────────
+document.getElementById('btn-back').onclick=function(){if(step>0){step--;render();}};
+document.getElementById('btn-next').onclick=next;
+document.addEventListener('keydown',function(e){if(e.key==='Enter'&&e.target.tagName!=='TEXTAREA')next();});
 
-document.getElementById('btn-next').addEventListener('click', nextStep);
-
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') nextStep();
-});
-
-async function nextStep() {
-  var answer = getAnswer();
-  var q = QUESTIONS[step];
-
-  // Обязательные вопросы
-  if (!answer && ['name','object_type','budget_total','wish_magic'].includes(q.id)) return;
-
-  answers[q.id] = answer;
-
-  if (step < QUESTIONS.length - 1) {
-    document.getElementById('btn-next').disabled = true;
+async function next(){
+  var ans=getAns(), q=QUESTIONS[step];
+  if(!ans&&q.req)return;
+  answers[q.id]=ans;
+  if(step<QUESTIONS.length-1){
+    document.getElementById('btn-next').disabled=true;
     document.getElementById('ai-typing').classList.add('show');
-
-    // Сохраняем прогресс
-    saveProgress();
-
-    // ИИ реакция (только на текстовые ответы)
-    var reaction = null;
-    if ((q.type === 'text' || q.type === 'textarea') && answer.length > 5) {
-      reaction = await askClaude(q.q, answer);
-    }
-
+    saveProg();
+    var react=null;
+    if((q.type==='text'||q.type==='textarea')&&ans.length>5) react=await claude(q.q,ans);
     document.getElementById('ai-typing').classList.remove('show');
-
-    if (reaction) {
-      aiHistory[step] = reaction;
-      var bubble = document.getElementById('ai-bubble');
-      bubble.textContent = reaction;
-      bubble.classList.add('show');
-      await pause(1000);
+    if(react){
+      aiHist[step]=react;
+      var b=document.getElementById('ai-bubble'); b.textContent=react; b.classList.add('show');
+      await new Promise(function(r){setTimeout(r,950);});
     }
-
-    document.getElementById('btn-next').disabled = false;
-    step++;
-    renderQuestion();
-  } else {
-    answers[q.id] = answer;
-    await saveProgress();
-    showDone();
+    document.getElementById('btn-next').disabled=false;
+    step++; render();
+  }else{
+    answers[q.id]=ans; await saveProg(); done();
   }
 }
 
-function pause(ms){ return new Promise(function(r){ setTimeout(r, ms); }); }
-
-// ═══════════════════════════════════════
-// CLAUDE API
-// ═══════════════════════════════════════
-async function askClaude(question, answer) {
-  var context = 'Предыдущие ответы клиента:\n';
-  for (var key in answers) {
-    if (answers[key] && key !== 'phone') context += key + ': ' + answers[key] + '\n';
-  }
-  var prompt = 'Ты КУБ — умный ИИ-интервьюер студии дизайна интерьера М².\n' + context +
-    '\nТекущий вопрос: ' + question + '\nОтвет клиента: ' + answer +
-    '\n\nНапиши короткую (1–2 предложения) живую реакцию. Будь тёплым и профессиональным. Можешь уточнить деталь или сделать наблюдение. Не задавай новых вопросов. Пиши на русском.';
-  try {
-    var r = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 150, messages: [{role:'user',content:prompt}] })
-    });
-    var d = await r.json();
-    return d.content && d.content[0] ? d.content[0].text : null;
-  } catch(e) { return null; }
+// ─── CLAUDE ──────────────────────────────────────────────────────────────────
+async function claude(question,answer){
+  var ctx=''; for(var k in answers){if(answers[k]&&k!=='phone')ctx+=k+': '+answers[k]+'\n';}
+  var p='Ты КУБ — ИИ-интервьюер студии дизайна интерьера М².\nКонтекст:\n'+ctx+
+    '\nВопрос: '+question+'\nОтвет клиента: '+answer+
+    '\n\nНапиши 1–2 предложения — тёплую живую реакцию. Не задавай новых вопросов. Русский язык.';
+  try{
+    var r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:150,messages:[{role:'user',content:p}]})});
+    var d=await r.json(); return d.content&&d.content[0]?d.content[0].text:null;
+  }catch(e){return null;}
 }
 
-// ═══════════════════════════════════════
-// ФИНАЛ
-// ═══════════════════════════════════════
-function showDone() {
-  document.getElementById('kub-card').style.display = 'none';
-  document.getElementById('btns').style.display = 'none';
-  document.getElementById('progress-wrap').style.display = 'none';
-  document.getElementById('main-title').textContent = 'Готово';
-  document.getElementById('step-lbl').textContent = 'анкета заполнена';
-
-  var name = (answers['name'] || 'Гость').split(' ')[0];
-  document.getElementById('done-name').textContent = name;
-
-  var labels = {
-    name:'Имя', phone:'Телефон', object_type:'Тип объекта',
-    object_area:'Площадь', object_purpose:'Назначение',
-    object_rooms:'Помещения', budget_total:'Бюджет',
-    style_pref:'Стиль', wish_magic:'Пожелания', important:'Приоритеты'
-  };
-  var html = '';
-  for (var key in labels) {
-    if (answers[key]) {
-      var val = answers[key].replace(/\|/g, ', ');
-      if (val.length > 50) val = val.slice(0,50) + '...';
-      html += '<div class="sum-row"><span class="sum-key">'+labels[key]+'</span><span class="sum-val">'+val+'</span></div>';
+// ─── ФИНАЛ ───────────────────────────────────────────────────────────────────
+function done(){
+  document.getElementById('scr-q').style.display='none';
+  document.getElementById('btns').style.display='none';
+  document.getElementById('prog-wrap').style.display='none';
+  document.getElementById('main-title').textContent='Готово';
+  document.getElementById('step-lbl').textContent='анкета заполнена';
+  var name=(answers['name']||'Гость').split(' ')[0];
+  document.getElementById('done-name').textContent=name;
+  var lbls={name:'Имя',phone:'Телефон',obj_type:'Тип объекта',obj_area:'Площадь',
+    scope:'Заказ',rooms:'Помещения',budget:'Бюджет',style:'Стиль',wish:'Пожелания',priorities:'Приоритеты'};
+  var html='';
+  for(var k in lbls){
+    if(answers[k]){
+      var v=answers[k].replace(/\|/g,', ').replace(/:\d+/g,'');
+      if(v.length>60)v=v.slice(0,60)+'...';
+      html+='<div class="sum-row"><span class="sum-k">'+lbls[k]+'</span><span class="sum-v">'+v+'</span></div>';
     }
   }
-  document.getElementById('summary-list').innerHTML = html;
-  document.getElementById('done-card').classList.add('show');
+  document.getElementById('sum-list').innerHTML=html;
+  document.getElementById('scr-done').classList.add('show');
 }
 
-function restart() {
-  answers = {};
-  aiHistory = {};
-  step = 0;
-  document.getElementById('done-card').classList.remove('show');
-  document.getElementById('id-screen').style.display = 'block';
-  document.getElementById('id-name').value = '';
-  document.getElementById('id-phone').value = '';
-  document.getElementById('returning-note').textContent = '';
+function restart(){
+  answers={}; aiHist={}; step=0;
+  document.getElementById('scr-done').classList.remove('show');
+  document.getElementById('scr-id').style.display='block';
+  document.getElementById('id-name').value='';
+  document.getElementById('id-phone').value='';
+  document.getElementById('return-note').textContent='';
 }
 </script>
 </body>
