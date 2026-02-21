@@ -7,63 +7,130 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#f5f0ea;--surface:#faf8f5;--border:#e8e0d4;--accent:#8a7055;--dark:#2c2419;--text:#1a1510;--mid:#7a6e62;--light:#a89e90;--ok:#6b8f6b}
+:root{--bg:#f5f0ea;--surface:#faf8f5;--border:#e8e0d4;--accent:#8a7055;--dark:#2c2419;--text:#1a1510;--mid:#7a6e62;--light:#a89e90;--ok:#6b8f6b;--err:#c0392b}
 body{font-family:'Jost',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
 .serif{font-family:'Cormorant Garamond',serif}
-.wrap{width:100%;max-width:580px}
+.wrap{width:100%;max-width:600px}
 .logo{text-align:center;font-size:11px;letter-spacing:6px;color:#c4a882;margin-bottom:14px}
-.title{text-align:center;font-size:42px;font-weight:300;margin-bottom:6px}
+.main-title{text-align:center;font-size:40px;font-weight:300;margin-bottom:6px}
 .step-lbl{text-align:center;font-size:12px;color:var(--light);letter-spacing:1px;margin-bottom:28px}
-.progress{display:flex;gap:6px;justify-content:center;margin-bottom:36px}
-.prog-seg{height:2px;border-radius:1px;transition:all .3s}
+.progress-wrap{margin-bottom:32px}
+.progress-bar{height:2px;background:var(--border);border-radius:1px;overflow:hidden}
+.progress-fill{height:100%;background:var(--accent);border-radius:1px;transition:width .4s ease}
+.progress-text{font-size:11px;color:var(--light);text-align:right;margin-top:6px}
+
+/* КАРТОЧКА */
 .card{background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:36px 40px;margin-bottom:14px}
+.block-label{font-size:10px;letter-spacing:3px;color:var(--accent);margin-bottom:20px}
 .q-row{display:flex;gap:14px;margin-bottom:24px}
 .q-icon{width:32px;height:32px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff;flex-shrink:0;font-family:'Cormorant Garamond',serif}
+.q-body{flex:1}
 .q-text{font-size:19px;font-weight:300;line-height:1.55;font-family:'Cormorant Garamond',serif}
 .q-hint{font-size:12px;color:var(--light);margin-top:5px}
-.ai-bubble{background:var(--bg);border:1px solid var(--border);border-radius:3px 14px 14px 14px;padding:14px 18px;margin-bottom:16px;font-size:14px;line-height:1.65;color:var(--mid);display:none}
-.ai-bubble.show{display:block}
+
+/* ИИ */
 .ai-typing{display:none;align-items:center;gap:6px;margin-bottom:16px;font-size:12px;color:var(--light)}
 .ai-typing.show{display:flex}
 .dot{width:4px;height:4px;background:var(--light);border-radius:50%;animation:bounce .8s infinite}
-.dot:nth-child(2){animation-delay:.15s}
-.dot:nth-child(3){animation-delay:.3s}
+.dot:nth-child(2){animation-delay:.15s}.dot:nth-child(3){animation-delay:.3s}
 @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.ai-bubble{background:var(--bg);border:1px solid var(--border);border-radius:3px 14px 14px 14px;padding:14px 18px;margin-bottom:16px;font-size:14px;line-height:1.65;color:var(--mid);display:none}
+.ai-bubble.show{display:block}
+
+/* ОТВЕТЫ */
 .field-input{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:3px;padding:12px 16px;color:var(--text);font-size:14px;font-family:'Jost',sans-serif;outline:none;transition:border-color .2s}
 .field-input:focus{border-color:var(--accent)}
 textarea.field-input{resize:none;height:90px}
-.upload-area{border:1.5px dashed var(--border);border-radius:3px;padding:28px 20px;text-align:center;cursor:pointer;transition:border-color .2s}
-.upload-area:hover{border-color:var(--accent)}
+.options-list{display:flex;flex-direction:column;gap:8px}
+.option-item{background:var(--bg);border:1px solid var(--border);border-radius:3px;padding:12px 16px;cursor:pointer;font-size:14px;transition:all .2s;display:flex;align-items:center;gap:10px}
+.option-item:hover{border-color:var(--accent)}
+.option-item.selected{border-color:var(--accent);background:var(--surface)}
+.option-check{width:16px;height:16px;border:1.5px solid var(--border);border-radius:50%;flex-shrink:0;transition:all .2s}
+.option-item.selected .option-check{background:var(--accent);border-color:var(--accent)}
+.multi-hint{font-size:11px;color:var(--light);margin-bottom:10px}
+.chips-wrap{display:flex;flex-wrap:wrap;gap:8px}
+.chip{background:var(--bg);border:1px solid var(--border);border-radius:20px;padding:8px 16px;cursor:pointer;font-size:13px;transition:all .2s}
+.chip:hover{border-color:var(--accent)}
+.chip.selected{border-color:var(--accent);background:var(--surface);color:var(--accent)}
+
+/* КНОПКИ */
 .btns{display:flex;gap:10px}
 .btn-back{flex:1;background:none;border:1px solid var(--border);color:var(--mid);padding:13px;border-radius:3px;cursor:pointer;font-size:12px;font-family:'Jost',sans-serif;transition:all .2s}
 .btn-back:hover{border-color:var(--accent);color:var(--accent)}
 .btn-next{flex:2;background:var(--dark);border:none;color:var(--bg);padding:13px;border-radius:3px;cursor:pointer;font-size:12px;font-weight:500;font-family:'Jost',sans-serif;transition:all .2s}
 .btn-next:hover{background:var(--accent)}
-.btn-next:disabled{opacity:.5;cursor:not-allowed}
+.btn-next:disabled{opacity:.4;cursor:not-allowed}
+
+/* ЭКРАН ИДЕНТИФИКАЦИИ */
+.id-screen{text-align:center;padding:48px 40px}
+.id-title{font-size:32px;font-weight:300;margin-bottom:10px}
+.id-sub{font-size:14px;color:var(--light);margin-bottom:32px;line-height:1.6}
+.id-fields{display:flex;flex-direction:column;gap:12px;margin-bottom:24px}
+.btn-start{width:100%;background:var(--dark);border:none;color:var(--bg);padding:14px;border-radius:3px;cursor:pointer;font-size:13px;font-weight:500;font-family:'Jost',sans-serif;transition:background .2s}
+.btn-start:hover{background:var(--accent)}
+.returning-note{font-size:12px;color:var(--light);margin-top:12px}
+
+/* ФИНАЛ */
 .done-card{background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:48px 40px;text-align:center;display:none}
 .done-card.show{display:block}
 .done-icon{font-size:36px;margin-bottom:20px}
 .done-title{font-size:32px;font-weight:300;margin-bottom:10px}
 .done-sub{font-size:14px;color:var(--light);margin-bottom:32px;line-height:1.6}
-.summary{background:var(--bg);border:1px solid var(--border);border-radius:3px;padding:20px;text-align:left;margin-bottom:24px}
-.sum-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px}
+.summary-list{background:var(--bg);border:1px solid var(--border);border-radius:3px;padding:20px;text-align:left;margin-bottom:24px}
+.sum-row{padding:8px 0;border-bottom:1px solid var(--border);font-size:13px;display:flex;justify-content:space-between;gap:16px}
 .sum-row:last-child{border-bottom:none}
-.sum-key{color:var(--light)}
-.sum-val{color:var(--text);font-weight:500;max-width:60%;text-align:right}
+.sum-key{color:var(--light);flex-shrink:0}
+.sum-val{color:var(--text);text-align:right}
 .btn-restart{background:none;border:1px solid var(--border);color:var(--mid);padding:11px 28px;border-radius:3px;cursor:pointer;font-size:12px;font-family:'Jost',sans-serif}
+
+/* ЗАГРУЗКА */
+.loading-screen{text-align:center;padding:60px 20px}
+.loading-icon{font-size:32px;margin-bottom:16px;animation:spin 2s linear infinite;display:inline-block}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.loading-text{font-size:14px;color:var(--light)}
+
+/* СОХРАНЕНИЕ */
+.save-indicator{position:fixed;bottom:20px;right:20px;background:var(--dark);color:var(--bg);padding:8px 16px;border-radius:3px;font-size:12px;opacity:0;transition:opacity .3s;pointer-events:none}
+.save-indicator.show{opacity:1}
 </style>
 </head>
 <body>
+
+<div class="save-indicator" id="save-indicator">Сохранено ✓</div>
+
 <div class="wrap">
   <div class="logo serif">М²</div>
-  <div class="serif title" id="main-title">Знакомство</div>
-  <div class="step-lbl" id="step-lbl">шаг 1 из 5</div>
-  <div class="progress" id="progress"></div>
+  <div class="serif main-title" id="main-title">КУБ</div>
+  <div class="step-lbl" id="step-lbl">интервью с дизайнером</div>
 
-  <div id="kub-card" class="card">
+  <!-- ЗАГРУЗКА -->
+  <div class="card" id="loading-screen">
+    <div class="loading-screen">
+      <div class="loading-icon">◈</div>
+      <div class="loading-text">Загружаем анкету...</div>
+    </div>
+  </div>
+
+  <!-- ИДЕНТИФИКАЦИЯ -->
+  <div class="card" id="id-screen" style="display:none">
+    <div class="id-screen">
+      <div class="serif id-title">Добро пожаловать</div>
+      <div class="id-sub">Введите ваше имя и номер телефона.<br>Это позволит продолжить анкету с любого устройства.</div>
+      <div class="id-fields">
+        <input class="field-input" id="id-name" placeholder="Ваше имя">
+        <input class="field-input" id="id-phone" placeholder="Номер телефона" type="tel">
+      </div>
+      <button class="btn-start" onclick="startOrResume()">НАЧАТЬ АНКЕТУ</button>
+      <div class="returning-note" id="returning-note"></div>
+    </div>
+  </div>
+
+  <!-- ВОПРОС -->
+  <div id="kub-card" class="card" style="display:none">
+    <div class="block-label" id="block-label"></div>
     <div class="q-row">
       <div class="q-icon serif">М²</div>
-      <div>
+      <div class="q-body">
         <div class="q-text" id="q-text"></div>
         <div class="q-hint" id="q-hint"></div>
       </div>
@@ -76,188 +143,466 @@ textarea.field-input{resize:none;height:90px}
     <div id="answer-area"></div>
   </div>
 
-  <div class="btns">
+  <div class="progress-wrap" id="progress-wrap" style="display:none">
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+    <div class="progress-text" id="progress-text"></div>
+  </div>
+
+  <div class="btns" id="btns" style="display:none">
     <button class="btn-back" id="btn-back">НАЗАД</button>
     <button class="btn-next" id="btn-next">ДАЛЕЕ</button>
   </div>
 
+  <!-- ФИНАЛ -->
   <div id="done-card" class="done-card">
     <div class="done-icon">✦</div>
-    <div class="serif done-title">Отлично, <span id="done-name"></span>!</div>
-    <div class="done-sub">КУБ собрал первичную информацию о вашем проекте.<br>Дизайнер свяжется с вами в ближайшее время.</div>
-    <div class="summary" id="summary"></div>
-    <button class="btn-restart" onclick="restart()">НАЧАТЬ ЗАНОВО</button>
+    <div class="serif done-title">Готово, <span id="done-name"></span>!</div>
+    <div class="done-sub">КУБ собрал всю необходимую информацию.<br>Дизайнер изучит анкету и свяжется с вами.</div>
+    <div class="summary-list" id="summary-list"></div>
+    <button class="btn-restart" onclick="restart()">ЗАПОЛНИТЬ ЗАНОВО</button>
   </div>
 </div>
 
 <script>
-var QUESTIONS = [
-  { id: 'name', q: 'Как вас зовут?', hint: 'Имя и удобное обращение', type: 'text', placeholder: 'Например: Анна' },
-  { id: 'object', q: 'Расскажите об объекте', hint: 'Тип, площадь, город', type: 'text', placeholder: 'Например: квартира 85м², Москва' },
-  { id: 'style', q: 'Какой стиль вам близок?', hint: 'Опишите своими словами или назовите любимые интерьеры', type: 'textarea', placeholder: 'Например: скандинавский, тепло, натуральные материалы...' },
-  { id: 'budget', q: 'Каков ориентировочный бюджет проекта?', hint: 'Любая цифра поможет лучше подобрать решения', type: 'text', placeholder: 'Например: 2–3 млн рублей' },
-  { id: 'dream', q: 'Опишите свой идеальный результат', hint: 'Что должны чувствовать вы и ваши близкие в этом пространстве?', type: 'textarea', placeholder: 'Например: хочется уюта, чтобы дети могли играть, а вечером была атмосфера для отдыха...' }
+// ═══════════════════════════════════════
+// КОНФИГ
+// ═══════════════════════════════════════
+var JB_KEY = (typeof window.JB_KEY !== 'undefined') ? window.JB_KEY : 'ВСТАВЬ_КЛЮЧ';
+var JB_TPL  = '6999fdfcae596e708f3d7440'; // шаблоны
+var JB_CLIENTS = '6998ac15ae596e708f3ad436'; // клиенты/анкеты
+
+// ═══════════════════════════════════════
+// СОСТОЯНИЕ
+// ═══════════════════════════════════════
+var step = 0;
+var answers = {};
+var aiHistory = {};
+var clientKey = null; // phone-based key
+var template = null;
+var QUESTIONS = [];
+
+// ═══════════════════════════════════════
+// ПОЛНАЯ АНКЕТА (из анкеты М²)
+// ═══════════════════════════════════════
+var ALL_BLOCKS = [
+
+  // БЛОК 1: ЗНАКОМСТВО
+  { id: 'name', block: 'ЗНАКОМСТВО', q: 'Как вас зовут?', hint: 'Имя и удобное обращение', type: 'text', placeholder: 'Например: Анна' },
+  { id: 'phone_confirm', block: 'ЗНАКОМСТВО', q: 'Ваш контактный телефон', hint: 'Для связи с дизайнером', type: 'text', placeholder: '+7 900 000-00-00', skipIfPhone: true },
+  { id: 'email', block: 'ЗНАКОМСТВО', q: 'Электронная почта', hint: 'Необязательно', type: 'text', placeholder: 'example@mail.ru' },
+  { id: 'source', block: 'ЗНАКОМСТВО', q: 'Откуда вы узнали о нас?', hint: '', type: 'options', options: ['Instagram', 'ВКонтакте', 'Реклама', 'От знакомых', 'Другое'] },
+
+  // БЛОК 2: ОБЪЕКТ
+  { id: 'object_type', block: 'ОБ ОБЪЕКТЕ', q: 'Тип объекта', hint: '', type: 'options', options: ['Квартира', 'Частный дом', 'Офис', 'Другое'] },
+  { id: 'object_address', block: 'ОБ ОБЪЕКТЕ', q: 'Город и район объекта', hint: 'Полный адрес не нужен', type: 'text', placeholder: 'Например: Москва, Красногвардейский район' },
+  { id: 'object_area', block: 'ОБ ОБЪЕКТЕ', q: 'Общая площадь объекта', hint: 'Приблизительно', type: 'text', placeholder: 'Например: 85 м²' },
+  { id: 'object_purpose', block: 'ОБ ОБЪЕКТЕ', q: 'Назначение объекта', hint: '', type: 'options', options: ['Постоянное проживание', 'Иногда проводить время', 'Для гостей / аренда', 'Офис / работа'] },
+  { id: 'object_rooms', block: 'ОБ ОБЪЕКТЕ', q: 'Какие помещения нужно включить в проект?', hint: 'Выберите все нужные', type: 'multi', options: ['Прихожая', 'Кухня-столовая', 'Гостиная', 'Спальня', 'Детская', 'Ванная', 'Санузел', 'Кабинет', 'Гардеробная', 'Лоджия/Балкон', 'Прачечная', 'Гостевая'] },
+  { id: 'project_scope', block: 'ОБ ОБЪЕКТЕ', q: 'Что планируете заказать?', hint: '', type: 'options', options: ['Весь объект целиком', 'Отдельные помещения', 'Пока не решил(а)'] },
+
+  // БЛОК 3: ПСИХОЛОГИЯ
+  { id: 'wish_magic', block: 'ПОЖЕЛАНИЯ', q: 'Если бы у вас была волшебная палочка — что бы вы сделали с вашим пространством?', hint: 'Опишите своими словами, без ограничений', type: 'textarea', placeholder: 'Например: хочу чтобы дома было светло, уютно, дети могли играть...' },
+  { id: 'anti_wish', block: 'ПОЖЕЛАНИЯ', q: 'Чего вы точно НЕ хотите видеть в своём доме?', hint: 'Стили, элементы, цвета которые вам не нравятся', type: 'textarea', placeholder: 'Например: не хочу тёмных цветов, вычурную лепнину, много открытых полок...' },
+  { id: 'family_plans', block: 'ПОЖЕЛАНИЯ', q: 'Ваши планы развития семьи на ближайшие 5–10 лет?', hint: 'Планируете детей, возможен переезд родственников?', type: 'textarea', placeholder: 'Например: планируем ребёнка через 2 года...' },
+  { id: 'allergy', block: 'ПОЖЕЛАНИЯ', q: 'Есть ли аллергия у кого-то из семьи?', hint: 'Это влияет на выбор материалов', type: 'options', options: ['Нет аллергии', 'Есть — на пыль', 'Есть — на животных', 'Есть — на химию', 'Другое'] },
+  { id: 'guests', block: 'ПОЖЕЛАНИЯ', q: 'Как часто принимаете гостей?', hint: 'И сколько человек обычно?', type: 'options', options: ['Редко (пару раз в год)', 'Иногда (раз в месяц)', 'Часто (каждую неделю)', 'Очень часто'] },
+  { id: 'pets', block: 'ПОЖЕЛАНИЯ', q: 'Есть ли домашние животные?', hint: 'Это влияет на выбор материалов и планировку', type: 'options', options: ['Нет', 'Кошка', 'Собака (маленькая)', 'Собака (большая)', 'Другие'] },
+  { id: 'work_home', block: 'ПОЖЕЛАНИЯ', q: 'Планируете ли работать дома?', hint: 'Нужно ли предусмотреть рабочее место?', type: 'options', options: ['Нет', 'Иногда (ноутбук)', 'Да — нужен кабинет', 'Да — нужна переговорная'] },
+  { id: 'privacy', block: 'ПОЖЕЛАНИЯ', q: 'Нужно ли место для уединения — личный уголок?', hint: '', type: 'options', options: ['Нет', 'Хотелось бы', 'Да, обязательно'] },
+  { id: 'storage', block: 'ПОЖЕЛАНИЯ', q: 'Сколько места нужно для одежды?', hint: '', type: 'options', options: ['Стандартный шкаф', 'Шкаф в каждой комнате', 'Отдельная гардеробная', 'Очень много — большой гардероб'] },
+  { id: 'realization', block: 'ПОЖЕЛАНИЯ', q: 'Когда планируете реализацию проекта?', hint: '', type: 'options', options: ['Сразу после проекта', 'Через 3–6 месяцев', 'Через год и более', 'Поэтапно'] },
+
+  // БЛОК 4: СЕМЬЯ
+  { id: 'family_count', block: 'СОСТАВ СЕМЬИ', q: 'Сколько человек будет проживать?', hint: '', type: 'options', options: ['1 человек', '2 человека', '3 человека', '4 человека', '5 и более'] },
+  { id: 'family_children', block: 'СОСТАВ СЕМЬИ', q: 'Есть ли дети? Их возраст?', hint: '', type: 'text', placeholder: 'Например: дочь 5 лет, сын 10 лет' },
+  { id: 'family_hobbies', block: 'СОСТАВ СЕМЬИ', q: 'Хобби и увлечения членов семьи', hint: 'Что нужно предусмотреть в проекте?', type: 'textarea', placeholder: 'Например: муж — гитара, жена — живопись, дети — лего...' },
+
+  // БЛОК 5: БЮДЖЕТ
+  { id: 'budget_total', block: 'БЮДЖЕТ', q: 'Общий бюджет на ремонт под ключ', hint: 'С мебелью, материалами и работами', type: 'options', options: ['До 1 млн руб', '1–2 млн руб', '2–3 млн руб', '3–5 млн руб', '5–10 млн руб', 'Свыше 10 млн руб', 'Пока не определился'] },
+  { id: 'budget_furniture', block: 'БЮДЖЕТ', q: 'Предпочтения по мебели', hint: '', type: 'options', options: ['Бюджетная (IKEA, отечественные)', 'Средний сегмент (известные фабрики)', 'Премиум (под заказ, эксклюзив)', 'Пока не знаю'] },
+  { id: 'budget_santech', block: 'БЮДЖЕТ', q: 'Предпочтения по сантехнике', hint: '', type: 'options', options: ['Бюджетная', 'Средний сегмент', 'Премиум / эксклюзив', 'Пока не знаю'] },
+  { id: 'budget_doors', block: 'БЮДЖЕТ', q: 'Бюджет на одну межкомнатную дверь', hint: '', type: 'options', options: ['До 10–15 тыс руб', '15–30 тыс руб', '30–50 тыс руб', 'Более 50 тыс руб'] },
+
+  // БЛОК 6: СТИЛЬ
+  { id: 'style_pref', block: 'СТИЛЬ', q: 'Какой стиль вам близок?', hint: 'Опишите своими словами или назовите несколько', type: 'textarea', placeholder: 'Например: скандинавский, минимализм, тепло и натуральные материалы...' },
+  { id: 'style_color', block: 'СТИЛЬ', q: 'Предпочтения по цвету', hint: 'Выберите подходящие', type: 'multi', options: ['Белый / очень светлый', 'Нейтральные тёплые', 'Пастельные', 'Серые тона', 'Контрастные сочетания', 'Яркие акценты', 'Тёмные насыщенные'] },
+  { id: 'style_color_no', block: 'СТИЛЬ', q: 'Какие цвета точно НЕ использовать?', hint: '', type: 'text', placeholder: 'Например: оранжевый, ярко-зелёный...' },
+  { id: 'style_metal', block: 'СТИЛЬ', q: 'Металл в интерьере — что нравится?', hint: 'Цвет фурнитуры, смесителей, светильников', type: 'multi', options: ['Хром / матовый хром', 'Золото / матовое золото', 'Латунь', 'Медь / бронза', 'Чёрный металл', 'Не важно'] },
+
+  // БЛОК 7: МАТЕРИАЛЫ
+  { id: 'mat_walls', block: 'МАТЕРИАЛЫ', q: 'Предпочтения по стенам', hint: 'Выберите что нравится', type: 'multi', options: ['Покраска', 'Обои', 'Декоративная штукатурка', 'Микроцемент', 'Плитка/керамогранит', 'Дерево/панели', 'Кирпич/лофт', 'Не знаю'] },
+  { id: 'mat_floor', block: 'МАТЕРИАЛЫ', q: 'Предпочтения по полу', hint: '', type: 'multi', options: ['Паркетная доска', 'Ламинат', 'Керамогранит', 'Наливной пол', 'Ковролин', 'Винил/LVT', 'Не знаю'] },
+  { id: 'mat_ceiling', block: 'МАТЕРИАЛЫ', q: 'Предпочтения по потолку', hint: '', type: 'multi', options: ['Покраска (чистовой)', 'Натяжной матовый', 'Натяжной глянцевый', 'ГКЛ многоуровневый', 'С подсветкой', 'Дерево/балки', 'Не знаю'] },
+  { id: 'mat_budget', block: 'МАТЕРИАЛЫ', q: 'Бюджет на отделочные материалы (за м²)', hint: '', type: 'options', options: ['До 3000 руб/м²', '3000–7000 руб/м²', '7000–15000 руб/м²', 'Без ограничений'] },
+
+  // БЛОК 8: ИНЖЕНЕРИЯ
+  { id: 'eng_warm_floor', block: 'ИНЖЕНЕРИЯ', q: 'Тёплые полы', hint: '', type: 'multi', options: ['Не нужны', 'Электрические (ванная)', 'Электрические (вся квартира)', 'Водяные', 'Пока не знаю'] },
+  { id: 'eng_ac', block: 'ИНЖЕНЕРИЯ', q: 'Кондиционирование', hint: '', type: 'multi', options: ['Настенный кондиционер', 'Канальное кондиционирование', 'Приточная вентиляция (бризер)', 'Не нужно'] },
+  { id: 'eng_smart', block: 'ИНЖЕНЕРИЯ', q: 'Умный дом / автоматика', hint: '', type: 'options', options: ['Не интересует', 'Базовая автоматика (свет, шторы)', 'Полноценный умный дом', 'Хочу узнать подробнее'] },
+
+  // БЛОК 9: ПЕРЕПЛАНИРОВКА
+  { id: 'replan', block: 'ПЕРЕПЛАНИРОВКА', q: 'Планируете ли перепланировку?', hint: '', type: 'options', options: ['Нет, оставляем как есть', 'Небольшие изменения', 'Да, кардинальные изменения', 'Пока не знаю'] },
+  { id: 'balcony', block: 'ПЕРЕПЛАНИРОВКА', q: 'Балкон / лоджия', hint: '', type: 'multi', options: ['Нет балкона', 'Объединить с комнатой', 'Утеплить и остеклить', 'Оставить как есть', 'Сделать рабочее место'] },
+
+  // БЛОК 10: ФИНАЛ
+  { id: 'important', block: 'ГЛАВНОЕ', q: 'Что для вас самое важное в будущем интерьере?', hint: 'Три главных приоритета', type: 'textarea', placeholder: 'Например: функциональность, натуральные материалы, чтобы было легко убираться...' },
+  { id: 'questions', block: 'ГЛАВНОЕ', q: 'Есть ли вопросы к дизайнеру?', hint: 'Необязательно', type: 'textarea', placeholder: 'Любые вопросы которые хотите прояснить до встречи...' }
 ];
 
-var answers = {};
-var step = 0;
-var history = [];
+// ═══════════════════════════════════════
+// ИНИТ
+// ═══════════════════════════════════════
+var tplId = null;
 
-function g(id) { return document.getElementById(id); }
+window.addEventListener('load', async function() {
+  // Читаем параметр шаблона из URL
+  var params = new URLSearchParams(window.location.search);
+  tplId = params.get('tpl');
 
-function renderProgress() {
-  var html = '';
-  for (var i = 0; i < QUESTIONS.length; i++) {
-    var w = i === step ? 40 : 18;
-    var bg = i < step ? 'var(--ok)' : i === step ? 'var(--accent)' : 'var(--border)';
-    html += '<div class="prog-seg" style="width:' + w + 'px;background:' + bg + '"></div>';
-  }
-  g('progress').innerHTML = html;
-  g('step-lbl').textContent = 'шаг ' + (step + 1) + ' из ' + QUESTIONS.length;
-}
-
-function renderQuestion() {
-  var q = QUESTIONS[step];
-  g('q-text').textContent = q.q;
-  g('q-hint').textContent = q.hint;
-  g('btn-back').style.display = step > 0 ? 'block' : 'none';
-  g('btn-next').textContent = step < QUESTIONS.length - 1 ? 'ДАЛЕЕ' : 'ЗАВЕРШИТЬ';
-
-  var area = g('answer-area');
-  var saved = answers[q.id] || '';
-  if (q.type === 'textarea') {
-    area.innerHTML = '<textarea class="field-input" id="ans" placeholder="' + q.placeholder + '">' + saved + '</textarea>';
+  if (tplId) {
+    await loadTemplate(tplId);
   } else {
-    area.innerHTML = '<input class="field-input" id="ans" type="text" placeholder="' + q.placeholder + '" value="' + saved + '">';
+    // Без шаблона — используем полную анкету
+    template = null;
+    QUESTIONS = ALL_BLOCKS.slice();
+    showIdScreen();
   }
+});
 
-  g('ai-bubble').classList.remove('show');
-  g('ai-typing').classList.remove('show');
-
-  // Если уже есть ответ — показываем реакцию ИИ
-  if (saved && history.length > step) {
-    g('ai-bubble').textContent = history[step];
-    g('ai-bubble').classList.add('show');
-  }
-
-  renderProgress();
-}
-
-function getAnswer() {
-  var el = g('ans');
-  return el ? el.value.trim() : '';
-}
-
-async function askClaude(userAnswer) {
-  var q = QUESTIONS[step];
-  
-  // Собираем контекст предыдущих ответов
-  var context = '';
-  for (var i = 0; i < step; i++) {
-    if (answers[QUESTIONS[i].id]) {
-      context += QUESTIONS[i].q + '\nОтвет: ' + answers[QUESTIONS[i].id] + '\n\n';
-    }
-  }
-
-  var prompt = 'Ты КУБ — умный ИИ-интервьюер студии дизайна интерьера М². Ты общаешься с потенциальным клиентом.\n\n';
-  if (context) prompt += 'Предыдущие ответы клиента:\n' + context;
-  prompt += 'Текущий вопрос: ' + q.q + '\nОтвет клиента: ' + userAnswer + '\n\n';
-  prompt += 'Напиши короткую (1-2 предложения) живую реакцию на ответ клиента. Будь тёплым, профессиональным. Можешь уточнить деталь или сделать наблюдение которое показывает что ты услышал клиента. Не задавай новых вопросов — следующий вопрос будет задан автоматически. Пиши на русском.';
-
+async function loadTemplate(id) {
   try {
-    var response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 150,
-        messages: [{ role: 'user', content: prompt }]
-      })
+    var r = await fetch('https://api.jsonbin.io/v3/b/' + JB_TPL + '/latest', {
+      headers: {'X-Master-Key': JB_KEY}
     });
-    var data = await response.json();
-    return data.content && data.content[0] ? data.content[0].text : null;
+    var d = await r.json();
+    var templates = d.record.templates || [];
+    template = templates.find(function(t){ return t.id === id; });
+    if (template) {
+      buildQuestionsFromTemplate(template);
+    } else {
+      QUESTIONS = ALL_BLOCKS.slice();
+    }
   } catch(e) {
-    return null;
+    QUESTIONS = ALL_BLOCKS.slice();
   }
+  showIdScreen();
 }
 
-async function nextStep() {
-  var answer = getAnswer();
-  if (!answer) return;
+function buildQuestionsFromTemplate(tpl) {
+  var blocks = tpl.blocks || {};
+  // Фильтруем вопросы по включённым блокам шаблона
+  QUESTIONS = ALL_BLOCKS.filter(function(q) {
+    var blockMap = {
+      'ЗНАКОМСТВО': true, // всегда
+      'ОБ ОБЪЕКТЕ': true, // всегда
+      'ПОЖЕЛАНИЯ': blocks.psychology !== false,
+      'СОСТАВ СЕМЬИ': blocks.family !== false,
+      'БЮДЖЕТ': blocks.budget !== false,
+      'СТИЛЬ': blocks.style !== false,
+      'МАТЕРИАЛЫ': blocks.materials !== false,
+      'ИНЖЕНЕРИЯ': blocks.engineering !== false,
+      'ПЕРЕПЛАНИРОВКА': blocks.replan !== false,
+      'ГЛАВНОЕ': true // всегда
+    };
+    return blockMap[q.block] !== false;
+  });
+}
 
-  var q = QUESTIONS[step];
-  answers[q.id] = answer;
+// ═══════════════════════════════════════
+// ИДЕНТИФИКАЦИЯ
+// ═══════════════════════════════════════
+function showIdScreen() {
+  document.getElementById('loading-screen').style.display = 'none';
+  document.getElementById('id-screen').style.display = 'block';
+}
 
-  if (step < QUESTIONS.length - 1) {
-    // Показываем реакцию ИИ
-    g('ai-typing').classList.add('show');
-    g('btn-next').disabled = true;
+async function startOrResume() {
+  var name = document.getElementById('id-name').value.trim();
+  var phone = document.getElementById('id-phone').value.trim().replace(/\D/g,'');
+  if (!name) { document.getElementById('id-name').focus(); return; }
+  if (!phone || phone.length < 10) { document.getElementById('id-phone').focus(); return; }
 
-    var reaction = await askClaude(answer);
-    
-    g('ai-typing').classList.remove('show');
-    
-    if (reaction) {
-      history[step] = reaction;
-      g('ai-bubble').textContent = reaction;
-      g('ai-bubble').classList.add('show');
-    }
+  clientKey = 'client_' + phone;
 
-    // Пауза чтобы клиент прочёл реакцию
-    await new Promise(function(res) { setTimeout(res, reaction ? 1200 : 0); });
-    
-    g('btn-next').disabled = false;
-    step++;
-    renderQuestion();
+  // Пробуем загрузить прогресс
+  var saved = await loadProgress(clientKey);
+  if (saved && saved.answers && Object.keys(saved.answers).length > 0) {
+    answers = saved.answers;
+    step = saved.step || 0;
+    document.getElementById('returning-note').textContent = '✓ Найдена сохранённая анкета, продолжаем...';
+    setTimeout(startInterview, 800);
   } else {
-    showDone();
+    answers = { name: name, phone: phone };
+    step = 0;
+    startInterview();
   }
 }
 
-function showDone() {
-  g('kub-card').style.display = 'none';
-  document.querySelector('.btns').style.display = 'none';
-  g('main-title').textContent = 'Готово';
-  g('step-lbl').textContent = 'анкета заполнена';
-  g('progress').innerHTML = '';
-
-  var name = answers['name'] || 'Гость';
-  g('done-name').textContent = name.split(' ')[0];
-
-  var labels = { name: 'Имя', object: 'Объект', style: 'Стиль', budget: 'Бюджет', dream: 'Пожелания' };
-  var html = '';
-  for (var key in labels) {
-    if (answers[key]) {
-      var val = answers[key].length > 40 ? answers[key].slice(0, 40) + '...' : answers[key];
-      html += '<div class="sum-row"><span class="sum-key">' + labels[key] + '</span><span class="sum-val">' + val + '</span></div>';
-    }
-  }
-  g('summary').innerHTML = html;
-  g('done-card').classList.add('show');
-}
-
-function restart() {
-  answers = {};
-  history = [];
-  step = 0;
-  g('kub-card').style.display = 'block';
-  document.querySelector('.btns').style.display = 'flex';
-  g('main-title').textContent = 'Знакомство';
-  g('done-card').classList.remove('show');
+function startInterview() {
+  document.getElementById('id-screen').style.display = 'none';
+  document.getElementById('kub-card').style.display = 'block';
+  document.getElementById('progress-wrap').style.display = 'block';
+  document.getElementById('btns').style.display = 'flex';
   renderQuestion();
 }
 
-g('btn-next').addEventListener('click', nextStep);
-g('btn-back').addEventListener('click', function() {
+// ═══════════════════════════════════════
+// ПРОГРЕСС JSONBIN
+// ═══════════════════════════════════════
+async function loadProgress(key) {
+  try {
+    var r = await fetch('https://api.jsonbin.io/v3/b/' + JB_CLIENTS + '/latest', {
+      headers: {'X-Master-Key': JB_KEY}
+    });
+    var d = await r.json();
+    var data = d.record;
+    return data[key] || null;
+  } catch(e) { return null; }
+}
+
+async function saveProgress() {
+  try {
+    // Загружаем текущие данные
+    var r = await fetch('https://api.jsonbin.io/v3/b/' + JB_CLIENTS + '/latest', {
+      headers: {'X-Master-Key': JB_KEY}
+    });
+    var d = await r.json();
+    var data = d.record || {};
+
+    // Обновляем запись клиента
+    data[clientKey] = {
+      answers: answers,
+      step: step,
+      template: tplId,
+      updated: new Date().toISOString()
+    };
+
+    await fetch('https://api.jsonbin.io/v3/b/' + JB_CLIENTS, {
+      method: 'PUT',
+      headers: {'X-Master-Key': JB_KEY, 'Content-Type': 'application/json'},
+      body: JSON.stringify(data)
+    });
+
+    // Показываем индикатор
+    var ind = document.getElementById('save-indicator');
+    ind.classList.add('show');
+    setTimeout(function(){ ind.classList.remove('show'); }, 1500);
+  } catch(e) {}
+}
+
+// ═══════════════════════════════════════
+// РЕНДЕР ВОПРОСА
+// ═══════════════════════════════════════
+function renderQuestion() {
+  // Пропускаем телефон если уже ввели
+  while (step < QUESTIONS.length && QUESTIONS[step].skipIfPhone && answers.phone) {
+    answers[QUESTIONS[step].id] = answers.phone;
+    step++;
+  }
+
+  if (step >= QUESTIONS.length) { showDone(); return; }
+
+  var q = QUESTIONS[step];
+  var pct = Math.round((step / QUESTIONS.length) * 100);
+
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-text').textContent = 'вопрос ' + (step+1) + ' из ' + QUESTIONS.length;
+  document.getElementById('block-label').textContent = q.block || '';
+  document.getElementById('q-text').textContent = q.q;
+  document.getElementById('q-hint').textContent = q.hint || '';
+
+  // ИИ реакция
+  var bubble = document.getElementById('ai-bubble');
+  if (aiHistory[step]) {
+    bubble.textContent = aiHistory[step];
+    bubble.classList.add('show');
+  } else {
+    bubble.classList.remove('show');
+    bubble.textContent = '';
+  }
+
+  // Поле ответа
+  var area = document.getElementById('answer-area');
+  var saved = answers[q.id] || '';
+
+  if (q.type === 'text') {
+    area.innerHTML = '<input class="field-input" id="answer-input" placeholder="'+q.placeholder+'" value="'+escHtml(saved)+'">';
+    var inp = document.getElementById('answer-input');
+    inp.addEventListener('keydown', function(e){ if(e.key==='Enter') nextStep(); });
+    setTimeout(function(){ inp.focus(); }, 100);
+
+  } else if (q.type === 'textarea') {
+    area.innerHTML = '<textarea class="field-input" id="answer-input" placeholder="'+q.placeholder+'">'+escHtml(saved)+'</textarea>';
+    setTimeout(function(){ document.getElementById('answer-input').focus(); }, 100);
+
+  } else if (q.type === 'options') {
+    area.innerHTML = '<div class="options-list">'+
+      q.options.map(function(opt){
+        var sel = saved === opt ? ' selected' : '';
+        return '<div class="option-item'+sel+'" onclick="selectOption(this,\''+escHtml(opt)+'\')">'+
+          '<div class="option-check"></div>'+opt+'</div>';
+      }).join('') + '</div>';
+
+  } else if (q.type === 'multi') {
+    var savedArr = saved ? saved.split('|') : [];
+    area.innerHTML = '<div class="multi-hint">Можно выбрать несколько</div><div class="chips-wrap">'+
+      q.options.map(function(opt){
+        var sel = savedArr.includes(opt) ? ' selected' : '';
+        return '<div class="chip'+sel+'" onclick="toggleChip(this,\''+escHtml(opt)+'\')">'+opt+'</div>';
+      }).join('') + '</div>';
+  }
+
+  document.getElementById('btn-back').style.visibility = step > 0 ? 'visible' : 'hidden';
+  document.getElementById('main-title').textContent = q.block || 'КУБ';
+}
+
+function escHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
+
+function selectOption(el, val) {
+  document.querySelectorAll('.option-item').forEach(function(o){ o.classList.remove('selected'); });
+  el.classList.add('selected');
+}
+
+function toggleChip(el) {
+  el.classList.toggle('selected');
+}
+
+function getAnswer() {
+  var q = QUESTIONS[step];
+  if (q.type === 'text' || q.type === 'textarea') {
+    var inp = document.getElementById('answer-input');
+    return inp ? inp.value.trim() : '';
+  } else if (q.type === 'options') {
+    var sel = document.querySelector('.option-item.selected');
+    return sel ? sel.textContent.trim() : '';
+  } else if (q.type === 'multi') {
+    var chips = document.querySelectorAll('.chip.selected');
+    var vals = Array.from(chips).map(function(c){ return c.textContent.trim(); });
+    return vals.join('|');
+  }
+  return '';
+}
+
+// ═══════════════════════════════════════
+// НАВИГАЦИЯ
+// ═══════════════════════════════════════
+document.getElementById('btn-back').addEventListener('click', function() {
   if (step > 0) { step--; renderQuestion(); }
 });
-g('btn-next').addEventListener('keydown', function(e) { if (e.key === 'Enter') nextStep(); });
+
+document.getElementById('btn-next').addEventListener('click', nextStep);
 
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') nextStep();
 });
 
-renderQuestion();
+async function nextStep() {
+  var answer = getAnswer();
+  var q = QUESTIONS[step];
+
+  // Обязательные вопросы
+  if (!answer && ['name','object_type','budget_total','wish_magic'].includes(q.id)) return;
+
+  answers[q.id] = answer;
+
+  if (step < QUESTIONS.length - 1) {
+    document.getElementById('btn-next').disabled = true;
+    document.getElementById('ai-typing').classList.add('show');
+
+    // Сохраняем прогресс
+    saveProgress();
+
+    // ИИ реакция (только на текстовые ответы)
+    var reaction = null;
+    if ((q.type === 'text' || q.type === 'textarea') && answer.length > 5) {
+      reaction = await askClaude(q.q, answer);
+    }
+
+    document.getElementById('ai-typing').classList.remove('show');
+
+    if (reaction) {
+      aiHistory[step] = reaction;
+      var bubble = document.getElementById('ai-bubble');
+      bubble.textContent = reaction;
+      bubble.classList.add('show');
+      await pause(1000);
+    }
+
+    document.getElementById('btn-next').disabled = false;
+    step++;
+    renderQuestion();
+  } else {
+    answers[q.id] = answer;
+    await saveProgress();
+    showDone();
+  }
+}
+
+function pause(ms){ return new Promise(function(r){ setTimeout(r, ms); }); }
+
+// ═══════════════════════════════════════
+// CLAUDE API
+// ═══════════════════════════════════════
+async function askClaude(question, answer) {
+  var context = 'Предыдущие ответы клиента:\n';
+  for (var key in answers) {
+    if (answers[key] && key !== 'phone') context += key + ': ' + answers[key] + '\n';
+  }
+  var prompt = 'Ты КУБ — умный ИИ-интервьюер студии дизайна интерьера М².\n' + context +
+    '\nТекущий вопрос: ' + question + '\nОтвет клиента: ' + answer +
+    '\n\nНапиши короткую (1–2 предложения) живую реакцию. Будь тёплым и профессиональным. Можешь уточнить деталь или сделать наблюдение. Не задавай новых вопросов. Пиши на русском.';
+  try {
+    var r = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 150, messages: [{role:'user',content:prompt}] })
+    });
+    var d = await r.json();
+    return d.content && d.content[0] ? d.content[0].text : null;
+  } catch(e) { return null; }
+}
+
+// ═══════════════════════════════════════
+// ФИНАЛ
+// ═══════════════════════════════════════
+function showDone() {
+  document.getElementById('kub-card').style.display = 'none';
+  document.getElementById('btns').style.display = 'none';
+  document.getElementById('progress-wrap').style.display = 'none';
+  document.getElementById('main-title').textContent = 'Готово';
+  document.getElementById('step-lbl').textContent = 'анкета заполнена';
+
+  var name = (answers['name'] || 'Гость').split(' ')[0];
+  document.getElementById('done-name').textContent = name;
+
+  var labels = {
+    name:'Имя', phone:'Телефон', object_type:'Тип объекта',
+    object_area:'Площадь', object_purpose:'Назначение',
+    object_rooms:'Помещения', budget_total:'Бюджет',
+    style_pref:'Стиль', wish_magic:'Пожелания', important:'Приоритеты'
+  };
+  var html = '';
+  for (var key in labels) {
+    if (answers[key]) {
+      var val = answers[key].replace(/\|/g, ', ');
+      if (val.length > 50) val = val.slice(0,50) + '...';
+      html += '<div class="sum-row"><span class="sum-key">'+labels[key]+'</span><span class="sum-val">'+val+'</span></div>';
+    }
+  }
+  document.getElementById('summary-list').innerHTML = html;
+  document.getElementById('done-card').classList.add('show');
+}
+
+function restart() {
+  answers = {};
+  aiHistory = {};
+  step = 0;
+  document.getElementById('done-card').classList.remove('show');
+  document.getElementById('id-screen').style.display = 'block';
+  document.getElementById('id-name').value = '';
+  document.getElementById('id-phone').value = '';
+  document.getElementById('returning-note').textContent = '';
+}
 </script>
 </body>
 </html>
